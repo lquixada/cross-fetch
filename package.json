@@ -1,0 +1,34 @@
+{
+  "name": "cross-fetch",
+  "version": "0.0.1",
+  "description": "Universal WHATWG Fetch API for Node, Browsers and React Native",
+  "homepage": "https://github.com/lquixada/cross-fetch",
+  "browser": "fetch-bundler.js",
+  "main": "fetch-node.js",
+  "scripts": {
+    "prepush": "npm test",
+    "test": "npm run lint && npm run mocha",
+    "mocha": "mocha",
+    "lint": "eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lquixada/cross-fetch.git"
+  },
+  "author": "Leonardo Quixada <lquixada@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lquixada/cross-fetch/issues"
+  },
+  "dependencies": {
+    "node-fetch": "1.7.3",
+    "whatwg-fetch": "2.0.3"
+  },
+  "devDependencies": {
+    "chai": "4.1.2",
+    "eslint": "4.7.2",
+    "husky": "^0.14.3",
+    "mocha": "3.5.3",
+    "nock": "9.0.19"
+  }
+}
