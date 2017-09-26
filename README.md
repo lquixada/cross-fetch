@@ -14,7 +14,7 @@ npm install --save cross-fetch
 ## Usage
 
 ```javascript
-require('cross-fetch');
+const fetch = require('cross-fetch');
 
 fetch('//api.github.com/users/lquixada')
   .then(res => {
@@ -37,21 +37,18 @@ My preferred library used to be [isomorphic-fetch](https://github.com/matthew-an
 
 In order to run a fetch that is cross-platform compatible, cross-fetch has been created. It is just the same as isomorphic-fetch but updated and that bug fixed.
 
-
 #### How does it work?
 
-cross-fetch (like isomorphic-fetch) is just a proxy. If you're in node, it delivers you the [node-fetch](https://www.npmjs.com/package/node-fetch) library, if you're in a browser ou React Native, it delivers you the github's [whatwg-fetch](https://github.com/github/fetch).
+cross-fetch (like isomorphic-fetch) is just a proxy. If you're in node, it delivers you the [node-fetch](https://www.npmjs.com/package/node-fetch) library, if you're in a browser ou React Native, it delivers you the github's [fetch-ponyfill](https://github.com/qubyte/fetch-ponyfill).
 
 #### Where can I find the API docs?
 
 You can find a comprehensive doc at [Github's fetch](https://github.github.io/fetch/) page.
 
 
-## Warnings
+## Warning
 
-* This adds `fetch` as a global so that its API is consistent between browsers, node and react-native.
 * If you're in an environment that doesn't support Promises, you must bring your own ES6 Promise compatible polyfill. [es6-promise](https://github.com/jakearchibald/es6-promise) is suggested.
-* For ease-of-maintenance and backward-compatibility reasons, this library will always be a polyfill. As a "safe" alternative, which does not modify the global, consider [fetch-ponyfill](https://github.com/qubyte/fetch-ponyfill).
 
 
 ## Support
@@ -64,8 +61,7 @@ You can find a comprehensive doc at [Github's fetch](https://github.github.io/fe
   - Safari 6.1+
   - Internet Explorer 10+
 
-Note: modern browsers such as Chrome, Firefox, Microsoft Edge, and Safari contain native implementations of `window.fetch`, therefore the code from this polyfill doesn't have any effect on those browsers. If you believe you've encountered an error
-with how `window.fetch` is implemented in any of these browsers, you should file an issue with that browser vendor instead of this project.
+Note: modern browsers contain native implementations of `window.fetch`, therefore the code from this polyfill doesn't have any effect on those browsers. If you believe you've encountered an error with how `window.fetch` is implemented in any of these browsers, you should file an issue with that browser vendor instead of this project.
 
 
 ## Thanks

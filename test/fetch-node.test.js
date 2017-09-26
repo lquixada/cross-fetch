@@ -1,9 +1,9 @@
 "use strict";
 
-require('../fetch-node');
-
 var expect = require('chai').expect;
 var nock = require('nock');
+
+var fetch = require('../fetch-node');
 var good = 'hello world.';
 var bad = 'good bye world.';
 

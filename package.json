@@ -21,6 +21,7 @@
     "url": "https://github.com/lquixada/cross-fetch/issues"
   },
   "dependencies": {
+    "fetch-ponyfill": "4.1.0",
     "node-fetch": "1.7.3",
     "whatwg-fetch": "2.0.3"
   },
@@ -30,5 +31,18 @@
     "husky": "^0.14.3",
     "mocha": "3.5.3",
     "nock": "9.0.19"
-  }
+  },
+  "keywords": [
+    "fetch",
+    "isomorphic",
+    "universal",
+    "node",
+    "react",
+    "native",
+    "browser",
+    "ponyfill",
+    "whatwg",
+    "xhr",
+    "ajax"
+  ]
 }
