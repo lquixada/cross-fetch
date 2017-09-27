@@ -12,9 +12,11 @@ var fetch = function(url, options) {
   return realFetch.call(this, url, options);
 };
 
-module.exports = {
-  fetch: fetch,
-  Response: realFetch.Response,
-  Headers: realFetch.Headers,
-  Request: realFetch.Request,
-};
+fetch.polyfill = true;
+
+if (!global.fetch) {
+  global.fetch = fetch;
+  global.Response = realFetch.Response;
+  global.Headers = realFetch.Headers;
+  global.Request = realFetch.Request;
+}

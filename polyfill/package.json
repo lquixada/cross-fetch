@@ -1,0 +1,6 @@
+{
+  "name": "cross-fetch-polyfill",
+  "version": "0.0.0",
+  "browser": "fetch-bundler.js",
+  "main": "fetch-node.js"
+}

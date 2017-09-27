@@ -6,6 +6,7 @@ cross-fetch
 
 Universal WHATWG Fetch API for Node, Browsers and React Native. The scenario that cross-fetch really shines is when your javascript codebase is shared between different platforms at the same time, for instance, an isomorphic app that runs on React Native.
 
+* * *
 
 ## Installation
 
@@ -13,11 +14,51 @@ Universal WHATWG Fetch API for Node, Browsers and React Native. The scenario tha
 npm install --save cross-fetch
 ```
 
+As a [ponyfill](https://github.com/sindresorhus/ponyfill):
+
+```javascript
+// Using ES6 modules
+import fetch from 'cross-fetch';
+
+// Using CommonJS modules
+var fetch = require('cross-fetch');
+```
+
+As a polyfill:
+
+```javascript
+// Using ES6 modules
+import 'cross-fetch/polyfill';
+
+// Using CommonJS modules
+require('cross-fetch/polyfill');
+```
+
+* * *
 
 ## Usage
 
+As a [ponyfill](https://github.com/sindresorhus/ponyfill):
+
 ```javascript
 const { fetch } = require('cross-fetch');
+
+fetch('//api.github.com/users/lquixada')
+  .then(res => {
+    if (res.status >= 400) {
+      throw new Error("Bad response from server");
+    }
+    return res.json();
+  })
+  .then(user => {
+    console.log(user);
+  });
+```
+
+As a polyfill:
+
+```javascript
+require('cross-fetch');
 
 fetch('//api.github.com/users/lquixada')
   .then(res => {
