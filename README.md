@@ -1,4 +1,7 @@
-cross-fetch [![Build Status](https://travis-ci.org/lquixada/cross-fetch.svg?branch=master)](https://travis-ci.org/lquixada/cross-fetch)
+cross-fetch
+[![Build Status](https://travis-ci.org/lquixada/cross-fetch.svg?branch=master)](https://travis-ci.org/lquixada/cross-fetch)
+[![NPM Version](https://img.shields.io/npm/v/cross-fetch.svg?branch=master)](https://www.npmjs.com/package/cross-fetch)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 ================
 
 Universal WHATWG Fetch API for Node, Browsers and React Native. The scenario that cross-fetch really shines is when your javascript codebase is shared between different platforms at the same time, for instance, an isomorphic app that runs on React Native.
