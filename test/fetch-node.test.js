@@ -3,7 +3,7 @@
 var expect = require('chai').expect;
 var nock = require('nock');
 
-var fetch = require('../fetch-node');
+var fetch = require('../fetch-node').fetch;
 var good = 'hello world.';
 var bad = 'good bye world.';
 

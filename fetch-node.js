@@ -1,8 +1,8 @@
 "use strict";
 
-var fetch = require('node-fetch');
+var realFetch = require('node-fetch');
 
-module.exports = function(url, options) {
+var fetch = function(url, options) {
   // Support schemaless URIs on the server for parity with the browser.
   // Ex: //github.com/ is converted to https://github.com/
   // https://github.com/matthew-andrews/isomorphic-fetch/pull/10
@@ -10,5 +10,12 @@ module.exports = function(url, options) {
 		url = 'https:' + url;
   }
 
-	return fetch.call(this, url, options);
+	return realFetch.call(this, url, options);
+};
+
+module.exports = {
+  fetch: fetch,
+  Response: realFetch.Response,
+  Headers: realFetch.Headers,
+  Request: realFetch.Request,
 };

@@ -14,7 +14,7 @@ npm install --save cross-fetch
 ## Usage
 
 ```javascript
-const fetch = require('cross-fetch');
+const { fetch } = require('cross-fetch');
 
 fetch('//api.github.com/users/lquixada')
   .then(res => {
