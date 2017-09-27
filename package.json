@@ -1,6 +1,6 @@
 {
   "name": "cross-fetch",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Universal WHATWG Fetch API for Node, Browsers and React Native",
   "homepage": "https://github.com/lquixada/cross-fetch",
   "browser": "fetch-bundler.js",
