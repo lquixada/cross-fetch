@@ -3,7 +3,7 @@
 var expect = require('chai').expect;
 var nock = require('nock');
 
-var fetch = require('../fetch-node').fetch;
+var fetch = require('..').fetch;
 var good = 'hello world.';
 var bad = 'good bye world.';
 
@@ -15,7 +15,7 @@ function responseToText(res) {
 	return res.text();
 }
 
-describe('fetch', function () {
+describe('node ponyfill', function () {
 
 	before(function () {
 		nock('https://lquixa.da')
