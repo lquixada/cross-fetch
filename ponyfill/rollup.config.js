@@ -5,9 +5,9 @@ import uglify from 'rollup-plugin-uglify';
 const production = process.env.NODE_ENV === 'production';
 
 module.exports = {
-  input: 'fetch-browser.js',
+  input: 'ponyfill/fetch-browser.js',
   output: {
-    file: 'dist/fetch-browser.js',
+    file: 'dist/ponyfill/fetch-browser.js',
     format: 'cjs',
     strict: false
   },

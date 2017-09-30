@@ -7,7 +7,7 @@ const production = process.env.NODE_ENV === 'production';
 module.exports = {
   input: 'polyfill/fetch-browser.js',
   output: {
-    file: 'polyfill/dist/fetch-browser.js',
+    file: 'dist/polyfill/fetch-browser.js',
     format: 'cjs',
     strict: false
   },
