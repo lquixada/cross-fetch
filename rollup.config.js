@@ -18,6 +18,7 @@ module.exports = {
     commonjs(),
     production && uglify(),
   ],
+  context: 'this',
   banner: 'var self = {};',
   footer: 'module.exports = self;'
 };
