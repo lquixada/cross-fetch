@@ -6,7 +6,7 @@
   "browser": "dist/fetch-browser.js",
   "main": "fetch-node.js",
   "scripts": {
-    "prepublish": "RU_ENV=production npm run build",
+    "prepublish": "RU_ENV=production npm run build && npm test",
     "prepush": "npm test",
     "build": "npm run build:polyfill && npm run build:ponyfill",
     "build:polyfill": "RU_TYPE=polyfill rollup -c",
