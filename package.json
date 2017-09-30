@@ -9,6 +9,8 @@
     "prepublish": "NODE_ENV=production npm run build",
     "prepush": "npm test",
     "build": "rollup -c",
+    "build:polyfill": "rollup -c polyfill/rollup.config.js",
+    "build:ponyfill": "rollup -c",
     "test": "npm run lint && npm run mocha",
     "mocha": "mocha",
     "lint": "eslint ."
