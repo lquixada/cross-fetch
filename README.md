@@ -6,6 +6,13 @@ cross-fetch
 
 Universal WHATWG Fetch API for Node, Browsers and React Native. The scenario that cross-fetch really shines is when the same javascript codebase needs to run on different platforms.
 
+- **Platform agnostic**: browsers, node or react native
+- **Optional polyfill**: it's up to you if something is going to be added to the global object or not
+- **Simple import**: no configuration required
+- **WHATWG compliant**: it should be working the same way wherever your code runs.
+- **Small**: 2.5kb gzipped
+
+
 * * *
 
 ## Installation
@@ -84,13 +91,7 @@ You can find a comprehensive doc at [Github's fetch](https://github.github.io/fe
 
 #### Yet another fetch library?
 
-I did a lot of research in order to find a fetch library that could meet theses criterias:
-
-- [x] Simple import / require (no configuration required)
-- [x] Platform agnostic (client, server or react native)
-- [x] Optional polyfill (it's up to you if something is going to be added to the global object or not)
-
-There's a plethora of libs out there but none could match those requirements.
+I did a lot of research in order to find a fetch library that could be simple, cross-platorm and provide polyfill as an option. There's a plethora of libs out there but none could match those requirements.
 
 
 #### Why not isomorphic-fetch?
