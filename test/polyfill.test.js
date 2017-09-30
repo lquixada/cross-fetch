@@ -33,6 +33,10 @@ describe('polyfill', function () {
       expect(fetch).to.be.a('function');
     });
 
+    it('should be a polyfill', function () {
+      expect(fetch.polyfill).to.be.true;
+    });
+
     it('should facilitate the making of requests', function () {
       return fetch('//lquixa.da/succeed.txt')
         .then(responseToText)
