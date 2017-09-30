@@ -41,6 +41,13 @@
     "rollup-plugin-node-resolve": "3.0.0",
     "rollup-plugin-uglify": "2.0.1"
   },
+  "files": [
+    "dist",
+    "polyfill",
+    "fetch-node.js",
+    "fetch-node-polyfill.js",
+    "fetch-browser-polyfill.js"
+  ],
   "keywords": [
     "fetch",
     "isomorphic",
