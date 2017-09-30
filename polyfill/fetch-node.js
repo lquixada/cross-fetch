@@ -2,7 +2,7 @@
 
 var fetchNode = require('../fetch-node');
 var fetch = fetchNode.fetch.bind({});
-fetch.polyfill = true
+fetch.polyfill = true;
 
 if (!global.fetch) {
   global.fetch = fetch;
