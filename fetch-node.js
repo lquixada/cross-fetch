@@ -12,6 +12,8 @@ var fetch = function(url, options) {
   return realFetch.call(this, url, options);
 };
 
+fetch.polyfill = false;
+
 module.exports = {
   fetch: fetch,
   Response: realFetch.Response,
