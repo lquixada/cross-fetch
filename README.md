@@ -90,7 +90,12 @@ I did a lot of research in order to find a fetch library that could meet theses 
 - [x] Platform agnostic (client, server or react native)
 - [x] Optional polyfill (it's up to you if something is going to be added to the global object or not)
 
-There's a plethora of libs out there but none could match those. My preferred library used to be [isomorphic-fetch](https://github.com/matthew-andrews/isomorphic-fetch) but it has this [issue](https://github.com/matthew-andrews/isomorphic-fetch/issues/125) with react native. Also, polyfilling is mandatory.
+There's a plethora of libs out there but none could match those.
+
+
+#### Why not isomorphic-fetch?
+
+My preferred library used to be [isomorphic-fetch](https://github.com/matthew-andrews/isomorphic-fetch) but it has this [bug](https://github.com/matthew-andrews/isomorphic-fetch/issues/125) that prevents it from running in a react native environment. Also, polyfilling is mandatory.
 
 
 #### How does it work?
