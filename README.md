@@ -90,12 +90,12 @@ I did a lot of research in order to find a fetch library that could meet theses 
 - [x] Platform agnostic (client, server or react native)
 - [x] Optional polyfill (it's up to you if something is going to be added to the global object or not)
 
-There's a plethora of libs out there but none could match those.
+There's a plethora of libs out there but none could match those requirements.
 
 
 #### Why not isomorphic-fetch?
 
-My preferred library used to be [isomorphic-fetch](https://github.com/matthew-andrews/isomorphic-fetch) but it has this [bug](https://github.com/matthew-andrews/isomorphic-fetch/issues/125) that prevents it from running in a react native environment. Also, polyfilling is mandatory.
+My preferred library used to be [isomorphic-fetch](https://github.com/matthew-andrews/isomorphic-fetch) but it has this [bug](https://github.com/matthew-andrews/isomorphic-fetch/issues/125) that prevents it from running in a react native environment. It seems it will never be fixed since the author hasn't been commiting for a year. Also, polyfilling is mandatory.
 
 
 #### How does it work?
@@ -103,7 +103,7 @@ My preferred library used to be [isomorphic-fetch](https://github.com/matthew-an
 cross-fetch (like isomorphic-fetch) is just a proxy. If you're in node, it delivers you the [node-fetch](https://www.npmjs.com/package/node-fetch) library, if you're in a browser ou React Native, it delivers you the github's [whatwg-fetch](https://github.com/github/fetch/). The same strategy applies if you're using polyfill or ponyfill.
 
 
-## Suported environments
+## Supported environments
 
 * Node 4+
 * React-Native
