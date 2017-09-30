@@ -1,19 +1,23 @@
 import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
-// import uglify from 'rollup-plugin-uglify';
+import uglify from 'rollup-plugin-uglify';
+
+const production = process.env.NODE_ENV === 'production';
 
 module.exports = {
   input: 'fetch-browser.js',
-  name: 'blah',
   output: {
     file: 'dist/fetch-browser.js',
-    format: 'cjs'
+    format: 'cjs',
+    strict: false
   },
   plugins: [
     resolve({
       browser: true
     }),
     commonjs(),
-    // uglify(),
-  ]
+    production && uglify(),
+  ],
+  banner: 'var self = {};',
+  footer: 'module.exports = self;'
 };

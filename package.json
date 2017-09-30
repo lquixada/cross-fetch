@@ -22,9 +22,7 @@
     "url": "https://github.com/lquixada/cross-fetch/issues"
   },
   "dependencies": {
-    "fetch-ponyfill": "4.1.0",
     "node-fetch": "1.7.3",
-    "rollup-plugin-post-replace": "^1.0.0",
     "whatwg-fetch": "2.0.3"
   },
   "devDependencies": {

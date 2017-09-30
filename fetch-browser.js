@@ -1,3 +1,1 @@
-import ponyfill from 'fetch-ponyfill';
-
-export default ponyfill();
+import 'whatwg-fetch';
