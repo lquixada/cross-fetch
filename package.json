@@ -3,10 +3,11 @@
   "version": "0.0.5",
   "description": "Universal WHATWG Fetch API for Node, Browsers and React Native",
   "homepage": "https://github.com/lquixada/cross-fetch",
-  "browser": "fetch-bundler.js",
+  "browser": "dist/fetch-browser.js",
   "main": "fetch-node.js",
   "scripts": {
     "prepush": "npm test",
+    "build": "rollup -c",
     "test": "npm run lint && npm run mocha",
     "mocha": "mocha",
     "lint": "eslint ."
@@ -23,6 +24,7 @@
   "dependencies": {
     "fetch-ponyfill": "4.1.0",
     "node-fetch": "1.7.3",
+    "rollup-plugin-post-replace": "^1.0.0",
     "whatwg-fetch": "2.0.3"
   },
   "devDependencies": {
@@ -30,7 +32,11 @@
     "eslint": "4.7.2",
     "husky": "^0.14.3",
     "mocha": "3.5.3",
-    "nock": "9.0.19"
+    "nock": "9.0.19",
+    "rollup": "^0.50.0",
+    "rollup-plugin-commonjs": "^8.2.1",
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-plugin-uglify": "^2.0.1"
   },
   "keywords": [
     "fetch",
