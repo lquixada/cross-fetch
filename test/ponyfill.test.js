@@ -35,6 +35,10 @@ describe('ponyfill', function () {
       expect(fetch).to.be.a('function');
     });
 
+    it('should not be a polyfill', function () {
+      expect(fetch.polyfill).to.not.be.true;
+    });
+
     it('should facilitate the making of requests', function () {
       return fetch('//lquixa.da/succeed.txt')
         .then(responseToText)

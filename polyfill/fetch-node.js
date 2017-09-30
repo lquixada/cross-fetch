@@ -1,11 +1,11 @@
 "use strict";
 
 var fetchNode = require('../fetch-node');
-
-fetchNode.fetch.polyfill = true;
+var fetch = fetchNode.fetch.bind({});
+fetch.polyfill = true
 
 if (!global.fetch) {
-  global.fetch = fetchNode.fetch;
+  global.fetch = fetch;
   global.Response = fetchNode.Response;
   global.Headers = fetchNode.Headers;
   global.Request = fetchNode.Request;
