@@ -1,6 +1,6 @@
 {
   "name": "cross-fetch-polyfill",
   "version": "0.0.0",
-  "browser": "../dist/polyfill/fetch-browser.js",
-  "main": "fetch-node.js"
+  "browser": "../dist/fetch-browser-polyfill.js",
+  "main": "../fetch-node-polyfill.js"
 }
