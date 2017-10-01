@@ -26,11 +26,16 @@ config.ponyfill = {
 
 config.polyfill = {
   input: 'fetch-browser-polyfill.js',
-  output: {
+  output: [{
     file: 'dist/fetch-browser-polyfill.js',
     format: 'cjs',
     strict: false
-  },
+  },{
+    file: 'dist/cross-fetch.js',
+    format: 'cjs',
+    sourcemap: true,
+    strict: false
+  }],
   plugins: [
     resolve({
       browser: true
