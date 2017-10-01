@@ -11,8 +11,7 @@
     "build": "rollup -c",
     "test": "npm run lint && npm run mocha",
     "mocha": "mocha",
-    "lint": "eslint .",
-    "serve": "http-server"
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
@@ -30,7 +29,6 @@
   "devDependencies": {
     "chai": "4.1.2",
     "eslint": "4.7.2",
-    "http-server": "0.10.0",
     "husky": "0.14.3",
     "mocha": "3.5.3",
     "nock": "9.0.19",

@@ -41,6 +41,16 @@ import 'cross-fetch/polyfill';
 require('cross-fetch/polyfill');
 ```
 
+
+The CDN build is also available on unpkg:
+
+```html
+<script src="//unpkg.com/cross-fetch/dist/cross-fetch.js"></script>
+```
+
+This adds the fetch function to the window object. Note that this is not UMD compatible.
+
+
 * * *
 
 ## Usage
@@ -82,9 +92,10 @@ fetch('//api.github.com/users/lquixada')
 > ⚠️ **Warning**: If you're in an environment that doesn't support Promises such as Internet Explorer, you must install an ES6 Promise compatible polyfill. [es6-promise](https://github.com/jakearchibald/es6-promise) is suggested.
 
 
-## API
+## API & Demo
 
-You can find a comprehensive doc at [Github's fetch](https://github.github.io/fetch/) page.
+You can find a comprehensive doc at [Github's fetch](https://github.github.io/fetch/) page. Use the
+[**JSFiddle playground**](https://jsfiddle.net/lquixada/3ypqgacp/) ➡️ in different browsers.
 
 
 ## FAQ
