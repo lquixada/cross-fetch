@@ -9,13 +9,25 @@ Universal WHATWG Fetch API for Node, Browsers and React Native. The scenario tha
 - **Platform agnostic**: browsers, node or react native
 - **Optional polyfill**: it's up to you if something is going to be added to the global object or not
 - **Simple import**: no configuration required
-- **WHATWG compliant**: it should be working the same way wherever your code runs.
+- **WHATWG compliant**: it should be working the same way wherever your code runs
 - **Small**: 2.5kb gzipped
 
 
 * * *
 
-## Installation
+## Table of Contents
+
+-   [Install](#install)
+-   [Usage](#usage)
+-   [Demo & API](#demo--api)
+-   [FAQ](#faq)
+-   [Supported environments](#supported-environments)
+-   [Thanks](#thanks)
+-   [License](#license)
+
+* * *
+
+## Install
 
 ```sh
 npm install --save cross-fetch
@@ -92,10 +104,10 @@ fetch('//api.github.com/users/lquixada')
 > ⚠️ **Warning**: If you're in an environment that doesn't support Promises such as Internet Explorer, you must install an ES6 Promise compatible polyfill. [es6-promise](https://github.com/jakearchibald/es6-promise) is suggested.
 
 
-## API & Demo
+## Demo & API
 
 You can find a comprehensive doc at [Github's fetch](https://github.github.io/fetch/) page. Use the
-[**JSFiddle playground**](https://jsfiddle.net/lquixada/3ypqgacp/) ➡️ in different browsers.
+[**JSFiddle playground**](https://jsfiddle.net/lquixada/3ypqgacp/) ➡️ for tinkering.
 
 
 ## FAQ
@@ -112,7 +124,7 @@ My preferred library used to be [isomorphic-fetch](https://github.com/matthew-an
 
 #### How does it work?
 
-cross-fetch (like isomorphic-fetch) is just a proxy. If you're in node, it delivers you the [node-fetch](https://www.npmjs.com/package/node-fetch) library, if you're in a browser ou React Native, it delivers you the github's [whatwg-fetch](https://github.com/github/fetch/). The same strategy applies if you're using polyfill or ponyfill.
+cross-fetch (like isomorphic-fetch) is just a proxy. If you're in node, it delivers you the [node-fetch](https://www.npmjs.com/package/node-fetch) library, if you're in a browser ou React Native, it delivers you the github's [whatwg-fetch](https://github.com/github/fetch/). The same strategy applies whether you're using polyfill or ponyfill.
 
 
 ## Supported environments
