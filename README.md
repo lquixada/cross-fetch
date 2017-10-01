@@ -24,6 +24,7 @@ Universal WHATWG Fetch API for Node, Browsers and React Native. The scenario tha
 -   [Supported environments](#supported-environments)
 -   [Thanks](#thanks)
 -   [License](#license)
+-   [Author](#author)
 
 * * *
 
@@ -146,3 +147,10 @@ Heavily inspired by the works of [matthew-andrews](https://github.com/matthew-an
 ## License
 
 cross-fetch is licenced under the [MIT licence](https://github.com/lquixada/cross-fetch/blob/master/LICENSE) © [Leonardo Quixadá](https://twitter.com/lquixada/)
+
+
+## Author
+
+|[![@lquixada](https://avatars0.githubusercontent.com/u/195494?v=4&s=96)](https://github.com/lquixada)|
+|:---:|
+|[@lquixada](http://www.github.com/lquixada)|
