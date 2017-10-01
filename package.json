@@ -6,11 +6,9 @@
   "browser": "dist/fetch-browser.js",
   "main": "fetch-node.js",
   "scripts": {
-    "prepublish": "RU_ENV=production npm run build && npm test",
+    "prepublish": "NODE_ENV=production npm run build && npm test",
     "prepush": "npm test",
-    "build": "npm run build:polyfill && npm run build:ponyfill",
-    "build:polyfill": "RU_TYPE=polyfill rollup -c",
-    "build:ponyfill": "RU_TYPE=ponyfill rollup -c",
+    "build": "rollup -c",
     "test": "npm run lint && npm run mocha",
     "mocha": "mocha",
     "lint": "eslint .",
