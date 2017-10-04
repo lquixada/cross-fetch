@@ -9,7 +9,8 @@ Universal WHATWG Fetch API for Node, Browsers and React Native. The scenario tha
 - **Platform agnostic**: browsers, node or react native
 - **Optional polyfill**: it's up to you if something is going to be added to the global object or not
 - **Simple import**: no configuration required
-- **WHATWG compliant**: it should be working the same way wherever your code runs
+- **WHATWG compliant**: it works the same way wherever your code runs
+- **Updated**: lastest version of whatwg-fetch and node-fetch used
 - **Small**: 2.5kb gzipped
 
 
@@ -120,12 +121,17 @@ I did a lot of research in order to find a fetch library that could be simple, c
 
 #### Why not isomorphic-fetch?
 
-My preferred library used to be [isomorphic-fetch](https://github.com/matthew-andrews/isomorphic-fetch) but it has this [bug](https://github.com/matthew-andrews/isomorphic-fetch/issues/125) that prevents it from running in a react native environment. It seems it will never be fixed since the author hasn't been commiting for a year. Also, polyfilling is mandatory.
+My preferred library used to be [isomorphic-fetch](https://github.com/matthew-andrews/isomorphic-fetch) but it has this [bug](https://github.com/matthew-andrews/isomorphic-fetch/issues/125) that prevents it from running in a react native environment. It seems it will never be fixed since the author hasn't been commiting for more than a year. That means dependencies are outdated as well. 
 
 
-#### How does it work?
+#### Why polyfill might not be a good ideia?
 
-cross-fetch (like isomorphic-fetch) is just a proxy. If you're in node, it delivers you the [node-fetch](https://www.npmjs.com/package/node-fetch) library, if you're in a browser ou React Native, it delivers you the github's [whatwg-fetch](https://github.com/github/fetch/). The same strategy applies whether you're using polyfill or ponyfill.
+In a word? Risk. If the spec changes in the future, it might be problematic to debug. Read more about it on [sindresorhus's ponyfill](https://github.com/sindresorhus/ponyfill#how-are-ponyfills-better-than-polyfills) page. It's up to you if you're fine with it or not.
+
+
+#### How does cross-fetch work?
+
+Just like isomorphic-fetch, it is just a proxy. If you're in node, it delivers you the [node-fetch](https://www.npmjs.com/package/node-fetch) library, if you're in a browser ou React Native, it delivers you the github's [whatwg-fetch](https://github.com/github/fetch/). The same strategy applies whether you're using polyfill or ponyfill.
 
 
 ## Supported environments
