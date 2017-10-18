@@ -134,6 +134,12 @@ In a word? Risk. If the spec changes in the future, it might be problematic to d
 Just like isomorphic-fetch, it is just a proxy. If you're in node, it delivers you the [node-fetch](https://www.npmjs.com/package/node-fetch) library, if you're in a browser ou React Native, it delivers you the github's [whatwg-fetch](https://github.com/github/fetch/). The same strategy applies whether you're using polyfill or ponyfill.
 
 
+## Who's Using It?
+
+* [VulcanJS](http://vulcanjs.org)
+* [graphql-request](https://github.com/graphcool/graphql-request)
+
+
 ## Supported environments
 
 * Node 4+
