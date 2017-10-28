@@ -1,6 +1,6 @@
 "use strict";
 
-var fetchNode = require('./fetch-node');
+var fetchNode = require('./node');
 var fetch = fetchNode.fetch.bind({});
 fetch.polyfill = true;
 

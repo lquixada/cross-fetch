@@ -6,9 +6,9 @@ const production = process.env.NODE_ENV === 'production';
 const config = {};
 
 config.ponyfill = {
-  input: 'fetch-browser-polyfill.js',
+  input: 'browser-polyfill.js',
   output: {
-    file: 'dist/fetch-browser.js',
+    file: 'dist/browser.js',
     format: 'cjs',
     strict: false
   },
@@ -25,9 +25,9 @@ config.ponyfill = {
 };
 
 config.polyfill = {
-  input: 'fetch-browser-polyfill.js',
+  input: 'browser-polyfill.js',
   output: [{
-    file: 'dist/fetch-browser-polyfill.js',
+    file: 'dist/browser-polyfill.js',
     format: 'cjs',
     strict: false
   },{
