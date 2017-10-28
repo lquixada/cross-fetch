@@ -6,10 +6,11 @@
   "browser": "dist/browser.js",
   "main": "node.js",
   "scripts": {
+    "prebuild": "npm test",
     "prepublish": "NODE_ENV=production npm run build && npm test",
     "prepush": "npm test",
     "build": "rollup -c",
-    "test": "npm run lint && npm run mocha",
+    "test": "npm run -s mocha && npm run -s lint",
     "mocha": "mocha",
     "lint": "eslint ."
   },
