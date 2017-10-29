@@ -1,8 +1,7 @@
 import path from 'path';
 import resolve from 'rollup-plugin-node-resolve';
-// import commonjs from 'rollup-plugin-commonjs';
+import copy from 'rollup-plugin-copy';
 import uglify from 'rollup-plugin-uglify';
-
 
 module.exports = [
   // Ponyfill for webpack usage via require('cross-fetch')
@@ -15,6 +14,10 @@ module.exports = [
     },
     plugins: [
       resolve(),
+      copy({
+        'node.js': 'dist/node.js',
+        verbose: true
+      })
     ],
     context: 'this',
     banner: 'var self = {};',
@@ -31,6 +34,10 @@ module.exports = [
     },
     plugins: [
       resolve(),
+      copy({
+        'node-polyfill.js': 'dist/node-polyfill.js',
+        verbose: true
+      })
     ],
     context: 'this'
   },

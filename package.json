@@ -3,8 +3,8 @@
   "version": "0.0.8",
   "description": "Universal WHATWG Fetch API for Node, Browsers and React Native",
   "homepage": "https://github.com/lquixada/cross-fetch",
+  "main": "dist/node.js",
   "browser": "dist/browser.js",
-  "main": "node.js",
   "scripts": {
     "prebuild": "npm test -s",
     "prepublishOnly": "npm run -s build",
@@ -34,15 +34,13 @@
     "mocha": "3.5.3",
     "nock": "9.0.19",
     "rollup": "0.50.0",
+    "rollup-plugin-copy": "0.2.3",
     "rollup-plugin-node-resolve": "3.0.0",
     "rollup-plugin-uglify": "2.0.1"
   },
   "files": [
     "dist",
-    "polyfill",
-    "node.js",
-    "node-polyfill.js",
-    "browser-polyfill.js"
+    "polyfill"
   ],
   "keywords": [
     "fetch",
