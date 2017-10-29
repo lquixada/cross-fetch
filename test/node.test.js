@@ -1,27 +1,22 @@
-"use strict";
+const { expect } = require('chai');
+const nock = require('nock');
 
-var expect = require('chai').expect;
-var nock = require('nock');
+const { fetch, Request, Response, Headers } = require('../src/node');
+const good = 'hello world.';
+const bad = 'good bye world.';
 
-var fetch = require('../src/node').fetch;
-var Request = require('../src/node').Request;
-var Response = require('../src/node').Response;
-var Headers = require('../src/node').Headers;
-var good = 'hello world.';
-var bad = 'good bye world.';
-
-function responseToText(res) {
+const responseToText = (res) => {
 	if (res.status >= 400) {
-		throw new Error("Bad server response");
+		throw new Error('Bad server response');
 	}
 
 	return res.text();
-}
+};
 
-describe('ponyfill', function () {
+describe('ponyfill', () => {
 
-  describe('fetch', function () {
-    before(function () {
+  describe('fetch', () => {
+    before(() => {
       nock('https://lquixa.da')
         .get('/succeed.txt')
         .reply(200, good);
@@ -31,15 +26,15 @@ describe('ponyfill', function () {
         .reply(404, bad);
     });
 
-    it('should be defined', function () {
+    it('should be defined', () => {
       expect(fetch).to.be.a('function');
     });
 
-    it('should not be a polyfill', function () {
+    it('should not be a polyfill', () => {
       expect(fetch.polyfill).to.not.be.true;
     });
 
-    it('should facilitate the making of requests', function () {
+    it('should facilitate the making of requests', () => {
       return fetch('//lquixa.da/succeed.txt')
         .then(responseToText)
         .then(function (data) {
@@ -47,7 +42,7 @@ describe('ponyfill', function () {
         });
     });
 
-    it('should do the right thing with bad requests', function () {
+    it('should do the right thing with bad requests', () => {
       return fetch('//lquixa.da/fail.txt')
         .then(responseToText)
         .catch(function (err) {
@@ -56,35 +51,35 @@ describe('ponyfill', function () {
     });
   });
 
-  describe('Request', function () {
-    it('should be defined', function () {
+  describe('Request', () => {
+    it('should be defined', () => {
       expect(Request).to.be.a('function');
     });
 
-    it('should define GET as default method', function () {
-      var request = new Request('//lquixa.da/');
+    it('should define GET as default method', () => {
+      const request = new Request('//lquixa.da/');
       expect(request.method).to.equal('GET');
     });
   });
 
-  describe('Response', function () {
-    it('should be defined', function () {
+  describe('Response', () => {
+    it('should be defined', () => {
       expect(Response).to.be.a('function');
     });
 
-    it('should be ok :)', function () {
-      var response = new Response();
+    it('should be ok :)', () => {
+      const response = new Response();
       expect(response.ok).to.be.ok;
     });
   });
 
-  describe('Headers', function () {
-    it('should be defined', function () {
+  describe('Headers', () => {
+    it('should be defined', () => {
       expect(Headers).to.be.a('function');
     });
 
-    it('should set a header', function () {
-      var headers = new Headers({'X-Custom': 'foo'});
+    it('should set a header', () => {
+      const headers = new Headers({'X-Custom': 'foo'});
       expect(headers.get('X-Custom')).to.equal('foo');
     });
   });
