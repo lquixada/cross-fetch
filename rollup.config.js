@@ -4,7 +4,7 @@ import copy from 'rollup-plugin-copy';
 import uglify from 'rollup-plugin-uglify';
 
 module.exports = [
-  // Ponyfill for webpack usage via require('cross-fetch')
+  // Ponyfill for commonjs usage via require('cross-fetch')
   {
     input: path.join(__dirname, 'browser-polyfill.js'),
     output: {
@@ -24,7 +24,7 @@ module.exports = [
     footer: 'module.exports = self;'
   },
 
-  // Polyfill for webpack usage via require('cross-fetch/polyfill')
+  // Polyfill for commonjs usage via require('cross-fetch/polyfill')
   {
     input: path.join(__dirname, 'browser-polyfill.js'),
     output: {
