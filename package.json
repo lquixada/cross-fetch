@@ -6,9 +6,9 @@
   "browser": "dist/browser.js",
   "main": "node.js",
   "scripts": {
-    "prebuild": "npm test",
-    "prepublish": "NODE_ENV=production npm run build && npm test",
-    "prepush": "npm test",
+    "prebuild": "npm test -s",
+    "prepublish": "npm run -s build",
+    "prepush": "npm test -s",
     "build": "rollup -c",
     "test": "npm run -s mocha && npm run -s lint",
     "mocha": "mocha",
@@ -34,7 +34,6 @@
     "mocha": "3.5.3",
     "nock": "9.0.19",
     "rollup": "0.50.0",
-    "rollup-plugin-commonjs": "8.2.1",
     "rollup-plugin-node-resolve": "3.0.0",
     "rollup-plugin-uglify": "2.0.1"
   },
