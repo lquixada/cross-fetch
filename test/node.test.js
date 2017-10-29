@@ -3,10 +3,10 @@
 var expect = require('chai').expect;
 var nock = require('nock');
 
-var fetch = require('..').fetch;
-var Request = require('..').Request;
-var Response = require('..').Response;
-var Headers = require('..').Headers;
+var fetch = require('../src/node').fetch;
+var Request = require('../src/node').Request;
+var Response = require('../src/node').Response;
+var Headers = require('../src/node').Headers;
 var good = 'hello world.';
 var bad = 'good bye world.';
 

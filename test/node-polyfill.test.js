@@ -1,6 +1,6 @@
 "use strict";
 
-require('../polyfill');
+require('../src/node-polyfill');
 
 var expect = require('chai').expect;
 var nock = require('nock');
