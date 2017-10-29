@@ -142,7 +142,7 @@ Just like isomorphic-fetch, it is just a proxy. If you're in node, it delivers y
 
 ## Supported environments
 
-* Node 4+
+* Node 6+
 * React-Native
 * Browsers
   - Chrome
