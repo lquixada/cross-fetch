@@ -29,10 +29,10 @@
   },
   "devDependencies": {
     "chai": "4.1.2",
-    "eslint": "4.7.2",
+    "eslint": "4.10.0",
     "husky": "0.14.3",
-    "mocha": "3.5.3",
-    "nock": "9.0.19",
+    "mocha": "4.0.1",
+    "nock": "9.0.27",
     "rollup": "0.50.0",
     "rollup-plugin-copy": "0.2.3",
     "rollup-plugin-node-resolve": "3.0.0",
