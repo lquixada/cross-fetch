@@ -7,7 +7,7 @@
   "main": "node.js",
   "scripts": {
     "prebuild": "npm test -s",
-    "prepublish": "npm run -s build",
+    "prepublishOnly": "npm run -s build",
     "prepush": "npm test -s",
     "build": "rollup -c",
     "test": "npm run -s mocha && npm run -s lint",
