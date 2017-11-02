@@ -138,6 +138,7 @@ Just like isomorphic-fetch, it is just a proxy. If you're in node, it delivers y
 
 * [VulcanJS](http://vulcanjs.org)
 * [graphql-request](https://github.com/graphcool/graphql-request)
+* [Swagger](https://swagger.io/)
 
 
 ## Supported environments
