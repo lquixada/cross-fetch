@@ -39,10 +39,10 @@ As a [ponyfill](https://github.com/sindresorhus/ponyfill):
 
 ```javascript
 // Using ES6 modules
-import { fetch } from 'cross-fetch';
+import fetch from 'cross-fetch';
 
 // Using CommonJS modules
-const { fetch } = require('cross-fetch');
+const fetch = require('cross-fetch');
 ```
 
 As a polyfill:
@@ -72,7 +72,7 @@ This adds the fetch function to the window object. Note that this is not UMD com
 As a [ponyfill](https://github.com/sindresorhus/ponyfill):
 
 ```javascript
-const { fetch } = require('cross-fetch');
+const fetch = require('cross-fetch');
 
 fetch('//api.github.com/users/lquixada')
   .then(res => {

@@ -1,7 +1,8 @@
 const { expect } = require('chai');
 const nock = require('nock');
 
-const { fetch, Request, Response, Headers } = require('../src/node');
+const fetch = require('../src/node');
+const { Request, Response, Headers } = require('../src/node');
 const good = 'hello world.';
 const bad = 'good bye world.';
 

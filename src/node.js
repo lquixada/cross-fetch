@@ -9,11 +9,10 @@ var fetch = function (url, options) {
   return realFetch.call(this, url, options);
 };
 
+fetch.fetch = fetch;
+fetch.Response = realFetch.Response,
+fetch.Headers = realFetch.Headers,
+fetch.Request = realFetch.Request,
 fetch.polyfill = false;
 
-module.exports = {
-  fetch: fetch,
-  Response: realFetch.Response,
-  Headers: realFetch.Headers,
-  Request: realFetch.Request,
-};
+module.exports = fetch;

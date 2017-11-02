@@ -21,7 +21,17 @@ module.exports = [
     ],
     context: 'this',
     banner: 'var self = {};',
-    footer: 'module.exports = self;'
+    footer: `
+      var fetch = self.fetch;
+
+      fetch.fetch = fetch;
+      fetch.Response = self.Response;
+      fetch.Headers = self.Headers;
+      fetch.Request = self.Request;
+
+      // fetch now can be imported as the default object
+      module.exports = fetch;
+    `
   },
 
   // Polyfill for commonjs usage via require('cross-fetch/polyfill')
