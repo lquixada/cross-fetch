@@ -68,10 +68,11 @@ This adds the fetch function to the window object. Note that this is not UMD com
 
 ## Usage
 
-As a [ponyfill](https://github.com/sindresorhus/ponyfill):
+With [promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise):
 
 ```javascript
-const fetch = require('cross-fetch');
+import fetch from 'cross-fetch';
+// Or just: import 'cross-fetch/polyfill';
 
 fetch('//api.github.com/users/lquixada')
   .then(res => {
@@ -82,24 +83,33 @@ fetch('//api.github.com/users/lquixada')
   })
   .then(user => {
     console.log(user);
+  })
+  .catch(err => {
+    console.error(err);
   });
 ```
 
-As a polyfill:
+With [async/await](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function):
 
 ```javascript
-require('cross-fetch');
+import fetch from 'cross-fetch';
+// Or just: import 'cross-fetch/polyfill';
 
-fetch('//api.github.com/users/lquixada')
-  .then(res => {
+(async () => {
+  try {
+    const res = await fetch('//api.github.com/users/lquixada');
+    
     if (res.status >= 400) {
       throw new Error("Bad response from server");
     }
-    return res.json();
-  })
-  .then(user => {
+    
+    const user = await res.json();
+  
     console.log(user);
-  });
+  } catch (err) {
+    console.error(err);
+  }
+})();
 ```
 
 > ⚠️ **Warning**: If you're in an environment that doesn't support Promises such as Internet Explorer, you must install an ES6 Promise compatible polyfill. [es6-promise](https://github.com/jakearchibald/es6-promise) is suggested.
