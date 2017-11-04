@@ -11,7 +11,6 @@ Universal WHATWG Fetch API for Node, Browsers and React Native. The scenario tha
 - **Simple interface**: no instantiation, no configuration and no extra dependency
 - **WHATWG compliant**: it works the same way wherever your code runs
 - **Updated**: lastest version of whatwg-fetch and node-fetch used
-- **Small**: 2.5kb gzipped
 
 
 * * *
