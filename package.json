@@ -24,7 +24,7 @@
     "url": "https://github.com/lquixada/cross-fetch/issues"
   },
   "dependencies": {
-    "node-fetch": "1.7.3",
+    "node-fetch": "2.0.0",
     "whatwg-fetch": "2.0.3"
   },
   "devDependencies": {
