@@ -10,8 +10,9 @@
     "prepublishOnly": "npm run -s build",
     "prepush": "npm test -s",
     "build": "rollup -c",
-    "test": "npm run -s mocha && npm run -s lint",
-    "mocha": "mocha",
+    "test": "npm run -s test:node && npm run -s test:browser && npm run -s lint",
+    "test:browser": "mocha-headless-chrome -f test/browser/index.html -a no-sandbox -a disable-setuid-sandbox",
+    "test:node": "mocha test/node/*.js",
     "lint": "eslint ."
   },
   "repository": {
@@ -32,6 +33,7 @@
     "eslint": "4.18.0",
     "husky": "0.14.3",
     "mocha": "5.0.1",
+    "mocha-headless-chrome": "1.8.2",
     "nock": "9.1.6",
     "rollup": "0.56.2",
     "rollup-plugin-copy": "0.2.3",

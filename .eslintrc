@@ -6,6 +6,11 @@
         "mocha": true,
         "node": true,
         "browser": true
+      },
+    "globals": {
+      "chai": true,
+      "sinon": true,
+      "expect": true
     },
     "parserOptions": {
         "ecmaVersion": 6,
