@@ -10,7 +10,23 @@ module.exports = [
     output: {
       file: path.join(__dirname, 'dist', 'browser.js'),
       format: 'cjs',
-      strict: false
+      strict: false,
+      banner: `
+        var Self = function () { this.fetch = false; };
+        Self.prototype = window;
+        var self = new Self;
+      `,
+      footer: `
+        var fetch = self.fetch;
+
+        fetch.fetch = fetch;
+        fetch.Response = self.Response;
+        fetch.Headers = self.Headers;
+        fetch.Request = self.Request;
+
+        // fetch now can be imported as the default object
+        module.exports = fetch;
+      `
     },
     plugins: [
       resolve(),
@@ -19,26 +35,14 @@ module.exports = [
         verbose: true
       })
     ],
-    context: 'this',
-    banner: 'var self = {};',
-    footer: `
-      var fetch = self.fetch;
-
-      fetch.fetch = fetch;
-      fetch.Response = self.Response;
-      fetch.Headers = self.Headers;
-      fetch.Request = self.Request;
-
-      // fetch now can be imported as the default object
-      module.exports = fetch;
-    `
+    context: 'this'
   },
 
   // Polyfill for commonjs usage via require('cross-fetch/polyfill')
   {
     input: path.join(__dirname, 'src', 'browser-polyfill.js'),
     output: {
-      file: path.join(__dirname, 'dist',  'browser-polyfill.js'),
+      file: path.join(__dirname, 'dist', 'browser-polyfill.js'),
       format: 'cjs',
       strict: false
     },
@@ -56,7 +60,7 @@ module.exports = [
   {
     input: path.join(__dirname, 'src', 'browser-polyfill.js'),
     output: {
-      file: path.join(__dirname, 'dist',  'cross-fetch.js'),
+      file: path.join(__dirname, 'dist', 'cross-fetch.js'),
       format: 'cjs',
       sourcemap: true,
       strict: false
