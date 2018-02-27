@@ -5,6 +5,9 @@ import uglify from 'rollup-plugin-uglify';
 
 const input = path.join(__dirname, 'src', 'browser-polyfill.js');
 
+// Removes indentation from all the lines in the string
+const outdent = str => str.replace(/^\s*/mg, '');
+
 export default [
   // Ponyfill for commonjs usage via require('cross-fetch')
   {
@@ -13,12 +16,12 @@ export default [
       file: path.join(__dirname, 'dist', 'browser.js'),
       format: 'cjs',
       strict: false,
-      banner: `
+      banner: outdent(`
         var Self = function () { this.fetch = false; };
         Self.prototype = window;
         var self = new Self;
-      `,
-      footer: `
+      `),
+      footer: outdent(`
         var fetch = self.fetch;
 
         fetch.fetch = fetch;
@@ -28,7 +31,7 @@ export default [
 
         // fetch now can be imported as the default object
         module.exports = fetch;
-      `
+      `)
     },
     plugins: [
       resolve(),
