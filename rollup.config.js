@@ -3,10 +3,12 @@ import resolve from 'rollup-plugin-node-resolve';
 import copy from 'rollup-plugin-copy';
 import uglify from 'rollup-plugin-uglify';
 
-module.exports = [
+const input = path.join(__dirname, 'src', 'browser-polyfill.js');
+
+export default [
   // Ponyfill for commonjs usage via require('cross-fetch')
   {
-    input: path.join(__dirname, 'src', 'browser-polyfill.js'),
+    input,
     output: {
       file: path.join(__dirname, 'dist', 'browser.js'),
       format: 'cjs',
@@ -40,7 +42,7 @@ module.exports = [
 
   // Polyfill for commonjs usage via require('cross-fetch/polyfill')
   {
-    input: path.join(__dirname, 'src', 'browser-polyfill.js'),
+    input,
     output: {
       file: path.join(__dirname, 'dist', 'browser-polyfill.js'),
       format: 'cjs',
@@ -58,7 +60,7 @@ module.exports = [
 
   // For browser usage via <script> tag.
   {
-    input: path.join(__dirname, 'src', 'browser-polyfill.js'),
+    input,
     output: {
       file: path.join(__dirname, 'dist', 'cross-fetch.js'),
       format: 'cjs',
