@@ -1,8 +1,8 @@
+// Add chai's expect to the global scope
+global.expect = require('chai').expect;
+
+// Enable fake server
 const nock = require('nock');
-const { expect } = require('chai');
-
-global.expect = expect;
-
 before(() => {
   nock('https://lquixa.da')
     .persist()
