@@ -1,0 +1,24 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <link href="https://unpkg.com/mocha@5.0.1/mocha.css" rel="stylesheet" />
+</head>
+
+<body>
+  <div id="mocha"></div>
+
+  <script src="https://unpkg.com/sinon@4.4.2/pkg/sinon.js"></script>
+  <script src="https://unpkg.com/chai@4.1.2/chai.js"></script>
+  <script src="https://unpkg.com/mocha@5.0.1/mocha.js"></script>
+  <script src="./setup.js"></script>
+
+  <!-- cross-fetch polyfill is the same thing as github's fetch -->
+  <script src="https://unpkg.com/whatwg-fetch@2.0.3/fetch.js"></script>
+  <script src="./fetch.spec.js"></script>
+
+  <script>
+    runSuite('browser environment');
+    mocha.run();
+  </script>
+</body>
+</html>
