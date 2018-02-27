@@ -12,7 +12,7 @@
     "build": "rollup -c",
     "test": "npm run -s test:node && npm run -s test:browser && npm run -s lint",
     "test:browser": "mocha-headless-chrome -f test/browser/index.html -a no-sandbox -a disable-setuid-sandbox",
-    "test:node": "mocha test/node/*.js",
+    "test:node": "mocha test/node/index.js",
     "lint": "eslint ."
   },
   "repository": {
