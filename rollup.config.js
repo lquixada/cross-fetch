@@ -29,8 +29,10 @@ export default [
         fetch.Headers = self.Headers;
         fetch.Request = self.Request;
 
-        // fetch now can be imported as the default object
-        module.exports = fetch;
+        // This "if" allows the output file to be run on browser environment (useful for tests).
+        if (typeof module === 'object' && module.exports) {
+          module.exports = fetch;
+        }
       `)
     },
     plugins: [
