@@ -22,6 +22,7 @@ Universal WHATWG Fetch API for Node, Browsers and React Native. The scenario tha
 -   [Demo & API](#demo--api)
 -   [FAQ](#faq)
 -   [Supported environments](#supported-environments)
+-   [Sponsors](#sponsors)
 -   [Thanks](#thanks)
 -   [License](#license)
 -   [Author](#author)
@@ -159,6 +160,13 @@ Just like isomorphic-fetch, it is just a proxy. If you're in node, it delivers y
   - Firefox
   - Safari 6.1+
   - Internet Explorer 10+
+
+
+## Sponsors
+
+Manual cross-browser testing is provided by the following sponsor:
+
+[![BrowserStack](./assets/browserstack-logo.png)](https://www.browserstack.com/)
 
 
 ## Thanks
