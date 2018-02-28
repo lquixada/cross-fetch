@@ -21,6 +21,10 @@
     runSuite('browser environment');
     mocha.checkLeaks();
     mocha.run();
+
+    after(function () {
+      console.log('Has cross-fetch been inserted into the global object? ', fetch.polyfill);
+    });
   </script>
 </body>
 </html>
