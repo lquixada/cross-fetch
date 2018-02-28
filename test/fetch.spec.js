@@ -3,7 +3,7 @@
 // here will also run on the following two test environments:
 // * test/browser/
 // * test/node/
-function runSuite(envName) {
+function addSuite(envName) {
 
   // Helper function
   var responseToText = function (res) {
@@ -109,5 +109,5 @@ function runSuite(envName) {
 // Since this test suite needs to run on different environments,
 // we used a simplified UMD pattern here.
 if (typeof module === 'object' && module.exports) {
-    module.exports = runSuite;
+    module.exports = addSuite;
 }
