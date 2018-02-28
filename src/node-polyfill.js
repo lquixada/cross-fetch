@@ -1,4 +1,4 @@
-var fetchNode = require('./node');
+var fetchNode = require('./node-ponyfill');
 var fetch = fetchNode.fetch.bind({});
 
 fetch.polyfill = true;

@@ -14,7 +14,7 @@ export default [
   {
     input,
     output: {
-      file: path.join(__dirname, 'dist', 'browser.js'),
+      file: path.join(__dirname, 'dist', 'browser-ponyfill.js'),
       format: 'cjs',
       strict: false,
       banner: outdent(`
@@ -38,7 +38,7 @@ export default [
     },
     plugins: [
       copy({
-        'src/node.js': 'dist/node.js',
+        'src/node-ponyfill.js': 'dist/node-ponyfill.js',
         verbose: true
       })
     ],
