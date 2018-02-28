@@ -1,3 +1,4 @@
+/* Rollup creates the browser version of the polyfill and ponyfill. */
 import path from 'path';
 import copy from 'rollup-plugin-copy';
 import uglify from 'rollup-plugin-uglify';
@@ -9,8 +10,8 @@ const outdent = str => str.replace(/^\s*/mg, '');
 
 export default [
   // Ponyfill for commonjs usage via require('cross-fetch')
-  // Wraps up the whatwg-fetch code on ponyfill mode in order
-  // to prevent it from adding fetch to the global object.
+  // Wraps up the whatwg-fetch code in order to prevent
+  // it from adding fetch to the global object.
   {
     input,
     output: {
