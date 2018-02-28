@@ -118,8 +118,12 @@ import fetch from 'cross-fetch';
 
 ## Demo & API
 
-You can find a comprehensive doc at [Github's fetch](https://github.github.io/fetch/) page. Use the
-[**JSFiddle playground**](https://jsfiddle.net/lquixada/3ypqgacp/) ➡️ for tinkering.
+You can find a comprehensive doc at [Github's fetch](https://github.github.io/fetch/) page. If you want to play with cross-fetch, these resources can be useful:
+
+* [**JSFiddle playground**](https://jsfiddle.net/lquixada/3ypqgacp/) ➡️
+* [**Public test suite**](https://lquixada.github.io/cross-fetch/test/public/) ➡️
+
+> **Tip**: Run theses resources on various browsers and with different settings (for instance: cross-domain requests, wrong urls or text requests). Don't forget to open the console in the test suite page and play around.
 
 
 ## FAQ
