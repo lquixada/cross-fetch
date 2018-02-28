@@ -37,7 +37,6 @@
     "nock": "9.2.1",
     "rollup": "0.56.3",
     "rollup-plugin-copy": "0.2.3",
-    "rollup-plugin-node-resolve": "3.0.3",
     "rollup-plugin-uglify": "3.0.0",
     "sinon": "4.4.2"
   },

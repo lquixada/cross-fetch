@@ -1,15 +1,16 @@
 import path from 'path';
-import resolve from 'rollup-plugin-node-resolve';
 import copy from 'rollup-plugin-copy';
 import uglify from 'rollup-plugin-uglify';
 
-const input = path.join(__dirname, 'src', 'browser-polyfill.js');
+const input = path.join(__dirname, 'node_modules', 'whatwg-fetch', 'fetch.js');
 
 // Removes indentation from all the lines in the string
 const outdent = str => str.replace(/^\s*/mg, '');
 
 export default [
   // Ponyfill for commonjs usage via require('cross-fetch')
+  // Wraps up the whatwg-fetch code on ponyfill mode in order
+  // to prevent it from adding fetch to the global object.
   {
     input,
     output: {
@@ -36,7 +37,6 @@ export default [
       `)
     },
     plugins: [
-      resolve(),
       copy({
         'src/node.js': 'dist/node.js',
         verbose: true
@@ -54,7 +54,6 @@ export default [
       strict: false
     },
     plugins: [
-      resolve(),
       copy({
         'src/node-polyfill.js': 'dist/node-polyfill.js',
         verbose: true
@@ -73,7 +72,6 @@ export default [
       strict: false
     },
     plugins: [
-      resolve(),
       uglify(),
     ],
     context: 'this'
