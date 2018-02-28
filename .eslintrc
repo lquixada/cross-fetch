@@ -1,22 +1,28 @@
 {
-    "extends": [
-        "eslint:recommended"
-    ],
-    "env": {
-        "mocha": true,
-        "node": true,
-        "browser": true
-      },
-    "globals": {
-      "chai": true,
-      "sinon": true,
-      "expect": true
-    },
-    "parserOptions": {
-        "ecmaVersion": 6,
-        "sourceType": "module"
-    },
-    "rules": {
-      "semi": ["error", "always"]
-    }
+  "extends": [
+    "eslint:recommended"
+  ],
+  "env": {
+    "mocha": true,
+    "node": true,
+    "browser": true
+  },
+  "globals": {
+    "chai": true,
+    "sinon": true,
+    "expect": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 5,
+    "sourceType": "module"
+  },
+  "rules": {
+    "no-debugger": "warn",
+    "no-console": "warn",
+    "no-multiple-empty-lines": ["error", {
+      "max": 1,
+      "maxBOF": 1,
+      "maxEOF": 1
+    }]
+  }
 }
