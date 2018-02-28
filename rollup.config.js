@@ -5,7 +5,6 @@ import uglify from 'rollup-plugin-uglify';
 
 const input = path.join(__dirname, 'node_modules', 'whatwg-fetch', 'fetch.js');
 
-// Removes indentation from all the lines in the string
 const outdent = str => str.replace(/^\s*/mg, '');
 
 export default [
@@ -19,19 +18,23 @@ export default [
       format: 'cjs',
       strict: false,
       banner: outdent(`
-        var Self = function () { this.fetch = false; };
-        Self.prototype = window;
-        var self = new Self;
+        var __root__ = (function (root) {
+          function F() { this.fetch = false; }
+          F.prototype = root;
+          return new F();
+        })(typeof self !== 'undefined' ? self : this);
+
+        (function(self) {
       `),
       footer: outdent(`
-        var fetch = self.fetch;
+        }).call(__root__, void(0));
 
+        var fetch = __root__.fetch;
         fetch.fetch = fetch;
-        fetch.Response = self.Response;
-        fetch.Headers = self.Headers;
-        fetch.Request = self.Request;
+        fetch.Response = __root__.Response;
+        fetch.Headers = __root__.Headers;
+        fetch.Request = __root__.Request;
 
-        // This "if" allows the output file to be run on browser environment (useful for tests).
         if (typeof module === 'object' && module.exports) {
           module.exports = fetch;
         }
