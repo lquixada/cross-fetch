@@ -7,13 +7,13 @@
   "browser": "dist/browser-ponyfill.js",
   "scripts": {
     "prebuild": "npm test -s",
-    "prepublishOnly": "npm run -s build",
     "prepush": "npm test -s",
     "build": "rollup -c",
     "test": "npm run -s test:node && npm run -s test:browser && npm run -s lint",
     "test:browser": "mocha-headless-chrome -f test/browser/index.html -a no-sandbox -a disable-setuid-sandbox",
     "test:node": "mocha --check-leaks test/node/index.js",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "release:major": "npm run -s build && npm version major && git push && npm publish"
   },
   "repository": {
     "type": "git",
