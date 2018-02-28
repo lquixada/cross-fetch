@@ -1,11 +1,12 @@
-// This is a suite that tests different parts of the fetch api. Every spec
-// in this file will run on the following two test environments:
+// This is a suite that tests different parts of the fetch api. It
+// must be EcmaScript 5 since it will run on old browsers. Every spec
+// here will also run on the following two test environments:
 // * test/browser/
 // * test/node/
 function runSuite(envName) {
 
   // Helper function
-  const responseToText = function (res) {
+  var responseToText = function (res) {
     if (res.status >= 400) {
       throw new Error('Bad server response');
     }
@@ -35,7 +36,7 @@ function runSuite(envName) {
       it('should do the right thing with bad requests', function () {
         return fetch('//lquixa.da/fail.txt')
           .then(responseToText)
-          .catch(err => {
+          .catch(function (err) {
             expect(err.toString()).to.equal('Error: Bad server response');
           });
       });
@@ -47,7 +48,7 @@ function runSuite(envName) {
       });
 
       it('should define GET as default method', function () {
-        const request = new Request('//lquixa.da/');
+        var request = new Request('//lquixa.da/');
         expect(request.method).to.equal('GET');
       });
     });
@@ -58,7 +59,7 @@ function runSuite(envName) {
       });
 
       it('should be ok :)', function () {
-        const response = new Response();
+        var response = new Response();
         expect(response.ok).to.be.ok;
       });
     });
@@ -69,22 +70,22 @@ function runSuite(envName) {
       });
 
       it('should set a header', function () {
-        const headers = new Headers({'Custom': 'foo'});
+        var headers = new Headers({'Custom': 'foo'});
         expect(headers.get('Custom')).to.equal('foo');
       });
 
       it('should set a multi-value header', function () {
-        const headers = new Headers({'Custom': ['header1', 'header2']});
+        var headers = new Headers({'Custom': ['header1', 'header2']});
         expect(headers.get('Custom')).to.equal('header1,header2');
       });
 
       it('should set a undefined header', function () {
-        const headers = new Headers({'Custom': null});
+        var headers = new Headers({'Custom': null});
         expect(headers.get('Custom')).to.equal('null');
       });
 
       it('should set a null header', function () {
-        const headers = new Headers({'Custom': undefined});
+        var headers = new Headers({'Custom': undefined});
         expect(headers.get('Custom')).to.equal('undefined');
       });
 
@@ -93,12 +94,12 @@ function runSuite(envName) {
       });
 
       it('should not set an invalid header', function () {
-        const headers = new Headers();
+        var headers = new Headers();
         expect(function () { headers.set('Héy', 'ok'); }).to.throw();
       });
 
       it('should not get an invalid header', function () {
-        const headers = new Headers();
+        var headers = new Headers();
         expect(function () { headers.get('Héy'); }).to.throw();
       });
     });
