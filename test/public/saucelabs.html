@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link href="https://unpkg.com/mocha@5.0.1/mocha.css" rel="stylesheet" />
+</head>
+
+<body>
+  <div id="mocha"></div>
+
+  <script src="https://unpkg.com/es6-promise@4.2.4/dist/es6-promise.auto.js"></script>
+  <script src="https://unpkg.com/sinon@4.4.2/pkg/sinon.js"></script>
+  <script src="https://unpkg.com/chai@4.1.2/chai.js"></script>
+  <script src="https://unpkg.com/mocha@5.0.1/mocha.js"></script>
+  <script src="../browser/setup.js"></script>
+  <script src="./browser-ponyfill.js"></script>
+  <script src="../fetch.spec.js"></script>
+
+  <script>
+    after(function () {
+      console.log('Has cross-fetch been inserted into the global object? ', fetch.polyfill);
+    });
+
+    addSuite('browser environment');
+
+    window.onload = function () {
+      var runner = mocha.run();
+
+      var failedTests = [];
+
+      runner.on('end', function () {
+          window.mochaResults = runner.stats;
+          window.mochaResults.reports = failedTests;
+      });
+
+      runner.on('fail', logFailure);
+
+      function logFailure(test, err) {
+
+          var flattenTitles = function (test) {
+              var titles = [];
+              while (test.parent.title) {
+                  titles.push(test.parent.title);
+                  test = test.parent;
+              }
+              return titles.reverse();
+          };
+
+          failedTests.push({
+              name: test.title,
+              result: false,
+              message: err.message,
+              stack: err.stack,
+              titles: flattenTitles(test)
+          });
+      };
+  };
+  </script>
+</body>
+</html>
