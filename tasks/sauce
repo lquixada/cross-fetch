@@ -1,0 +1,71 @@
+#!/usr/bin/env node
+const fetch = require('node-fetch');
+
+// Environment variables
+const pr = process.env.TRAVIS_PULL_REQUEST;
+const version = process.env.npm_package_version;
+const sauceUser = process.env.SAUCE_USER_NAME;
+const sauceAccessKey = process.env.SAUCE_ACCESS_KEY;
+
+// Settings
+const url = `https://${sauceUser}:${sauceAccessKey}@saucelabs.com/rest/v1/${sauceUser}/js-tests`;
+const pollTimeout = 3000;
+let counter = 1;
+
+const pollResults = ids => {
+  setTimeout(() => {
+    console.log('> Polling results (attempt #'+(counter++)+')...');
+
+    fetch(`${url}/status`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: ids
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (!data.completed) {
+        return pollResults(ids);
+      }
+      const failed = data['js tests'].some(test => test.result.failures);
+      console.log(failed? '> Failed!' : '> Passed!');
+      process.exit(failed ? 1 : 0);
+    })
+    // TODO: improve error output
+    .catch(err => console.log(err));
+  }, pollTimeout);
+}
+
+console.log('> Requesting test execution on Sauce Labs...');
+
+fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      name: 'cross-fetch',
+      build: (pr ? `PR #${pr}` : `v${version}`),
+      platforms: [
+        ['Windows 7', 'internet explorer', '10'],
+        ['Windows 7', 'internet explorer', '11'],
+        ['Linux', 'chrome', ''],
+        ['Linux', 'firefox', ''],
+        ['Mac 10.12', 'safari', '']
+      ],
+      url: 'https://lquixada.github.io/cross-fetch/test/public/saucelabs.html',
+      framework: 'mocha'
+    })
+  })
+  .then(res => {
+    if (res.status >= 400) {
+      throw new Error("Bad response from server");
+    }
+
+    console.log('> Success!');
+    return res.text();
+  })
+  .then(pollResults)
+  // TODO: improve error output
+  .catch(err => console.log(err));
