@@ -19,11 +19,11 @@
   <script src="../fetch.spec.js"></script>
 
   <script>
+    addSuite('browser environment');
+
     after(function () {
       console.log('Has cross-fetch been inserted into the global object? ', fetch.polyfill);
     });
-
-    addSuite('browser environment');
   </script>
 </body>
 </html>

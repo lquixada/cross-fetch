@@ -13,14 +13,13 @@
   <script src="https://unpkg.com/chai@4.1.2/chai.js"></script>
   <script src="https://unpkg.com/mocha@5.0.1/mocha.js"></script>
   <script src="../browser/setup.js"></script>
+  <script src="./saucelabs.js"></script>
 
   <script src="https://unpkg.com/cross-fetch@latest/dist/cross-fetch.js"></script>
   <script src="../fetch.spec.js"></script>
 
   <script>
     addSuite('browser environment');
-    mocha.checkLeaks();
-    mocha.run();
 
     after(function () {
       console.log('Has cross-fetch been inserted into the global object? ', fetch.polyfill);
