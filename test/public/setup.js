@@ -1,3 +1,7 @@
+after(function () {
+  console.log('Has cross-fetch been inserted into the global object? ', fetch.polyfill);
+});
+
 window.onload = function () {
   var runner = mocha.run();
 
