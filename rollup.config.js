@@ -30,10 +30,9 @@ export default [
         }).call(__root__, void(0));
 
         var fetch = __root__.fetch;
-        fetch.fetch = fetch;
-        fetch.Response = __root__.Response;
-        fetch.Headers = __root__.Headers;
-        fetch.Request = __root__.Request;
+        var Response = fetch.Response = __root__.Response;
+        var Request = fetch.Request = __root__.Request;
+        var Headers = fetch.Headers = __root__.Headers;
 
         if (typeof module === 'object' && module.exports) {
           module.exports = fetch;
