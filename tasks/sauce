@@ -54,7 +54,7 @@ fetch(url, {
         ['Linux', 'firefox', ''],
         ['Mac 10.12', 'safari', '']
       ],
-      url: 'https://lquixada.github.io/cross-fetch/test/public/saucelabs.html',
+      url: 'https://lquixada.github.io/cross-fetch/test/public/',
       framework: 'mocha'
     })
   })
