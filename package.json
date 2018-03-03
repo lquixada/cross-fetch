@@ -6,6 +6,7 @@
   "main": "dist/node-ponyfill.js",
   "browser": "dist/browser-ponyfill.js",
   "scripts": {
+    "pre-commit": "lint-staged",
     "prepush": "npm test -s",
     "build": "rollup -c",
     "test": "run-p -s test:node test:headless lint",
@@ -18,6 +19,12 @@
     "bump:major": "npm version major",
     "deploy": "git push --no-verify && git push --tags --no-verify && npm publish",
     "release:major": "npm login && run-s -s test build bump:major deploy test:sauce"
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
   },
   "repository": {
     "type": "git",
@@ -36,6 +43,7 @@
     "chai": "4.1.2",
     "eslint": "4.18.1",
     "husky": "0.14.3",
+    "lint-staged": "7.0.0",
     "mocha": "5.0.1",
     "mocha-headless-chrome": "1.8.2",
     "nock": "9.2.1",
