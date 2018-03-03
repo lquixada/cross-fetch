@@ -9,3 +9,4 @@ if (!global.fetch) {
   global.Headers = fetchNode.Headers;
   global.Request = fetchNode.Request;
 }
+

@@ -6,7 +6,7 @@
   "main": "dist/node-ponyfill.js",
   "browser": "dist/browser-ponyfill.js",
   "scripts": {
-    "pre-commit": "lint-staged",
+    "precommit": "lint-staged",
     "prepush": "npm test -s",
     "build": "rollup -c",
     "test": "run-p -s test:node test:headless lint",
