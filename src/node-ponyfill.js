@@ -10,9 +10,9 @@ var fetch = function (url, options) {
 };
 
 fetch.fetch = fetch;
-fetch.Response = realFetch.Response,
-fetch.Headers = realFetch.Headers,
-fetch.Request = realFetch.Request,
+fetch.Response = realFetch.Response;
+fetch.Headers = realFetch.Headers;
+fetch.Request = realFetch.Request;
 fetch.polyfill = false;
 
 module.exports = fetch;
