@@ -15,8 +15,8 @@
     "test:node": "mocha --check-leaks test/node/index.js",
     "test:sauce": "./tasks/sauce",
     "lint": "eslint .",
-    "push": "git push --no-verify && git push --tags --no-verify",
-    "release:major": "npm login && npm test -s && npm run -s build && npm version major && npm run -s push && npm publish"
+    "deploy": "git push --no-verify && git push --tags --no-verify && npm publish",
+    "release:major": "npm login && npm run test -s && npm run -s build && npm version major && npm run -s push && npm run -s deploy && npm run -s test:sauce"
   },
   "repository": {
     "type": "git",
