@@ -159,11 +159,8 @@ Just like isomorphic-fetch, it is just a proxy. If you're in node, it delivers y
 
 * Node 6+
 * React-Native
-* Browsers
-  - Chrome
-  - Firefox
-  - Safari 6.1+
-  - Internet Explorer 10+
+
+[![Build Status](https://saucelabs.com/browser-matrix/cross-fetch.svg)](https://saucelabs.com/beta/builds/f40519e32776466bacdc855ee3ecf267)
 
 
 ## Sponsors
