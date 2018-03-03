@@ -8,15 +8,16 @@
   "scripts": {
     "prepush": "npm test -s",
     "build": "rollup -c",
-    "test": "npm run -s test:node && npm run -s test:headless && npm run -s lint",
+    "test": "run-p -s test:node test:headless lint",
     "test:browser": "opn test/browser/index.html",
     "test:ci": "npm test && npm run test:sauce",
     "test:headless": "mocha-headless-chrome -f test/browser/index.html -a no-sandbox -a disable-setuid-sandbox",
     "test:node": "mocha --check-leaks test/node/index.js",
     "test:sauce": "./tasks/sauce",
     "lint": "eslint .",
+    "bump:major": "npm version major",
     "deploy": "git push --no-verify && git push --tags --no-verify && npm publish",
-    "release:major": "npm login && npm run test -s && npm run -s build && npm version major && npm run -s push && npm run -s deploy && npm run -s test:sauce"
+    "release:major": "npm login && run-s -s test build bump:major deploy test:sauce"
   },
   "repository": {
     "type": "git",
@@ -38,6 +39,7 @@
     "mocha": "5.0.1",
     "mocha-headless-chrome": "1.8.2",
     "nock": "9.2.1",
+    "npm-run-all": "4.1.2",
     "opn-cli": "3.1.0",
     "rollup": "0.56.3",
     "rollup-plugin-copy": "0.2.3",
