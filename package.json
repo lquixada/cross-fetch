@@ -14,7 +14,7 @@
     "release:major": "npm login && run-s -s test build bump:major deploy test:sauce",
     "test": "run-p -s test:node test:headless lint",
     "test:browser": "opn test/browser/index.html",
-    "test:ci": "npm test && npm run test:sauce",
+    "test:ci": "npm test -s && npm run -s test:sauce",
     "test:headless": "mocha-headless-chrome -f test/browser/index.html -a no-sandbox -a disable-setuid-sandbox",
     "test:node": "mocha --check-leaks test/node/index.js",
     "test:sauce": "./tasks/sauce"

@@ -3,4 +3,4 @@ language: node_js
 node_js:
   - "8.9"
 script:
-  - npm run test:ci
+  - npm run -s test:ci
