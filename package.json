@@ -7,18 +7,17 @@
   "browser": "dist/browser-ponyfill.js",
   "scripts": {
     "precommit": "lint-staged",
-    "prepush": "npm test -s",
     "build": "rollup -c",
+    "bump:major": "npm version major",
+    "deploy": "git push --no-verify && git push --tags --no-verify && npm publish",
+    "lint": "eslint .",
+    "release:major": "npm login && run-s -s test build bump:major deploy test:sauce",
     "test": "run-p -s test:node test:headless lint",
     "test:browser": "opn test/browser/index.html",
     "test:ci": "npm test && npm run test:sauce",
     "test:headless": "mocha-headless-chrome -f test/browser/index.html -a no-sandbox -a disable-setuid-sandbox",
     "test:node": "mocha --check-leaks test/node/index.js",
-    "test:sauce": "./tasks/sauce",
-    "lint": "eslint .",
-    "bump:major": "npm version major",
-    "deploy": "git push --no-verify && git push --tags --no-verify && npm publish",
-    "release:major": "npm login && run-s -s test build bump:major deploy test:sauce"
+    "test:sauce": "./tasks/sauce"
   },
   "lint-staged": {
     "*.js": [
