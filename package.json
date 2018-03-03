@@ -12,6 +12,7 @@
     "test": "npm run -s test:node && npm run -s test:headless && npm run -s lint",
     "test:headless": "mocha-headless-chrome -f test/browser/index.html -a no-sandbox -a disable-setuid-sandbox",
     "test:browser": "opn test/browser/index.html",
+    "test:ci": "npm test && npm run test:sauce",
     "test:node": "mocha --check-leaks test/node/index.js",
     "test:sauce": "./tasks/sauce",
     "lint": "eslint .",
