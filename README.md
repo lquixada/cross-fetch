@@ -22,10 +22,10 @@ Universal WHATWG Fetch API for Node, Browsers and React Native. The scenario tha
 -   [Demo & API](#demo--api)
 -   [FAQ](#faq)
 -   [Supported environments](#supported-environments)
--   [Sponsors](#sponsors)
 -   [Thanks](#thanks)
 -   [License](#license)
 -   [Author](#author)
+-   [Sponsors](#sponsors)
 
 * * *
 
@@ -163,13 +163,6 @@ Just like isomorphic-fetch, it is just a proxy. If you're in node, it delivers y
 [![Build Status](https://saucelabs.com/browser-matrix/cross-fetch.svg)](https://saucelabs.com/beta/builds/f40519e32776466bacdc855ee3ecf267)
 
 
-## Sponsors
-
-Manual cross-browser testing is provided by the following sponsor:
-
-[![BrowserStack](./assets/browserstack-logo.png)](https://www.browserstack.com/)
-
-
 ## Thanks
 
 Heavily inspired by the works of [matthew-andrews](https://github.com/matthew-andrews). Kudos to him!
@@ -185,3 +178,10 @@ cross-fetch is licenced under the [MIT licence](https://github.com/lquixada/cros
 |[![@lquixada](https://avatars0.githubusercontent.com/u/195494?v=4&s=96)](https://github.com/lquixada)|
 |:---:|
 |[@lquixada](http://www.github.com/lquixada)|
+
+
+## Sponsors
+
+Manual cross-browser testing is provided by the following sponsor:
+
+[![BrowserStack](./assets/browserstack-logo.png)](https://www.browserstack.com/)
