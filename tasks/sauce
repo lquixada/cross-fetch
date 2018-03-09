@@ -1,23 +1,21 @@
 #!/usr/bin/env node
-/* eslint no-console: 0 */
+const ora = require('ora');
 const fetch = require('node-fetch');
+const pkg = require('../package');
+const spinner = ora();
 
 // Environment variables
 const pr = process.env.TRAVIS_PULL_REQUEST;
-const version = process.env.npm_package_version;
 const sauceUser = process.env.SAUCE_USER_NAME;
 const sauceAccessKey = process.env.SAUCE_ACCESS_KEY;
-const sauceBuild = process.env.SAUCE_BUILD;
+const sauceBuild = process.env.SAUCE_BUILD || (pr ? `PR #${pr}` : `v${pkg.version}`);
 
 // Settings
 const url = `https://${sauceUser}:${sauceAccessKey}@saucelabs.com/rest/v1/${sauceUser}/js-tests`;
-const build = sauceBuild || (pr ? `PR #${pr}` : `v${version}`);
 const pollTimeout = 3000;
-let counter = 1;
 
 const pollResults = ids => {
   setTimeout(() => {
-    console.log('> Polling results (attempt #'+(counter++)+')...');
 
     fetch(`${url}/status`, {
       method: 'POST',
@@ -32,15 +30,15 @@ const pollResults = ids => {
         return pollResults(ids);
       }
       const failed = data['js tests'].some(test => test.result.failures);
-      console.log(failed? '> Failed!' : '> Passed!');
+      spinner.succeed(failed? ' Failed.' : ' Passed.');
       process.exit(failed ? 1 : 0);
     })
     // TODO: improve error output
-    .catch(err => console.log(err));
+    .catch(err => spinner.fail(` ${err.message}`));
   }, pollTimeout);
 }
 
-console.log('> Requesting test execution on Sauce Labs...');
+spinner.start(` Requesting test execution on Sauce Labs for build ${sauceBuild}...`);
 
 fetch(url, {
     method: 'POST',
@@ -48,8 +46,8 @@ fetch(url, {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      name: 'cross-fetch',
-      build,
+      name: sauceUser,
+      build: sauceBuild,
       platforms: [
         ['Windows 7', 'internet explorer', '10'],
         ['Windows 7', 'internet explorer', '11'],
@@ -64,12 +62,17 @@ fetch(url, {
   })
   .then(res => {
     if (res.status >= 400) {
-      throw new Error("Bad response from server");
+      throw new Error('Bad response from server');
     }
 
-    console.log('> Success!');
+    spinner.stopAndPersist({
+      symbol: '↗'
+    });
+    spinner.succeed(` Success! Running on https://saucelabs.com/u/${sauceUser}...`);
+    spinner.start(' Waiting for results...');
     return res.text();
   })
   .then(pollResults)
   // TODO: improve error output
-  .catch(err => console.log(err));
+  .catch(err => spinner.fail(` ${err.message}`));
+

@@ -47,6 +47,7 @@
     "nock": "9.2.3",
     "npm-run-all": "4.1.2",
     "opn-cli": "3.1.0",
+    "ora": "2.0.0",
     "release-it": "7.2.1",
     "rollup": "0.56.5",
     "rollup-plugin-copy": "0.2.3",

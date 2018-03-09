@@ -160,7 +160,7 @@ Just like isomorphic-fetch, it is just a proxy. If you're in node, it delivers y
 * Node 6+
 * React-Native
 
-[![Build Status](https://saucelabs.com/browser-matrix/cross-fetch.svg)](https://saucelabs.com/beta/builds/f40519e32776466bacdc855ee3ecf267)
+[![Build Status](https://saucelabs.com/browser-matrix/cross-fetch.svg)](https://saucelabs.com/u/cross-fetch)
 
 
 ## Thanks
