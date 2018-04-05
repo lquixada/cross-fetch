@@ -41,7 +41,7 @@ npm install --save cross-fetch
 As a [ponyfill](https://github.com/sindresorhus/ponyfill):
 
 ```javascript
-// Using ES6 modules
+// Using ES6 modules with Babel or TypeScript
 import fetch from 'cross-fetch';
 
 // Using CommonJS modules

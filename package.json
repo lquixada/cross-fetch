@@ -5,6 +5,7 @@
   "homepage": "https://github.com/lquixada/cross-fetch",
   "main": "dist/node-ponyfill.js",
   "browser": "dist/browser-ponyfill.js",
+  "typings": "index.d.ts",
   "scripts": {
     "precommit": "lint-staged",
     "postversion": "git push --follow-tags",
@@ -63,7 +64,8 @@
   },
   "files": [
     "dist",
-    "polyfill"
+    "polyfill",
+    "index.d.ts"
   ],
   "keywords": [
     "fetch",
