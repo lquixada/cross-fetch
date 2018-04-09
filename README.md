@@ -1,6 +1,7 @@
 cross-fetch<br>
 [![Build Status](https://travis-ci.org/lquixada/cross-fetch.svg?branch=master)](https://travis-ci.org/lquixada/cross-fetch)
 [![codecov](https://codecov.io/gh/lquixada/cross-fetch/branch/master/graph/badge.svg)](https://codecov.io/gh/lquixada/cross-fetch)
+[![dependencies Status](https://david-dm.org/lquixada/cross-fetch/status.svg)](https://david-dm.org/lquixada/cross-fetch)
 [![NPM Version](https://img.shields.io/npm/v/cross-fetch.svg?branch=master)](https://www.npmjs.com/package/cross-fetch)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 ================
