@@ -2,17 +2,20 @@
 const ora = require('ora');
 const fetch = require('node-fetch');
 const pkg = require('../package');
+
+// For some unknown reason, ora doesn't output anything on CI environments.
 const spinner = ora();
 
 // Environment variables
+const isCI = !!process.env.CI;
 const pr = process.env.TRAVIS_PULL_REQUEST;
-const sauceUser = process.env.SAUCE_USER_NAME;
-const sauceAccessKey = process.env.SAUCE_ACCESS_KEY;
-const sauceBuild = process.env.SAUCE_BUILD || (pr ? `PR #${pr}` : `v${pkg.version}`);
+const name = process.env.SAUCE_USER_NAME;
+const key = process.env.SAUCE_ACCESS_KEY;
+const build = (pr === 'false'? `v${pkg.version}` : `PR #${pr}`);
 
 // Settings
-const url = `https://${sauceUser}:${sauceAccessKey}@saucelabs.com/rest/v1/${sauceUser}/js-tests`;
-const pollTimeout = 3000;
+const url = `https://${name}:${key}@saucelabs.com/rest/v1/${name}/js-tests`;
+const timeout = 3000;
 
 const pollResults = ids => {
   setTimeout(() => {
@@ -30,15 +33,35 @@ const pollResults = ids => {
         return pollResults(ids);
       }
       const failed = data['js tests'].some(test => test.result.failures);
-      spinner.succeed(failed? ' Failed.' : ' Passed.');
+
+      if (isCI) {
+        console.log(failed? '✖ Saucelabs failed!' : '✔ Saucelabs passed!');
+      } else {
+        if (failed) {
+          spinner.fail(' Failed.');
+        } else {
+          spinner.succeed(' Passed.');
+        }
+      }
+
       process.exit(failed ? 1 : 0);
     })
     // TODO: improve error output
-    .catch(err => spinner.fail(` ${err.message}`));
-  }, pollTimeout);
+    .catch(err => {
+      if (isCI) {
+        console.log(`✖ ${err.message}`);
+      } else {
+        spinner.fail(err.message);
+      }
+
+      process.exit(1);
+    });
+  }, timeout);
 }
 
-spinner.start(` Requesting test execution on Sauce Labs for build ${sauceBuild}...`);
+// Adds empty line if on CI
+isCI && console.log();
+spinner.start(` Requesting test execution on Sauce Labs for build ${build}...`);
 
 fetch(url, {
     method: 'POST',
@@ -46,8 +69,8 @@ fetch(url, {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      name: sauceUser,
-      build: sauceBuild,
+      name: name,
+      build,
       platforms: [
         ['Windows 7', 'internet explorer', '10'],
         ['Windows 7', 'internet explorer', '11'],
@@ -68,7 +91,7 @@ fetch(url, {
     spinner.stopAndPersist({
       symbol: '↗'
     });
-    spinner.succeed(` Success! Running on https://saucelabs.com/u/${sauceUser}...`);
+    spinner.succeed(` Success! Running on https://saucelabs.com/u/${name}...`);
     spinner.start(' Waiting for results...');
     return res.text();
   })
