@@ -1,6 +1,15 @@
 sudo: false
 language: node_js
 node_js:
-  - "8.9"
+- '8.9'
 script:
-  - npm run -s test:ci
+- npm run -s test:ci
+deploy:
+  provider: npm
+  email: lquixada@gmail.com
+  skip_cleanup: true
+  api_key:
+    secure: DfAbYRFAmaxS7cAZ3sY1hxpJb0Y6p/cpYuO6gbOiTTPPasQfOEVSLdhrheEQxMHZuK1kwAce8ptRwycNqqI+Mxk9sfZo4iEcix1xNehXzAubdibuRp40mK8l4DKgq8nIXKFae4c6LgyP5Y0of48QxFfLtTK0F190n2usHSpTAI6wrO24fRVqG52dC8cHhxOdeueOxAJYkyw03u6pBb8er/yseJGfkj8FsqB5zv82ijugtiqXfihOyRhUtMP6IdPZ8lQtfACeDHUYqSlhuKH6wZxME6FNSzRm+NR5LUIkPYKtofe22htVJYxLcIFOhMQs4pvOuuSYUzkoKZpTeDErfcZmIIPhjoScMkvk6caLFlFadV1LIz6Ch3VmaZWvOcM9A8rEHwxpA+2lSxRQyl8n0sxbKhHJI1rCOxxXZBrNU/wya7eQ5CHROzqQylJHb6aKndnMHipgYQjQyclXmbrSL7XDAFL6Qlo4LTHR1eQR83IwWmYUxyM+W0prg2fypRc5cAT4niUL5XFN+8kTkg2daE1CcQz9bdkNvSpatMq5y1Ez7hT7pVI4giWyx0XzlzWmNoplCprlOdDBQMH8qNt0ZoF26UZGVpYIeRhRp3cZbsFG0maFaZTt0YhGD8bbrbTzsJSUeV8DMcTro768sB6rCyHh3Zc6j07LlJur4N6KxI0=
+  on:
+    tags: true
+    repo: lquixada/cross-fetch
