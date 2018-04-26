@@ -9,7 +9,6 @@
     "precommit": "lint-staged",
     "build": "rollup -c",
     "codecov": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
-    "deploy": "git push --no-verify && git push --tags --no-verify && npm publish",
     "lint": "eslint .",
     "release": "release-it",
     "test": "run-p -s test:node test:headless lint",
