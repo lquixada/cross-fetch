@@ -7,6 +7,7 @@
   "browser": "dist/browser-ponyfill.js",
   "scripts": {
     "precommit": "lint-staged",
+    "postversion": "git push --follow-tags",
     "build": "rollup -c",
     "codecov": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
     "lint": "eslint .",
