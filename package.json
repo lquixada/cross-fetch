@@ -43,7 +43,7 @@
   },
   "devDependencies": {
     "chai": "4.1.2",
-    "codecov": "3.0.0",
+    "codecov": "3.0.1",
     "eslint": "4.19.1",
     "husky": "0.14.3",
     "lint-staged": "7.0.5",
@@ -58,7 +58,8 @@
     "rollup": "0.58.2",
     "rollup-plugin-copy": "0.2.3",
     "rollup-plugin-uglify": "3.0.0",
-    "sinon": "4.5.0"
+    "sinon": "4.5.0",
+    "snyk": "1.73.0"
   },
   "files": [
     "dist",
