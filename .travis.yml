@@ -2,8 +2,17 @@ sudo: false
 language: node_js
 node_js:
 - '6'
+install:
+- yarn global add snyk # snyk is not on prod dependencies
+- yarn --prod          # Ensure node_modules has only prod dependencies for the snyk analysis
+- npm run -s security
+- yarn                 # Back to normal
 script:
-- npm run -s test:ci
+- npm run -s test
+- npm run -s codecov
+- npm run -s sauce
+before_deploy:
+- npm run -s build
 deploy:
   provider: npm
   email: lquixada@gmail.com

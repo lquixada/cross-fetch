@@ -12,12 +12,12 @@
     "codecov": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
     "lint": "eslint .",
     "release": "release-it",
+    "sauce": "./tasks/sauce",
+    "security": "snyk test",
     "test": "run-p -s test:node test:headless lint",
     "test:browser": "opn test/browser/index.html",
-    "test:ci": "run-s -s test codecov test:sauce build",
     "test:headless": "mocha-headless-chrome -f test/browser/index.html -a no-sandbox -a disable-setuid-sandbox",
-    "test:node": "nyc mocha --check-leaks test/node/index.js",
-    "test:sauce": "./tasks/sauce"
+    "test:node": "nyc mocha --check-leaks test/node/index.js"
   },
   "lint-staged": {
     "*.js": [
@@ -26,7 +26,7 @@
     ]
   },
   "nyc": {
-    "temp-directory": "./.reports/.coverage"
+    "temp-directory": ".reports/.coverage"
   },
   "repository": {
     "type": "git",
@@ -58,8 +58,7 @@
     "rollup": "0.58.2",
     "rollup-plugin-copy": "0.2.3",
     "rollup-plugin-uglify": "3.0.0",
-    "sinon": "4.5.0",
-    "snyk": "1.73.0"
+    "sinon": "4.5.0"
   },
   "files": [
     "dist",
