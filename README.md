@@ -188,3 +188,5 @@ cross-fetch is licenced under the [MIT licence](https://github.com/lquixada/cros
 Manual cross-browser testing is provided by the following sponsor:
 
 [![BrowserStack](./assets/browserstack-logo.png)](https://www.browserstack.com/)
+
+this is a test
