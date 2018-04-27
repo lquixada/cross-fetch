@@ -34,33 +34,27 @@ const pollResults = ids => {
       }
       const failed = data['js tests'].some(test => test.result.failures);
 
-      if (isCI) {
-        console.log(failed? '✖ Saucelabs failed!' : '✔ Saucelabs passed!');
+      isCI && console.log(failed? '✖ Saucelabs: Failed!' : '✔ Saucelabs: Passed!');
+
+      if (failed) {
+        spinner.fail(' Failed.');
       } else {
-        if (failed) {
-          spinner.fail(' Failed.');
-        } else {
-          spinner.succeed(' Passed.');
-        }
+        spinner.succeed(' Passed.');
       }
 
       process.exit(failed ? 1 : 0);
     })
     // TODO: improve error output
     .catch(err => {
-      if (isCI) {
-        console.log(`✖ ${err.message}`);
-      } else {
-        spinner.fail(err.message);
-      }
+      isCI && console.log(`✖ ${err.message}`);
+      spinner.fail(err.message);
 
       process.exit(1);
     });
   }, timeout);
 }
 
-// Adds empty line if on CI
-isCI && console.log();
+isCI && console.log(`\n↗ Sauce Labs: Testing build ${build}...`);
 spinner.start(` Requesting test execution on Sauce Labs for build ${build}...`);
 
 fetch(url, {
