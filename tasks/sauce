@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/*eslint no-console: "off"*/
 const ora = require('ora');
 const fetch = require('node-fetch');
 const pkg = require('../package');
@@ -19,7 +20,6 @@ const timeout = 3000;
 
 const pollResults = ids => {
   setTimeout(() => {
-
     fetch(`${url}/status`, {
       method: 'POST',
       headers: {
