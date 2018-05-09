@@ -173,7 +173,7 @@ Heavily inspired by the works of [matthew-andrews](https://github.com/matthew-an
 
 ## License
 
-cross-fetch is licenced under the [MIT licence](https://github.com/lquixada/cross-fetch/blob/master/LICENSE) © [Leonardo Quixadá](https://twitter.com/lquixada/)
+cross-fetch is licensed under the [MIT license](https://github.com/lquixada/cross-fetch/blob/master/LICENSE) © [Leonardo Quixadá](https://twitter.com/lquixada/)
 
 
 ## Author
