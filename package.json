@@ -27,9 +27,6 @@
       "git add"
     ]
   },
-  "nyc": {
-    "temp-directory": ".reports/.coverage"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/lquixada/cross-fetch.git"
