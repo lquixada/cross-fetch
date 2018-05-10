@@ -16,7 +16,7 @@
     "lint": "eslint .",
     "sauce": "./tasks/sauce",
     "security": "snyk test",
-    "test": "run-p -s test:node test:headless lint",
+    "test": "npm run -s test:headless && npm run -s test:node && npm run -s lint",
     "test:browser": "opn test/browser/index.html",
     "test:headless": "mocha-headless-chrome -f test/browser/index.html -a no-sandbox -a disable-setuid-sandbox",
     "test:node": "nyc mocha --check-leaks test/node/index.js"
@@ -52,7 +52,6 @@
     "mocha": "5.1.1",
     "mocha-headless-chrome": "2.0.0",
     "nock": "9.2.5",
-    "npm-run-all": "4.1.3",
     "nyc": "11.7.3",
     "opn-cli": "3.1.0",
     "ora": "2.1.0",
