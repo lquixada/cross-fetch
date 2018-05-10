@@ -56,7 +56,6 @@
     "nyc": "11.7.3",
     "opn-cli": "3.1.0",
     "ora": "2.1.0",
-    "release-it": "7.4.3",
     "rollup": "0.58.2",
     "rollup-plugin-copy": "0.2.3",
     "rollup-plugin-uglify": "3.0.0",
