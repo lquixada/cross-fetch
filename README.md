@@ -141,7 +141,7 @@ I did a lot of research in order to find a fetch library that could be simple, c
 My preferred library used to be [isomorphic-fetch](https://github.com/matthew-andrews/isomorphic-fetch) but it has this [bug](https://github.com/matthew-andrews/isomorphic-fetch/issues/125) that prevents it from running in a react native environment. It seems it will never be fixed since the author hasn't been commiting for more than a year. That means dependencies are outdated as well. 
 
 
-#### Why polyfill might not be a good ideia?
+#### Why polyfill might not be a good idea?
 
 In a word? Risk. If the spec changes in the future, it might be problematic to debug. Read more about it on [sindresorhus's ponyfill](https://github.com/sindresorhus/ponyfill#how-are-ponyfills-better-than-polyfills) page. It's up to you if you're fine with it or not.
 
