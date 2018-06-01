@@ -1,4 +1,5 @@
-var realFetch = require('node-fetch');
+var nodeFetch = require('node-fetch');
+var realFetch = nodeFetch.default || nodeFetch;
 
 var fetch = function (url, options) {
   // Support schemaless URIs on the server for parity with the browser.
@@ -10,9 +11,9 @@ var fetch = function (url, options) {
 };
 
 fetch.fetch = fetch;
-fetch.Response = realFetch.Response;
-fetch.Headers = realFetch.Headers;
-fetch.Request = realFetch.Request;
+fetch.Response = nodeFetch.Response;
+fetch.Headers = nodeFetch.Headers;
+fetch.Request = nodeFetch.Request;
 fetch.polyfill = false;
 
 module.exports = fetch;
