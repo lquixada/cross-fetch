@@ -1,17 +1,11 @@
 const nock = require('nock');
-const addSuites = require('../fetch.spec');
-const fetch = require('../../src/node-ponyfill');
+const addSuite = require('../fetch.spec');
 
-// Add fetch api to the global scope on node environment.
-global.fetch = fetch;
-// Specs expect fetch to be a polyfill
-global.fetch.polyfill = true;
-global.Request = fetch.Request;
-global.Response = fetch.Response;
-global.Headers = fetch.Headers;
+// Add fetch api to the global scope on node environment. The polyfill also uses
+// the ponyfill version, so we're testing both aproaches in one stroke.
+require('../../src/node-polyfill');
 
 before(() => {
-  // Enable fake server
   nock('https://lquixa.da')
     .persist()
     .get('/succeed.txt')
@@ -23,4 +17,4 @@ before(() => {
     .reply(404, 'good bye world.');
 });
 
-addSuites('webpack node bundle environment');
+addSuite('webpack node bundle environment');
