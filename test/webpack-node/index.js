@@ -17,4 +17,4 @@ before(() => {
     .reply(404, 'good bye world.');
 });
 
-addSuite('webpack node bundle environment');
+addSuite('Environment: WEBPACK NODE BUNDLE');

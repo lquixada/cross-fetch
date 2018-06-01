@@ -17,4 +17,4 @@ before(() => {
     .reply(404, 'good bye world.');
 });
 
-addSuite('node environment');
+addSuite('Environment: NODE');
