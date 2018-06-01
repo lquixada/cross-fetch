@@ -20,8 +20,8 @@
     "test": "npm run -s test:headless && npm run -s test:node && npm run -s test:node:bundle && npm run -s lint",
     "test:browser": "opn test/browser/index.html",
     "test:headless": "mocha-headless-chrome -f test/browser/index.html -a no-sandbox -a disable-setuid-sandbox",
-    "test:node:bundle": "nyc mocha --check-leaks -r chai/register-expect test/webpack-node/bundle.js",
-    "test:node": "nyc mocha --check-leaks test/node/index.js"
+    "test:node:bundle": "nyc mocha test/webpack-node/bundle.js",
+    "test:node": "nyc mocha test/node/index.js"
   },
   "lint-staged": {
     "*.js": [

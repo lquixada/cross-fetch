@@ -1,6 +1,3 @@
-// Add chai's expect to the global scope
-global.expect = require('chai').expect;
-
 // Enable fake server
 const nock = require('nock');
 before(() => {
