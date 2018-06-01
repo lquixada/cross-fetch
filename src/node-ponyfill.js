@@ -11,6 +11,8 @@ var fetch = function (url, options) {
 };
 
 fetch.fetch = fetch;
+// Needed for TypeScript.
+fetch.default = fetch;
 fetch.Response = nodeFetch.Response;
 fetch.Headers = nodeFetch.Headers;
 fetch.Request = nodeFetch.Request;

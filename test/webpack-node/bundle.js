@@ -954,7 +954,7 @@ eval("// This is a suite that tests different parts of the fetch api. It\n// mus
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const nock = __webpack_require__(/*! nock */ \"./node_modules/nock/index.js\");\nconst addSuite = __webpack_require__(/*! ../fetch.spec */ \"./test/fetch.spec.js\");\n\n// Add fetch api to the global scope on node environment. The polyfill also uses\n// the ponyfill version, so we're testing both aproaches in one stroke.\n__webpack_require__(/*! ../../src/node-polyfill */ \"./src/node-polyfill.js\");\n\nbefore(() => {\n  // Enable fake server\n  nock('https://lquixa.da')\n    .persist()\n    .get('/succeed.txt')\n    .reply(200, 'hello world.');\n\n  nock('https://lquixa.da')\n    .persist()\n    .get('/fail.txt')\n    .reply(404, 'good bye world.');\n});\n\naddSuite('webpack node bundle environment');\n\n\n//# sourceURL=webpack:///./test/webpack-node/index.js?");
+eval("const nock = __webpack_require__(/*! nock */ \"./node_modules/nock/index.js\");\nconst addSuite = __webpack_require__(/*! ../fetch.spec */ \"./test/fetch.spec.js\");\n\n// Add fetch api to the global scope on node environment. The polyfill also uses\n// the ponyfill version, so we're testing both aproaches in one stroke.\n__webpack_require__(/*! ../../src/node-polyfill */ \"./src/node-polyfill.js\");\n\nbefore(() => {\n  nock('https://lquixa.da')\n    .persist()\n    .get('/succeed.txt')\n    .reply(200, 'hello world.');\n\n  nock('https://lquixa.da')\n    .persist()\n    .get('/fail.txt')\n    .reply(404, 'good bye world.');\n});\n\naddSuite('Environment: WEBPACK NODE BUNDLE');\n\n\n//# sourceURL=webpack:///./test/webpack-node/index.js?");
 
 /***/ }),
 
