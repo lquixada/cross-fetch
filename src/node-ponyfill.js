@@ -10,12 +10,13 @@ var fetch = function (url, options) {
   return realFetch.call(this, url, options);
 };
 
-fetch.fetch = fetch;
-// Needed for TypeScript.
-fetch.default = fetch;
-fetch.Response = nodeFetch.Response;
-fetch.Headers = nodeFetch.Headers;
-fetch.Request = nodeFetch.Request;
 fetch.polyfill = false;
 
-module.exports = fetch;
+module.exports = exports = fetch;
+exports.fetch = fetch;
+exports.Headers = nodeFetch.Headers;
+exports.Request = nodeFetch.Request;
+exports.Response = nodeFetch.Response;
+
+// Needed for TypeScript.
+exports.default = fetch;

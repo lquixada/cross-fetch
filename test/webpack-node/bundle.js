@@ -932,7 +932,7 @@ eval("var fetchNode = __webpack_require__(/*! ./node-ponyfill */ \"./src/node-po
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("var nodeFetch = __webpack_require__(/*! node-fetch */ \"./node_modules/node-fetch/lib/index.es.js\");\nvar realFetch = nodeFetch.default || nodeFetch;\n\nvar fetch = function (url, options) {\n  // Support schemaless URIs on the server for parity with the browser.\n  // Ex: //github.com/ -> https://github.com/\n  if (/^\\/\\//.test(url)) {\n    url = 'https:' + url;\n  }\n  return realFetch.call(this, url, options);\n};\n\nfetch.fetch = fetch;\nfetch.Response = nodeFetch.Response;\nfetch.Headers = nodeFetch.Headers;\nfetch.Request = nodeFetch.Request;\nfetch.polyfill = false;\n\nmodule.exports = fetch;\n\n\n//# sourceURL=webpack:///./src/node-ponyfill.js?");
+eval("var nodeFetch = __webpack_require__(/*! node-fetch */ \"./node_modules/node-fetch/lib/index.es.js\");\nvar realFetch = nodeFetch.default || nodeFetch;\n\nvar fetch = function (url, options) {\n  // Support schemaless URIs on the server for parity with the browser.\n  // Ex: //github.com/ -> https://github.com/\n  if (/^\\/\\//.test(url)) {\n    url = 'https:' + url;\n  }\n  return realFetch.call(this, url, options);\n};\n\nfetch.polyfill = false;\n\nmodule.exports = exports = fetch;\nexports.fetch = fetch;\nexports.Headers = nodeFetch.Headers;\nexports.Request = nodeFetch.Request;\nexports.Response = nodeFetch.Response;\n\n// Needed for TypeScript.\nexports.default = fetch;\n\n\n//# sourceURL=webpack:///./src/node-ponyfill.js?");
 
 /***/ }),
 
