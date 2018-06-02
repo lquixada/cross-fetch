@@ -8,7 +8,7 @@
   "typings": "index.d.ts",
   "scripts": {
     "pretest:node:bundle": "webpack-cli --config test/webpack-node/webpack.config.js",
-    "precommit": "lint-staged",
+    "precommit": "npm run -s build && lint-staged",
     "build": "rollup -c",
     "codecov": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
     "deploy:major": "npm version major && git push --follow-tags",
