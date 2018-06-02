@@ -1,11 +1,5 @@
-// This is a suite that tests different parts of the fetch api. It
-// must be EcmaScript 5 since it will run on old browsers. Every spec
-// here will also run on the following two test environments:
-// * test/browser/
-// * test/node/
 function addSuite(envName) {
 
-  // Helper function
   var responseToText = function (res) {
     if (res.status >= 400) {
       throw new Error('Bad server response');
