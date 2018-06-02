@@ -18,7 +18,7 @@
   },
   "rules": {
     "no-debugger": "warn",
-    "no-console": "warn",
+    "no-console": "off",
     "no-multiple-empty-lines": ["error", {
       "max": 1,
       "maxBOF": 1,

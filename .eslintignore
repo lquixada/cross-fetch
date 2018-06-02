@@ -1,3 +1,2 @@
 dist
-test/public
 test/webpack-node/bundle.js
