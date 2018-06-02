@@ -17,4 +17,7 @@ before(() => {
     .reply(404, 'good bye world.');
 });
 
-addSuite('Environment: NODE');
+// webpack-node suite uses this file as entry point
+const env = process.env.webpack? 'WEBPACK NODE BUNDLE' : 'NODE';
+
+addSuite(`Environment: ${env}`);
