@@ -9,9 +9,9 @@ install:
 - yarn                 # Back to normal
 script:
 - npm run -s test
+before_deploy:
 - npm run -s codecov
 - npm run -s sauce
-before_deploy:
 - npm run -s build
 deploy:
   provider: npm
