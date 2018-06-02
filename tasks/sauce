@@ -35,6 +35,7 @@ const pollResults = ids => {
       const failed = data['js tests'].some(test => test.result.failures);
 
       isCI && console.log(failed? '✖ Saucelabs: Failed!' : '✔ Saucelabs: Passed!');
+      isCI && console.log('Results: https://saucelabs.com/u/cross-fetch');
 
       if (failed) {
         spinner.fail(' Failed.');
