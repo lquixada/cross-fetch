@@ -1,5 +1,9 @@
 sudo: false
 language: node_js
+branches:
+  only:
+  # Only run on tags like v1.0.0
+  - /^v\d+\.\d+(\.\d+)?(-\S*)?$/
 node_js:
 - '6'
 install:
