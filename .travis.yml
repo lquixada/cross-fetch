@@ -6,6 +6,7 @@ branches:
   - /^v\d+\.\d+(\.\d+)?(-\S*)?$/
 node_js:
 - '6'
+- '8'
 install:
 - yarn global add snyk # snyk is not on prod dependencies
 - yarn --prod          # Ensure node_modules has only prod dependencies for the snyk analysis
