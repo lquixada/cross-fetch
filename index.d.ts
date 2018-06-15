@@ -1,6 +1,6 @@
 declare const fet: typeof fetch;
-declare const req: typeof Headers;
-declare const res: typeof Headers;
+declare const req: typeof Request;
+declare const res: typeof Response;
 declare const headers: typeof Headers;
 
 declare module "cross-fetch" {
