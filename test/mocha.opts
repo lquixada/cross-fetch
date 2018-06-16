@@ -1,2 +1,2 @@
--r chai/register-expect
- --check-leaks
+--require chai/register-expect
+--check-leaks
