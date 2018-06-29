@@ -4,20 +4,17 @@ branches:
   only:
   # Only run on tags like v1.0.0
   - /^v\d+\.\d+(\.\d+)?(-\S*)?$/
-node_js:
-- '6'
-- '8'
-install:
+before_install:
 - yarn global add snyk # snyk is not on prod dependencies
 - yarn --prod          # Ensure node_modules has only prod dependencies for the snyk analysis
-- npm run -s security
+- yarn security
+install:
 - yarn                 # Back to normal
 script:
-- npm run -s test
-before_deploy:
-- npm run -s codecov
-- npm run -s sauce
-- npm run -s build
+- yarn test
+- yarn codecov
+- yarn sauce
+- yarn build
 deploy:
   provider: npm
   email: lquixada@gmail.com
