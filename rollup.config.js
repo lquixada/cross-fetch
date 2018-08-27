@@ -23,7 +23,7 @@ export default [
           F.prototype = root;
           return new F();
         })(typeof self !== 'undefined' ? self : this);
-
+        console.log('another test')
         (function(self) {
       `),
       footer: outdent(`

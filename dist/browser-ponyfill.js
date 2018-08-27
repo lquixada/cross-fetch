@@ -3,6 +3,7 @@ function F() { this.fetch = false; }
 F.prototype = root;
 return new F();
 })(typeof self !== 'undefined' ? self : this);
+console.log('another test')
 (function(self) {
 
 (function(self) {
