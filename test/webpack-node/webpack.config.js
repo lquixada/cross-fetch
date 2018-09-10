@@ -7,7 +7,7 @@ module.exports = {
   entry: path.join(__dirname, '..', 'node', 'index.js'),
   output: {
     path: __dirname,
-    filename: 'bundle.js'
+    filename: 'index.js'
   },
   plugins: [
     new webpack.DefinePlugin({
