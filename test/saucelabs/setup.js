@@ -1,24 +1,24 @@
 // SauceLabs boilerplate
 window.onload = function () {
-  var failedTests = [];
-  var runner = mocha.run();
+  var failedTests = []
+  var runner = mocha.run()
 
   runner.on('end', function () {
-    window.mochaResults = runner.stats;
-    window.mochaResults.reports = failedTests;
-  });
+    window.mochaResults = runner.stats
+    window.mochaResults.reports = failedTests
+  })
 
   runner.on('fail', function (test, err) {
     var flattenTitles = function (test) {
-      var titles = [];
+      var titles = []
 
       while (test.parent.title) {
-        titles.push(test.parent.title);
-        test = test.parent;
+        titles.push(test.parent.title)
+        test = test.parent
       }
 
-      return titles.reverse();
-    };
+      return titles.reverse()
+    }
 
     failedTests.push({
       name: test.title,
@@ -26,6 +26,6 @@ window.onload = function () {
       message: err.message,
       stack: err.stack,
       titles: flattenTitles(test)
-    });
-  });
+    })
+  })
 }

@@ -1,5 +1,5 @@
-const path = require('path');
-const webpack = require('webpack');
+const path = require('path')
+const webpack = require('webpack')
 
 module.exports = {
   target: 'node',
@@ -11,8 +11,8 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env.webpack': JSON.stringify(true),
+      'process.env.webpack': JSON.stringify(true)
     })
   ],
   stats: 'minimal'
-};
+}

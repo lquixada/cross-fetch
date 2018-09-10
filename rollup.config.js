@@ -1,11 +1,11 @@
 /* Rollup creates the browser version of the polyfill and ponyfill. */
-import path from 'path';
-import copy from 'rollup-plugin-copy';
-import {uglify} from 'rollup-plugin-uglify';
+import path from 'path'
+import copy from 'rollup-plugin-copy'
+import { uglify } from 'rollup-plugin-uglify'
 
-const input = path.join(__dirname, 'node_modules', 'whatwg-fetch', 'fetch.js');
+const input = path.join(__dirname, 'node_modules', 'whatwg-fetch', 'fetch.js')
 
-const outdent = str => str.replace(/^\s*/mg, '');
+const outdent = str => str.replace(/^\s*/mg, '')
 
 export default [
   // Ponyfill for commonjs usage via require('cross-fetch')
@@ -75,8 +75,8 @@ export default [
       strict: false
     },
     plugins: [
-      uglify(),
+      uglify()
     ],
     context: 'this'
   }
-];
+]
