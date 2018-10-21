@@ -477,4 +477,6 @@ var Request = fetch.Request = __root__.Request;
 var Headers = fetch.Headers = __root__.Headers;
 if (typeof module === 'object' && module.exports) {
 module.exports = fetch;
+// Needed for TypeScript consumers without esModuleInterop.
+module.exports.default = fetch;
 }
