@@ -36,6 +36,8 @@ export default [
 
         if (typeof module === 'object' && module.exports) {
           module.exports = fetch;
+          // Needed for TypeScript consumers without esModuleInterop.
+          module.exports.default = fetch;
         }
       `)
     },
