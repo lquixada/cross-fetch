@@ -13,7 +13,7 @@ Universal WHATWG Fetch API for Node, Browsers and React Native. The scenario tha
 - **Optional polyfill**: it's up to you if something is going to be added to the global object or not
 - **Simple interface**: no instantiation, no configuration and no extra dependency
 - **WHATWG compliant**: it works the same way wherever your code runs
-- **Updated**: lastest version of whatwg-fetch and node-fetch used
+- **Updated**: latest version of whatwg-fetch and node-fetch used
 
 
 * * *
@@ -133,12 +133,12 @@ You can find a comprehensive doc at [Github's fetch](https://github.github.io/fe
 
 #### Yet another fetch library?
 
-I did a lot of research in order to find a fetch library that could be simple, cross-platorm and provide polyfill as an option. There's a plethora of libs out there but none could match those requirements.
+I did a lot of research in order to find a fetch library that could be simple, cross-platform and provide polyfill as an option. There's a plethora of libs out there but none could match those requirements.
 
 
 #### Why not isomorphic-fetch?
 
-My preferred library used to be [isomorphic-fetch](https://github.com/matthew-andrews/isomorphic-fetch) but it has this [bug](https://github.com/matthew-andrews/isomorphic-fetch/issues/125) that prevents it from running in a react native environment. It seems it will never be fixed since the author hasn't been commiting for more than a year. That means dependencies are outdated as well. 
+My preferred library used to be [isomorphic-fetch](https://github.com/matthew-andrews/isomorphic-fetch) but it has this [bug](https://github.com/matthew-andrews/isomorphic-fetch/issues/125) that prevents it from running in a react native environment. It seems it will never be fixed since the author hasn't been committing for more than a year. That means dependencies are outdated as well. 
 
 
 #### Why polyfill might not be a good idea?
