@@ -13,6 +13,5 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env.webpack': JSON.stringify(true)
     })
-  ],
-  stats: 'minimal'
+  ]
 }
