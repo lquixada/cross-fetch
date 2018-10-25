@@ -1,96 +1,95 @@
 #!/usr/bin/env node
-/*eslint no-console: "off"*/
-const ora = require('ora');
-const fetch = require('node-fetch');
-const pkg = require('../package');
+/* eslint no-console: "off" */
+const ora = require('ora')
+const fetch = require('node-fetch')
+const pkg = require('../package')
 
 // For some unknown reason, ora doesn't output anything on CI environments.
-const spinner = ora();
+const spinner = ora()
 
 // Environment variables
-const isCI = !!process.env.CI;
-const pr = process.env.TRAVIS_PULL_REQUEST;
-const name = process.env.SAUCE_USER_NAME;
-const key = process.env.SAUCE_ACCESS_KEY;
-const build = (pr === 'false'? `v${pkg.version}` : `PR #${pr}`);
+const isCI = !!process.env.CI
+const pr = process.env.TRAVIS_PULL_REQUEST
+const name = process.env.SAUCE_USER_NAME
+const key = process.env.SAUCE_ACCESS_KEY
+const build = (pr === 'false' ? `v${pkg.version}` : `PR #${pr}`)
 
 // Settings
-const url = `https://${name}:${key}@saucelabs.com/rest/v1/${name}/js-tests`;
-const timeout = 3000;
+const url = `https://${name}:${key}@saucelabs.com/rest/v1/${name}/js-tests`
+const timeout = 3000
 
 const pollResults = ids => {
   setTimeout(() => {
     fetch(`${url}/status`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
       body: ids
     })
-    .then(res => res.json())
-    .then(data => {
-      if (!data.completed) {
-        return pollResults(ids);
-      }
-      const failed = data['js tests'].some(test => test.result.failures);
+      .then(res => res.json())
+      .then(data => {
+        if (!data.completed) {
+          return pollResults(ids)
+        }
+        const failed = data['js tests'].some(test => test.result.failures)
 
-      isCI && console.log(failed? '✖ Saucelabs: Failed!' : '✔ Saucelabs: Passed!');
-      isCI && console.log('Results: https://saucelabs.com/u/cross-fetch');
+        isCI && console.log(failed ? '✖ Saucelabs: Failed!' : '✔ Saucelabs: Passed!')
+        isCI && console.log('Results: https://saucelabs.com/u/cross-fetch')
 
-      if (failed) {
-        spinner.fail(' Failed.');
-      } else {
-        spinner.succeed(' Passed.');
-      }
+        if (failed) {
+          spinner.fail(' Failed.')
+        } else {
+          spinner.succeed(' Passed.')
+        }
 
-      process.exit(failed ? 1 : 0);
-    })
+        process.exit(failed ? 1 : 0)
+      })
     // TODO: improve error output
-    .catch(err => {
-      isCI && console.log(`✖ ${err.message}`);
-      spinner.fail(err.message);
+      .catch(err => {
+        isCI && console.log(`✖ ${err.message}`)
+        spinner.fail(err.message)
 
-      process.exit(1);
-    });
-  }, timeout);
+        process.exit(1)
+      })
+  }, timeout)
 }
 
-isCI && console.log(`\n↗ Sauce Labs: Testing build ${build}...`);
-spinner.start(` Requesting test execution on Sauce Labs for build ${build}...`);
+isCI && console.log(`\n↗ Sauce Labs: Testing build ${build}...`)
+spinner.start(` Requesting test execution on Sauce Labs for build ${build}...`)
 
 fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      name: name,
-      build,
-      platforms: [
-        ['Windows 7', 'internet explorer', '10'],
-        ['Windows 7', 'internet explorer', '11'],
-        ['Windows 10', 'microsoftedge', 'latest'],
-        ['Windows 10', 'chrome', 'latest'],
-        ['Windows 10', 'firefox', 'latest'],
-        ['Mac 10.12', 'safari', 'latest']
-      ],
-      url: 'https://lquixada.github.io/cross-fetch/test/saucelabs/',
-      framework: 'mocha'
-    })
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    name: name,
+    build,
+    platforms: [
+      ['Windows 7', 'internet explorer', '10'],
+      ['Windows 7', 'internet explorer', '11'],
+      ['Windows 10', 'microsoftedge', 'latest'],
+      ['Windows 10', 'chrome', 'latest'],
+      ['Windows 10', 'firefox', 'latest'],
+      ['Mac 10.12', 'safari', 'latest']
+    ],
+    url: 'https://lquixada.github.io/cross-fetch/test/saucelabs/',
+    framework: 'mocha'
   })
+})
   .then(res => {
     if (res.status >= 400) {
-      throw new Error('Bad response from server');
+      throw new Error('Bad response from server')
     }
 
     spinner.stopAndPersist({
       symbol: '↗'
-    });
-    spinner.succeed(` Success! Running on https://saucelabs.com/u/${name}...`);
-    spinner.start(' Waiting for results...');
-    return res.text();
+    })
+    spinner.succeed(` Success! Running on https://saucelabs.com/u/${name}...`)
+    spinner.start(' Waiting for results...')
+    return res.text()
   })
   .then(pollResults)
   // TODO: improve error output
-  .catch(err => spinner.fail(` ${err.message}`));
-
+  .catch(err => spinner.fail(` ${err.message}`))
