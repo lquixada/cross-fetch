@@ -16,9 +16,9 @@
     "lint": "standard",
     "sauce": "./tasks/sauce",
     "security": "snyk test",
-    "test": "npm run -s test:headless && npm run -s test:node && npm run -s test:node:bundle && npm run -s lint",
+    "test": "npm run -s test:browser:headless && npm run -s test:node && npm run -s test:node:bundle && npm run -s lint",
     "test:browser": "opn test/browser/index.html",
-    "test:headless": "mocha-headless-chrome -f test/browser/index.html -a no-sandbox -a disable-setuid-sandbox",
+    "test:browser:headless": "mocha-headless-chrome -f test/browser-headless/index.html -a no-sandbox -a disable-setuid-sandbox",
     "test:node:bundle": "nyc mocha test/node-bundle/index.js",
     "test:node": "nyc mocha test/node-plain/index.js"
   },
