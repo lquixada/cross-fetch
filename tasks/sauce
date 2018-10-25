@@ -74,7 +74,7 @@ fetch(url, {
       ['Windows 10', 'firefox', 'latest'],
       ['Mac 10.12', 'safari', 'latest']
     ],
-    url: 'https://lquixada.github.io/cross-fetch/test/saucelabs/',
+    url: 'https://lquixada.github.io/cross-fetch/test/browser-saucelabs/',
     framework: 'mocha'
   })
 })
