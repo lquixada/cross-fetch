@@ -14,7 +14,7 @@ function addSuite (envName) {
     return res.text()
   }
 
-  describe(envName, function () {
+  describe('cross-fetch on ' + envName, function () {
     describe('fetch', function () {
       it('should be defined', function () {
         expect(fetch).to.be.a('function')
