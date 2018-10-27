@@ -28,7 +28,6 @@ Universal WHATWG Fetch API for Node, Browsers and React Native. The scenario tha
 -   [Thanks](#thanks)
 -   [License](#license)
 -   [Author](#author)
--   [Sponsors](#sponsors)
 
 * * *
 
@@ -181,10 +180,3 @@ cross-fetch is licensed under the [MIT license](https://github.com/lquixada/cros
 |[![@lquixada](https://avatars0.githubusercontent.com/u/195494?v=4&s=96)](https://github.com/lquixada)|
 |:---:|
 |[@lquixada](http://www.github.com/lquixada)|
-
-
-## Sponsors
-
-Manual cross-browser testing is provided by the following sponsor:
-
-[![BrowserStack](./assets/browserstack-logo.png)](https://www.browserstack.com/)
