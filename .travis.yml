@@ -2,14 +2,13 @@ sudo: false
 language: node_js
 branches:
   only:
-  # Only run on tags like v1.0.0
-  - /^v\d+\.\d+(\.\d+)?(-\S*)?$/
+  - /^v\\d+\\.\\d+(\\.\\d+)?(-\\S*)?$/
 before_install:
-- yarn global add snyk # snyk is not on prod dependencies
-- yarn --prod          # Ensure node_modules has only prod dependencies for the snyk analysis
+- yarn global add snyk
+- yarn --prod
 - yarn security
 install:
-- yarn                 # Back to normal
+- yarn
 script:
 - yarn test
 - yarn codecov
@@ -20,7 +19,7 @@ deploy:
   email: lquixada@gmail.com
   skip_cleanup: true
   api_key:
-    secure: DfAbYRFAmaxS7cAZ3sY1hxpJb0Y6p/cpYuO6gbOiTTPPasQfOEVSLdhrheEQxMHZuK1kwAce8ptRwycNqqI+Mxk9sfZo4iEcix1xNehXzAubdibuRp40mK8l4DKgq8nIXKFae4c6LgyP5Y0of48QxFfLtTK0F190n2usHSpTAI6wrO24fRVqG52dC8cHhxOdeueOxAJYkyw03u6pBb8er/yseJGfkj8FsqB5zv82ijugtiqXfihOyRhUtMP6IdPZ8lQtfACeDHUYqSlhuKH6wZxME6FNSzRm+NR5LUIkPYKtofe22htVJYxLcIFOhMQs4pvOuuSYUzkoKZpTeDErfcZmIIPhjoScMkvk6caLFlFadV1LIz6Ch3VmaZWvOcM9A8rEHwxpA+2lSxRQyl8n0sxbKhHJI1rCOxxXZBrNU/wya7eQ5CHROzqQylJHb6aKndnMHipgYQjQyclXmbrSL7XDAFL6Qlo4LTHR1eQR83IwWmYUxyM+W0prg2fypRc5cAT4niUL5XFN+8kTkg2daE1CcQz9bdkNvSpatMq5y1Ez7hT7pVI4giWyx0XzlzWmNoplCprlOdDBQMH8qNt0ZoF26UZGVpYIeRhRp3cZbsFG0maFaZTt0YhGD8bbrbTzsJSUeV8DMcTro768sB6rCyHh3Zc6j07LlJur4N6KxI0=
+    secure: kpKUE2lxniMyEz53PRSWS7leEsG92fq3SO/tvJJS+3UpADu8esucvkNoMXkQZmMshanoZkujV2aBZuBRwtFZw2TWaobzEGqdqHTlxbKHtVUufeUoEpyTAqr1mC06rM2yx+0BhHGTbga0BV93PweMFWSN/38W4EH7w7WXudgyMb0bLWW2R0qp2GHFXFHjYgxqffMR4HI0tw8nL5LAe/cGjW5tEdAOTxbQOp3YBXYWPcwFl41GkgRiPdOij1Qa+ZRHs327Hvq2ylenvC9Z7pfMgM8a4/xEvjgKzvjseLfbvQ+bL4iS8RTEO+vaFSnebP8AF9hZaglK+D2BG1czuYv25hcvbaZvxNQqJtHeMGQbhWaBnwHRkwO1hhKZKwdg2s+D/ddQxDUdtKjKwely5PGpnNeCuX0MweM6uVeJShVHZihc/ujLC/TVbSSd70oJ1B297u6F22MROuBzqxtmn4amcQwJ+XEbQbrZkMFaLAGWOSnaz6JVLZA/+jN+AIJ3VTOMaCVOc7SFaqKSS3XdMyi2CkfRRt2KPVpkLpIvjuryE5VwnR86Vs/cvAXwPSqXDJp/VnSWLDKMvmCXkiw/szzyiIZdCf3LLyycoN/JXxk9pbrw8OsZ6M+jsWejLbItDs21/ym8Uy66FRRm/qZ19R2Q0SszbE5o7s9bUY7meXEog7E=
   on:
     tags: true
     repo: lquixada/cross-fetch
