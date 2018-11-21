@@ -11,11 +11,8 @@
   <script src="../../node_modules/chai/chai.js"></script>
   <script src="../../node_modules/mocha/mocha.js"></script>
   <script src="./setup.js"></script>
-
-  <!-- cross-fetch polyfill is the same thing as github's fetch -->
-  <script src="../../node_modules/whatwg-fetch/fetch.js"></script>
+  <script src="../../dist/cross-fetch.js"></script>
   <script src="../fetch.spec.js"></script>
-
   <script>
     addSuite('headless browser');
     mocha.checkLeaks();

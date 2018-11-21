@@ -14,13 +14,7 @@
   <script src="https://unpkg.com/mocha@5.2.0/mocha.js"></script>
   <script src="../browser-headless/setup.js"></script>
   <script src="./setup.js"></script>
-
-  <!--
-    Using browser-ponyfill to force newest browsers to run tests against cross-fetch
-    implementation instead of the native one.
-  -->
-  <script src="https://unpkg.com/cross-fetch@latest/dist/browser-ponyfill.js"></script>
-
+  <script src="https://unpkg.com/cross-fetch@latest/dist/cross-fetch.js"></script>
   <script src="../fetch.spec.js"></script>
 
   <script>

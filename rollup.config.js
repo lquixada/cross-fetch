@@ -15,7 +15,8 @@ export default [
     input,
     output: {
       file: path.join(__dirname, 'dist', 'browser-ponyfill.js'),
-      format: 'cjs',
+      format: 'iife',
+      name: 'irrelevant',
       strict: false,
       banner: outdent(`
         var __root__ = (function (root) {
@@ -27,7 +28,7 @@ export default [
         (function(self) {
       `),
       footer: outdent(`
-        }).call(__root__, void(0));
+        }).call(null, __root__);
 
         var fetch = __root__.fetch;
         var Response = fetch.Response = __root__.Response;
@@ -55,8 +56,15 @@ export default [
     input,
     output: {
       file: path.join(__dirname, 'dist', 'browser-polyfill.js'),
-      format: 'cjs',
-      strict: false
+      format: 'iife',
+      name: 'irrelevant',
+      strict: false,
+      banner: outdent(`
+        (function(self) {
+      `),
+      footer: outdent(`
+        })(typeof self !== 'undefined' ? self : this);
+      `)
     },
     plugins: [
       copy({
@@ -72,13 +80,19 @@ export default [
     input,
     output: {
       file: path.join(__dirname, 'dist', 'cross-fetch.js'),
-      format: 'cjs',
+      format: 'iife',
+      name: 'irrelevant',
       sourcemap: true,
-      strict: false
+      strict: false,
+      banner: outdent(`
+        (function(self) {
+      `),
+      footer: outdent(`
+        })(typeof self !== 'undefined' ? self : this);
+      `)
     },
     plugins: [
       uglify()
-    ],
-    context: 'this'
+    ]
   }
 ]

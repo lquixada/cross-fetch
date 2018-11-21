@@ -7,6 +7,7 @@
   "browser": "dist/browser-ponyfill.js",
   "typings": "index.d.ts",
   "scripts": {
+    "pretest": "npm run build",
     "pretest:node:bundle": "webpack-cli --progress --config test/node-bundle/webpack.config.js",
     "build": "rollup -c",
     "codecov": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
@@ -62,7 +63,7 @@
   },
   "dependencies": {
     "node-fetch": "2.1.2",
-    "whatwg-fetch": "2.0.4"
+    "whatwg-fetch": "3.0.0"
   },
   "devDependencies": {
     "chai": "4.2.0",
