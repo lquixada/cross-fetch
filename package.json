@@ -17,7 +17,7 @@
     "deploy:patch": "npm version patch && git push --follow-tags",
     "lint": "standard",
     "sauce": "./tasks/sauce",
-    "test": "npm run test:browser:bundle && npm run test:browser:plain && npm run test:node:plain && npm run test:node:bundle && npm run lint",
+    "test": "run-s test:browser:bundle test:browser:plain test:node:plain test:node:bundle lint",
     "test:browser:bundle": "mocha-headless-chrome -f test/browser/bundle-polyfill/index.html",
     "test:browser:plain": "mocha-headless-chrome -f test/browser/plain-polyfill/index.html",
     "test:node:bundle": "nyc mocha test/node/bundle-polyfill/bundle.js",
@@ -63,6 +63,7 @@
   },
   "dependencies": {
     "node-fetch": "2.1.2",
+    "npm-run-all": "^4.1.3",
     "whatwg-fetch": "3.0.0"
   },
   "devDependencies": {
