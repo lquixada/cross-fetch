@@ -1,7 +1,6 @@
 /**
  * The fetch.spec.js file has all the tests needed to assure cross-fetch is properly
- * working. It will be run on different settings such as headless browser, plain node and
- * webpack bundle for node. It is the same file that runs across different settings provided
+ * working. It is the same specs file that runs across different settings provided
  * by the test/ folder.
  */
 
