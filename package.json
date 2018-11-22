@@ -8,6 +8,7 @@
   "typings": "index.d.ts",
   "scripts": {
     "pretest": "npm run build",
+    "pretest:browser:bundle": "webpack-cli --progress --config test/browser-bundle/webpack.config.js",
     "pretest:node:bundle": "webpack-cli --progress --config test/node-bundle/webpack.config.js",
     "build": "rollup -c",
     "codecov": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
@@ -18,9 +19,10 @@
     "sauce": "./tasks/sauce",
     "security": "snyk test",
     "test": "npm run -s test:browser:headless && npm run -s test:node:plain && npm run -s test:node:bundle && npm run -s lint",
+    "test:browser:bundle": "mocha-headless-chrome -f test/browser-bundle/index.html -a no-sandbox -a disable-setuid-sandbox",
     "test:browser:headless": "mocha-headless-chrome -f test/browser-headless/index.html -a no-sandbox -a disable-setuid-sandbox",
     "test:browser:plain": "opn test/browser/index.html",
-    "test:node:bundle": "nyc mocha test/node-bundle/index.js",
+    "test:node:bundle": "nyc mocha test/node-bundle/bundle.js",
     "test:node:plain": "nyc mocha test/node-plain/index.js"
   },
   "lint-staged": {
@@ -46,7 +48,7 @@
     ],
     "ignore": [
       "/dist/",
-      "test/node-bundle/index.js"
+      "bundle.js"
     ]
   },
   "nyc": {

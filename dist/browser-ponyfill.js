@@ -531,7 +531,7 @@ var irrelevant = (function (exports) {
   return exports;
 
 }({}));
-}).call(null, __root__);
+})(__root__);
 var fetch = __root__.fetch;
 var Response = fetch.Response = __root__.Response;
 var Request = fetch.Request = __root__.Request;

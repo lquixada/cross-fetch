@@ -28,7 +28,7 @@ export default [
         (function(self) {
       `),
       footer: outdent(`
-        }).call(null, __root__);
+        })(__root__);
 
         var fetch = __root__.fetch;
         var Response = fetch.Response = __root__.Response;
