@@ -4,9 +4,8 @@ branches:
   only:
   - /^v\\d+\\.\\d+(\\.\\d+)?(-\\S*)?$/
 before_install:
-- yarn global add snyk
 - yarn --prod
-- yarn security
+- npx snyk test
 install:
 - yarn
 script:
