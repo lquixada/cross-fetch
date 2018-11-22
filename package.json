@@ -21,7 +21,6 @@
     "test": "npm run test:browser:bundle && npm run test:browser:plain && npm run test:node:plain && npm run test:node:bundle && npm run lint",
     "test:browser:bundle": "mocha-headless-chrome -f test/browser/bundle-polyfill/index.html -a no-sandbox -a disable-setuid-sandbox",
     "test:browser:plain": "mocha-headless-chrome -f test/browser/plain-polyfill/index.html -a no-sandbox -a disable-setuid-sandbox",
-    "test:browser": "opn test/browser/index.html",
     "test:node:bundle": "nyc mocha test/node/bundle-polyfill/bundle.js",
     "test:node:plain": "nyc mocha test/node/plain-polyfill/index.js"
   },
@@ -76,7 +75,6 @@
     "mocha-headless-chrome": "2.0.1",
     "nock": "10.0.2",
     "nyc": "13.1.0",
-    "opn-cli": "4.0.0",
     "ora": "3.0.0",
     "rollup": "0.67.3",
     "rollup-plugin-copy": "0.2.3",
