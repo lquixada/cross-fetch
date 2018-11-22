@@ -18,8 +18,8 @@
     "lint": "standard",
     "sauce": "./tasks/sauce",
     "test": "npm run test:browser:bundle && npm run test:browser:plain && npm run test:node:plain && npm run test:node:bundle && npm run lint",
-    "test:browser:bundle": "mocha-headless-chrome -f test/browser/bundle-polyfill/index.html -a no-sandbox -a disable-setuid-sandbox",
-    "test:browser:plain": "mocha-headless-chrome -f test/browser/plain-polyfill/index.html -a no-sandbox -a disable-setuid-sandbox",
+    "test:browser:bundle": "mocha-headless-chrome -f test/browser/bundle-polyfill/index.html",
+    "test:browser:plain": "mocha-headless-chrome -f test/browser/plain-polyfill/index.html",
     "test:node:bundle": "nyc mocha test/node/bundle-polyfill/bundle.js",
     "test:node:plain": "nyc mocha test/node/plain-polyfill/index.js"
   },
