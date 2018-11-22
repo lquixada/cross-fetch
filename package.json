@@ -8,8 +8,8 @@
   "typings": "index.d.ts",
   "scripts": {
     "pretest": "npm run build",
-    "pretest:browser:bundle": "webpack-cli --progress --config test/browser-bundle/webpack.config.js",
-    "pretest:node:bundle": "webpack-cli --progress --config test/node-bundle/webpack.config.js",
+    "pretest:browser:bundle": "webpack-cli --progress --config test/browser/bundle-polyfill/webpack.config.js",
+    "pretest:node:bundle": "webpack-cli --progress --config test/node/bundle-polyfill/webpack.config.js",
     "build": "rollup -c",
     "codecov": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
     "deploy:major": "npm version major && git push --follow-tags",
@@ -18,12 +18,12 @@
     "lint": "standard",
     "sauce": "./tasks/sauce",
     "security": "snyk test",
-    "test": "npm run -s test:browser:headless && npm run -s test:node:plain && npm run -s test:node:bundle && npm run -s lint",
-    "test:browser:bundle": "mocha-headless-chrome -f test/browser-bundle/index.html -a no-sandbox -a disable-setuid-sandbox",
-    "test:browser:headless": "mocha-headless-chrome -f test/browser-headless/index.html -a no-sandbox -a disable-setuid-sandbox",
-    "test:browser:plain": "opn test/browser/index.html",
-    "test:node:bundle": "nyc mocha test/node-bundle/bundle.js",
-    "test:node:plain": "nyc mocha test/node-plain/index.js"
+    "test": "npm run test:browser:bundle && npm run test:browser:plain && npm run test:node:plain && npm run test:node:bundle && npm run lint",
+    "test:browser:bundle": "mocha-headless-chrome -f test/browser/bundle-polyfill/index.html -a no-sandbox -a disable-setuid-sandbox",
+    "test:browser:plain": "mocha-headless-chrome -f test/browser/plain-polyfill/index.html -a no-sandbox -a disable-setuid-sandbox",
+    "test:browser": "opn test/browser/index.html",
+    "test:node:bundle": "nyc mocha test/node/bundle-polyfill/bundle.js",
+    "test:node:plain": "nyc mocha test/node/plain-polyfill/index.js"
   },
   "lint-staged": {
     "*.js": [
