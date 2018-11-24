@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./test/node/webpack/index.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./test/node/webpack/index.esm.js");
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -959,14 +959,15 @@ eval("const nock = __webpack_require__(/*! nock */ \"./node_modules/nock/index.j
 
 /***/ }),
 
-/***/ "./test/node/webpack/index.js":
-/*!************************************!*\
-  !*** ./test/node/webpack/index.js ***!
-  \************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./test/node/webpack/index.esm.js":
+/*!****************************************!*\
+  !*** ./test/node/webpack/index.esm.js ***!
+  \****************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-eval("__webpack_require__(/*! ../setup */ \"./test/node/setup.js\")\n\ndescribe('Node Webpack', () => {\n  __webpack_require__(/*! ../../../dist/node-polyfill */ \"./dist/node-polyfill.js\")\n\n  describe('Polyfill', () => {\n    it('should polyfill Fetch', () => {\n      expect(fetch).to.be.a('function')\n      expect(fetch.polyfill).to.equal(true)\n    })\n\n    it('should polyfill Request', () => {\n      expect(Request).to.be.a('function')\n    })\n\n    it('should polyfill Response', () => {\n      expect(Response).to.be.a('function')\n    })\n\n    it('should polyfill Headers', () => {\n      expect(Headers).to.be.a('function')\n    })\n  })\n\n  describe('Ponyfill', () => {\n    const fetch = __webpack_require__(/*! ../../../dist/node-ponyfill */ \"./dist/node-ponyfill.js\")\n    const { Request, Response, Headers } = fetch\n\n    it('should import Fetch', () => {\n      expect(fetch).to.be.a('function')\n      expect(fetch.polyfill).to.equal(false)\n    })\n\n    it('should import Request', () => {\n      expect(Request).to.be.a('function')\n    })\n\n    it('should import Response', () => {\n      expect(Response).to.be.a('function')\n    })\n\n    it('should import Headers', () => {\n      expect(Headers).to.be.a('function')\n    })\n  })\n})\n\n\n//# sourceURL=webpack:///./test/node/webpack/index.js?");
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _setup__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../setup */ \"./test/node/setup.js\");\n/* harmony import */ var _setup__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_setup__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _dist_node_polyfill__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../dist/node-polyfill */ \"./dist/node-polyfill.js\");\n/* harmony import */ var _dist_node_polyfill__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_dist_node_polyfill__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _dist_node_ponyfill__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../dist/node-ponyfill */ \"./dist/node-ponyfill.js\");\n/* harmony import */ var _dist_node_ponyfill__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_dist_node_ponyfill__WEBPACK_IMPORTED_MODULE_2__);\n\n\n\n\ndescribe('Node Webpack ESM', () => {\n  describe('Polyfill', () => {\n    it('should polyfill Fetch', () => {\n      expect(fetch).to.be.a('function')\n      expect(fetch.polyfill).to.equal(true)\n    })\n\n    it('should polyfill Request', () => {\n      expect(Request).to.be.a('function')\n    })\n\n    it('should polyfill Response', () => {\n      expect(Response).to.be.a('function')\n    })\n\n    it('should polyfill Headers', () => {\n      expect(Headers).to.be.a('function')\n    })\n  })\n\n  describe('Ponyfill', () => {\n    const fetch = _dist_node_ponyfill__WEBPACK_IMPORTED_MODULE_2__[\"fetch\"]\n    const Request = _dist_node_ponyfill__WEBPACK_IMPORTED_MODULE_2__[\"Request\"]\n    const Response = _dist_node_ponyfill__WEBPACK_IMPORTED_MODULE_2__[\"Response\"]\n    const Headers = _dist_node_ponyfill__WEBPACK_IMPORTED_MODULE_2__[\"Headers\"]\n\n    it('should import Fetch', () => {\n      expect(fetch).to.be.a('function')\n      expect(fetch.polyfill).to.equal(false)\n    })\n\n    it('should import Request', () => {\n      expect(Request).to.be.a('function')\n    })\n\n    it('should import Response', () => {\n      expect(Response).to.be.a('function')\n    })\n\n    it('should import Headers', () => {\n      expect(Headers).to.be.a('function')\n    })\n  })\n})\n\n\n//# sourceURL=webpack:///./test/node/webpack/index.esm.js?");
 
 /***/ }),
 

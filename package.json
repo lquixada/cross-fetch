@@ -21,7 +21,7 @@
     "test:browser:headless": "mocha-headless-chrome -f test/browser/headless/index.html",
     "test:browser:webpack": "mocha-headless-chrome -f test/browser/webpack/index.html",
     "test:node:plain": "nyc mocha test/node/node/index.js",
-    "test:node:webpack": "nyc mocha test/node/webpack/bundle.js"
+    "test:node:webpack": "nyc mocha test/node/webpack/bundle.*.js"
   },
   "lint-staged": {
     "*.js": [
@@ -46,7 +46,8 @@
     ],
     "ignore": [
       "/dist/",
-      "bundle.js"
+      "bundle.js",
+      "bundle.*.js"
     ]
   },
   "nyc": {

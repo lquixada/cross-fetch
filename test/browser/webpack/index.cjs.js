@@ -1,6 +1,7 @@
-describe('Browser Webpack', () => {
-  require('../../../dist/browser-polyfill')
+require('../../../dist/browser-polyfill')
+const ponyfill = require('../../../dist/browser-ponyfill')
 
+describe('Browser Webpack CJS', () => {
   describe('Polyfill', () => {
     it('should polyfill Fetch', () => {
       expect(fetch).to.be.a('function')
@@ -21,7 +22,10 @@ describe('Browser Webpack', () => {
   })
 
   describe('Ponyfill', () => {
-    const { fetch, Request, Response, Headers } = require('../../../dist/browser-ponyfill')
+    const fetch = ponyfill.fetch
+    const Request = ponyfill.Request
+    const Response = ponyfill.Response
+    const Headers = ponyfill.Headers
 
     it('should import Fetch', () => {
       expect(fetch).to.be.a('function')

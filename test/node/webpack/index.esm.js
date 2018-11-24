@@ -1,8 +1,8 @@
-require('../setup')
+import '../setup'
+import '../../../dist/node-polyfill'
+import * as ponyfill from '../../../dist/node-ponyfill'
 
-describe('Node Webpack', () => {
-  require('../../../dist/node-polyfill')
-
+describe('Node Webpack ESM', () => {
   describe('Polyfill', () => {
     it('should polyfill Fetch', () => {
       expect(fetch).to.be.a('function')
@@ -23,8 +23,10 @@ describe('Node Webpack', () => {
   })
 
   describe('Ponyfill', () => {
-    const fetch = require('../../../dist/node-ponyfill')
-    const { Request, Response, Headers } = fetch
+    const fetch = ponyfill.fetch
+    const Request = ponyfill.Request
+    const Response = ponyfill.Response
+    const Headers = ponyfill.Headers
 
     it('should import Fetch', () => {
       expect(fetch).to.be.a('function')

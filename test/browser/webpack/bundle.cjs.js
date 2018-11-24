@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./test/browser/webpack/index.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./test/browser/webpack/index.cjs.js");
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -108,14 +108,14 @@ eval("var __root__ = (function (root) {\nfunction F() { this.fetch = false; }\nF
 
 /***/ }),
 
-/***/ "./test/browser/webpack/index.js":
-/*!***************************************!*\
-  !*** ./test/browser/webpack/index.js ***!
-  \***************************************/
+/***/ "./test/browser/webpack/index.cjs.js":
+/*!*******************************************!*\
+  !*** ./test/browser/webpack/index.cjs.js ***!
+  \*******************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("describe('Browser Webpack', () => {\n  __webpack_require__(/*! ../../../dist/browser-polyfill */ \"./dist/browser-polyfill.js\")\n\n  describe('Polyfill', () => {\n    it('should polyfill Fetch', () => {\n      expect(fetch).to.be.a('function')\n      expect(fetch.polyfill).to.equal(true)\n    })\n\n    it('should polyfill Request', () => {\n      expect(Request).to.be.a('function')\n    })\n\n    it('should polyfill Response', () => {\n      expect(Response).to.be.a('function')\n    })\n\n    it('should polyfill Headers', () => {\n      expect(Headers).to.be.a('function')\n    })\n  })\n\n  describe('Ponyfill', () => {\n    const { fetch, Request, Response, Headers } = __webpack_require__(/*! ../../../dist/browser-ponyfill */ \"./dist/browser-ponyfill.js\")\n\n    it('should import Fetch', () => {\n      expect(fetch).to.be.a('function')\n      expect(fetch.polyfill).to.equal(undefined)\n    })\n\n    it('should import Request', () => {\n      expect(Request).to.be.a('function')\n    })\n\n    it('should import Response', () => {\n      expect(Response).to.be.a('function')\n    })\n\n    it('should import Headers', () => {\n      expect(Headers).to.be.a('function')\n    })\n  })\n})\n\n\n//# sourceURL=webpack:///./test/browser/webpack/index.js?");
+eval("__webpack_require__(/*! ../../../dist/browser-polyfill */ \"./dist/browser-polyfill.js\")\nconst ponyfill = __webpack_require__(/*! ../../../dist/browser-ponyfill */ \"./dist/browser-ponyfill.js\")\n\ndescribe('Browser Webpack CJS', () => {\n  describe('Polyfill', () => {\n    it('should polyfill Fetch', () => {\n      expect(fetch).to.be.a('function')\n      expect(fetch.polyfill).to.equal(true)\n    })\n\n    it('should polyfill Request', () => {\n      expect(Request).to.be.a('function')\n    })\n\n    it('should polyfill Response', () => {\n      expect(Response).to.be.a('function')\n    })\n\n    it('should polyfill Headers', () => {\n      expect(Headers).to.be.a('function')\n    })\n  })\n\n  describe('Ponyfill', () => {\n    const fetch = ponyfill.fetch\n    const Request = ponyfill.Request\n    const Response = ponyfill.Response\n    const Headers = ponyfill.Headers\n\n    it('should import Fetch', () => {\n      expect(fetch).to.be.a('function')\n      expect(fetch.polyfill).to.equal(undefined)\n    })\n\n    it('should import Request', () => {\n      expect(Request).to.be.a('function')\n    })\n\n    it('should import Response', () => {\n      expect(Response).to.be.a('function')\n    })\n\n    it('should import Headers', () => {\n      expect(Headers).to.be.a('function')\n    })\n  })\n})\n\n\n//# sourceURL=webpack:///./test/browser/webpack/index.cjs.js?");
 
 /***/ })
 
