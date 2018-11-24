@@ -46,7 +46,6 @@
     ],
     "ignore": [
       "/dist/",
-      "bundle.js",
       "bundle.*.js"
     ]
   },
