@@ -1,19 +1,12 @@
 const path = require('path')
 
-module.exports = [{
+module.exports = ['cjs', 'esm'].map(format => ({
+  target: 'web',
   mode: 'none',
-  entry: path.join(__dirname, 'index.cjs.js'),
+  entry: path.join(__dirname, `index.${format}.js`),
   output: {
     path: __dirname,
-    filename: 'bundle.cjs.js'
+    filename: `bundle.${format}.js`
   },
   stats: 'none'
-}, {
-  mode: 'none',
-  entry: path.join(__dirname, 'index.esm.js'),
-  output: {
-    path: __dirname,
-    filename: 'bundle.esm.js'
-  },
-  stats: 'none'
-}]
+}))
