@@ -1,5 +1,4 @@
 const path = require('path')
-const webpack = require('webpack')
 
 module.exports = {
   target: 'node',
@@ -9,10 +8,5 @@ module.exports = {
     path: __dirname,
     filename: 'bundle.js'
   },
-  plugins: [
-    new webpack.DefinePlugin({
-      'process.env.webpack': JSON.stringify(true)
-    })
-  ],
   stats: 'none'
 }
