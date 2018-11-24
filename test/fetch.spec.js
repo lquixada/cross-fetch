@@ -1,7 +1,6 @@
 /**
- * The fetch.spec.js file has all the tests needed to assure cross-fetch is properly
- * working. It is the same specs file that runs across different settings provided
- * by the test/ folder.
+ * This file has all the tests needed to ensure cross-fetch is properly and equally
+ * working in browser and node environment.
  */
 
 function addSuite (envName) {
