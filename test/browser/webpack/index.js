@@ -21,8 +21,7 @@ describe('Browser Webpack', () => {
   })
 
   describe('Ponyfill', () => {
-    const fetch = require('../../../dist/browser-ponyfill')
-    const { Request, Response, Headers } = fetch
+    const { fetch, Request, Response, Headers } = require('../../../dist/browser-ponyfill')
 
     it('should import Fetch', () => {
       expect(fetch).to.be.a('function')

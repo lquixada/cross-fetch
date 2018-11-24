@@ -532,13 +532,11 @@ var irrelevant = (function (exports) {
 
 }({}));
 })(__root__);
-var fetch = __root__.fetch;
-var Response = fetch.Response = __root__.Response;
-var Request = fetch.Request = __root__.Request;
-var Headers = fetch.Headers = __root__.Headers;
-delete fetch.polyfill
-if (typeof module === 'object' && module.exports) {
-module.exports = fetch;
+delete __root__.fetch.polyfill
+module.exports = exports = __root__.fetch
+exports.fetch = __root__.fetch
+exports.Headers = __root__.Headers
+exports.Request = __root__.Request
+exports.Response = __root__.Response
 // Needed for TypeScript consumers without esModuleInterop.
-module.exports.default = fetch;
-}
+exports.default = __root__.fetch

@@ -30,18 +30,16 @@ export default [
       footer: outdent(`
         })(__root__);
 
-        var fetch = __root__.fetch;
-        var Response = fetch.Response = __root__.Response;
-        var Request = fetch.Request = __root__.Request;
-        var Headers = fetch.Headers = __root__.Headers;
+        delete __root__.fetch.polyfill
 
-        delete fetch.polyfill
+        module.exports = exports = __root__.fetch
+        exports.fetch = __root__.fetch
+        exports.Headers = __root__.Headers
+        exports.Request = __root__.Request
+        exports.Response = __root__.Response
 
-        if (typeof module === 'object' && module.exports) {
-          module.exports = fetch;
-          // Needed for TypeScript consumers without esModuleInterop.
-          module.exports.default = fetch;
-        }
+        // Needed for TypeScript consumers without esModuleInterop.
+        exports.default = __root__.fetch
       `)
     },
     plugins: [
