@@ -81,10 +81,32 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./test/node/bundle-polyfill/index.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./test/node/webpack/index.js");
 /******/ })
 /************************************************************************/
 /******/ ({
+
+/***/ "./dist/node-polyfill.js":
+/*!*******************************!*\
+  !*** ./dist/node-polyfill.js ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("var fetchNode = __webpack_require__(/*! ./node-ponyfill */ \"./dist/node-ponyfill.js\")\nvar fetch = fetchNode.fetch.bind({})\n\nfetch.polyfill = true\n\nif (!global.fetch) {\n  global.fetch = fetch\n  global.Response = fetchNode.Response\n  global.Headers = fetchNode.Headers\n  global.Request = fetchNode.Request\n}\n\n\n//# sourceURL=webpack:///./dist/node-polyfill.js?");
+
+/***/ }),
+
+/***/ "./dist/node-ponyfill.js":
+/*!*******************************!*\
+  !*** ./dist/node-ponyfill.js ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("var nodeFetch = __webpack_require__(/*! node-fetch */ \"./node_modules/node-fetch/lib/index.mjs\")\nvar realFetch = nodeFetch.default || nodeFetch\n\nvar fetch = function (url, options) {\n  // Support schemaless URIs on the server for parity with the browser.\n  // Ex: //github.com/ -> https://github.com/\n  if (/^\\/\\//.test(url)) {\n    url = 'https:' + url\n  }\n  return realFetch.call(this, url, options)\n}\n\nfetch.polyfill = false\n\nmodule.exports = exports = fetch\nexports.fetch = fetch\nexports.Headers = nodeFetch.Headers\nexports.Request = nodeFetch.Request\nexports.Response = nodeFetch.Response\n\n// Needed for TypeScript consumers without esModuleInterop.\nexports.default = fetch\n\n\n//# sourceURL=webpack:///./dist/node-ponyfill.js?");
+
+/***/ }),
 
 /***/ "./node_modules/check-error/index.js":
 /*!*******************************************!*\
@@ -926,50 +948,6 @@ eval("module.exports = function(module) {\n\tif (!module.webpackPolyfill) {\n\t\
 
 /***/ }),
 
-/***/ "./src/node-polyfill.js":
-/*!******************************!*\
-  !*** ./src/node-polyfill.js ***!
-  \******************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-eval("var fetchNode = __webpack_require__(/*! ./node-ponyfill */ \"./src/node-ponyfill.js\")\nvar fetch = fetchNode.fetch.bind({})\n\nfetch.polyfill = true\n\nif (!global.fetch) {\n  global.fetch = fetch\n  global.Response = fetchNode.Response\n  global.Headers = fetchNode.Headers\n  global.Request = fetchNode.Request\n}\n\n\n//# sourceURL=webpack:///./src/node-polyfill.js?");
-
-/***/ }),
-
-/***/ "./src/node-ponyfill.js":
-/*!******************************!*\
-  !*** ./src/node-ponyfill.js ***!
-  \******************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-eval("var nodeFetch = __webpack_require__(/*! node-fetch */ \"./node_modules/node-fetch/lib/index.mjs\")\nvar realFetch = nodeFetch.default || nodeFetch\n\nvar fetch = function (url, options) {\n  // Support schemaless URIs on the server for parity with the browser.\n  // Ex: //github.com/ -> https://github.com/\n  if (/^\\/\\//.test(url)) {\n    url = 'https:' + url\n  }\n  return realFetch.call(this, url, options)\n}\n\nfetch.polyfill = false\n\nmodule.exports = exports = fetch\nexports.fetch = fetch\nexports.Headers = nodeFetch.Headers\nexports.Request = nodeFetch.Request\nexports.Response = nodeFetch.Response\n\n// Needed for TypeScript consumers without esModuleInterop.\nexports.default = fetch\n\n\n//# sourceURL=webpack:///./src/node-ponyfill.js?");
-
-/***/ }),
-
-/***/ "./test/fetch.spec.js":
-/*!****************************!*\
-  !*** ./test/fetch.spec.js ***!
-  \****************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-eval("/**\n * The fetch.spec.js file has all the tests needed to assure cross-fetch is properly\n * working. It is the same specs file that runs across different settings provided\n * by the test/ folder.\n */\n\nfunction addSuite (envName) {\n  var responseToText = function (res) {\n    if (res.status >= 400) {\n      throw new Error('Bad server response')\n    }\n\n    return res.text()\n  }\n\n  describe('Environemnt: ' + envName, function () {\n    describe('fetch', function () {\n      it('should be defined', function () {\n        expect(fetch).to.be.a('function')\n      })\n\n      // Ensure that we're testing the polyfill version rather the native one\n      it('should be a polyfill', function () {\n        expect(fetch.polyfill).to.equal(true)\n      })\n\n      it('should facilitate the making of requests', function () {\n        return fetch('//lquixa.da/succeed.txt')\n          .then(responseToText)\n          .then(function (data) {\n            expect(data).to.equal('hello world.')\n          })\n      })\n\n      it('should do the right thing with bad requests', function () {\n        return fetch('//lquixa.da/fail.txt')\n          .then(responseToText)\n          .catch(function (err) {\n            expect(err.toString()).to.equal('Error: Bad server response')\n          })\n      })\n    })\n\n    describe('Request', function () {\n      it('should be defined', function () {\n        expect(Request).to.be.a('function')\n      })\n\n      it('should define GET as default method', function () {\n        var request = new Request('//lquixa.da/')\n        expect(request.method).to.equal('GET')\n      })\n    })\n\n    describe('Response', function () {\n      it('should be defined', function () {\n        expect(Response).to.be.a('function')\n      })\n\n      it('should be ok :)', function () {\n        var response = new Response()\n        expect(response.ok).to.equal(true)\n      })\n    })\n\n    describe('Headers', function () {\n      it('should be defined', function () {\n        expect(Headers).to.be.a('function')\n      })\n\n      it('should set a header', function () {\n        var headers = new Headers({ 'Custom': 'foo' })\n        expect(headers.get('Custom')).to.equal('foo')\n      })\n\n      it('should set a multi-value header', function () {\n        var headers = new Headers({ 'Custom': ['header1', 'header2'] })\n        expect(headers.get('Custom')).to.equal('header1,header2')\n      })\n\n      it('should set a undefined header', function () {\n        var headers = new Headers({ 'Custom': null })\n        expect(headers.get('Custom')).to.equal('null')\n      })\n\n      it('should set a null header', function () {\n        var headers = new Headers({ 'Custom': undefined })\n        expect(headers.get('Custom')).to.equal('undefined')\n      })\n\n      it('should not init an invalid header', function () {\n        /* eslint-disable no-new */\n        expect(function () { new Headers({ 'Héy': 'ok' }) }).to.throw()\n      })\n\n      it('should not set an invalid header', function () {\n        var headers = new Headers()\n        expect(function () { headers.set('Héy', 'ok') }).to.throw()\n      })\n\n      it('should not get an invalid header', function () {\n        var headers = new Headers()\n        expect(function () { headers.get('Héy') }).to.throw()\n      })\n    })\n  })\n}\n\n// Since this test suite needs to run on different environments,\n// we used a simplified UMD pattern here.\nif ( true && module.exports) {\n  module.exports = addSuite\n}\n\n\n//# sourceURL=webpack:///./test/fetch.spec.js?");
-
-/***/ }),
-
-/***/ "./test/node/bundle-polyfill/index.js":
-/*!********************************************!*\
-  !*** ./test/node/bundle-polyfill/index.js ***!
-  \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-eval("__webpack_require__(/*! ../setup */ \"./test/node/setup.js\")\n__webpack_require__(/*! ../../../src/node-polyfill */ \"./src/node-polyfill.js\")\n\nconst addSuite = __webpack_require__(/*! ../../fetch.spec */ \"./test/fetch.spec.js\")\naddSuite('Node-Bundle-Polyfill')\n\n\n//# sourceURL=webpack:///./test/node/bundle-polyfill/index.js?");
-
-/***/ }),
-
 /***/ "./test/node/setup.js":
 /*!****************************!*\
   !*** ./test/node/setup.js ***!
@@ -978,6 +956,17 @@ eval("__webpack_require__(/*! ../setup */ \"./test/node/setup.js\")\n__webpack_r
 /***/ (function(module, exports, __webpack_require__) {
 
 eval("const nock = __webpack_require__(/*! nock */ \"./node_modules/nock/index.js\")\n\nbefore(() => {\n  nock('https://lquixa.da')\n    .persist()\n    .get('/succeed.txt')\n    .reply(200, 'hello world.')\n\n  nock('https://lquixa.da')\n    .persist()\n    .get('/fail.txt')\n    .reply(404, 'good bye world.')\n})\n\n\n//# sourceURL=webpack:///./test/node/setup.js?");
+
+/***/ }),
+
+/***/ "./test/node/webpack/index.js":
+/*!************************************!*\
+  !*** ./test/node/webpack/index.js ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("__webpack_require__(/*! ../setup */ \"./test/node/setup.js\")\n\ndescribe('Node Webpack', () => {\n  __webpack_require__(/*! ../../../dist/node-polyfill */ \"./dist/node-polyfill.js\")\n\n  describe('Polyfill', () => {\n    it('should polyfill Fetch', () => {\n      expect(fetch).to.be.a('function')\n      expect(fetch.polyfill).to.equal(true)\n    })\n\n    it('should polyfill Request', () => {\n      expect(Request).to.be.a('function')\n    })\n\n    it('should polyfill Response', () => {\n      expect(Response).to.be.a('function')\n    })\n\n    it('should polyfill Headers', () => {\n      expect(Headers).to.be.a('function')\n    })\n  })\n\n  describe('Ponyfill', () => {\n    const fetch = __webpack_require__(/*! ../../../dist/node-ponyfill */ \"./dist/node-ponyfill.js\")\n    const { Request, Response, Headers } = fetch\n\n    it('should import Fetch', () => {\n      expect(fetch).to.be.a('function')\n      expect(fetch.polyfill).to.equal(false)\n    })\n\n    it('should import Request', () => {\n      expect(Request).to.be.a('function')\n    })\n\n    it('should import Response', () => {\n      expect(Response).to.be.a('function')\n    })\n\n    it('should import Headers', () => {\n      expect(Headers).to.be.a('function')\n    })\n  })\n})\n\n\n//# sourceURL=webpack:///./test/node/webpack/index.js?");
 
 /***/ }),
 

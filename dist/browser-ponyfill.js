@@ -536,6 +536,7 @@ var fetch = __root__.fetch;
 var Response = fetch.Response = __root__.Response;
 var Request = fetch.Request = __root__.Request;
 var Headers = fetch.Headers = __root__.Headers;
+delete fetch.polyfill
 if (typeof module === 'object' && module.exports) {
 module.exports = fetch;
 // Needed for TypeScript consumers without esModuleInterop.
