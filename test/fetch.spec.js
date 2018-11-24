@@ -13,7 +13,7 @@ function addSuite (envName) {
     return res.text()
   }
 
-  describe('Environment: ' + envName, function () {
+  describe(envName, function () {
     describe('fetch', function () {
       it('should be defined', function () {
         expect(fetch).to.be.a('function')
