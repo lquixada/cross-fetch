@@ -8,8 +8,8 @@
   "typings": "index.d.ts",
   "scripts": {
     "pretest": "npm run build",
-    "pretest:browser:bundle": "webpack-cli --progress --config test/browser/webpack/webpack.config.js",
-    "pretest:node:bundle": "webpack-cli --progress --config test/node/webpack/webpack.config.js",
+    "pretest:browser:webpack": "webpack-cli --progress --config test/browser/webpack/webpack.config.js",
+    "pretest:node:webpack": "webpack-cli --progress --config test/node/webpack/webpack.config.js",
     "build": "rollup -c",
     "codecov": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
     "deploy:major": "npm version major && git push --follow-tags",
@@ -17,11 +17,11 @@
     "deploy:patch": "npm version patch && git push --follow-tags",
     "lint": "standard",
     "sauce": "./tasks/sauce",
-    "test": "run-s test:browser:bundle test:browser:plain test:node:plain test:node:bundle lint",
-    "test:browser:bundle": "mocha-headless-chrome -f test/browser/webpack/index.html",
-    "test:browser:plain": "mocha-headless-chrome -f test/browser/headless/index.html",
-    "test:node:bundle": "nyc mocha test/node/webpack/bundle.js",
-    "test:node:plain": "nyc mocha test/node/node/index.js"
+    "test": "run-s test:browser:webpack test:browser:headless test:node:plain test:node:webpack lint",
+    "test:browser:headless": "mocha-headless-chrome -f test/browser/headless/index.html",
+    "test:browser:webpack": "mocha-headless-chrome -f test/browser/webpack/index.html",
+    "test:node:plain": "nyc mocha test/node/node/index.js",
+    "test:node:webpack": "nyc mocha test/node/webpack/bundle.js"
   },
   "lint-staged": {
     "*.js": [
