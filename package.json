@@ -7,7 +7,7 @@
   "browser": "dist/browser-ponyfill.js",
   "typings": "index.d.ts",
   "scripts": {
-    "pretest": "npm run build",
+    "pretest": "npm run -s build",
     "pretest:browser:webpack": "webpack-cli --progress --config test/browser/webpack/webpack.config.js",
     "pretest:node:webpack": "webpack-cli --progress --config test/node/webpack/webpack.config.js",
     "build": "rollup -c",
