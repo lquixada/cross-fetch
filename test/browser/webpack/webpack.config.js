@@ -1,7 +1,7 @@
 const path = require('path')
 
 module.exports = [{
-  mode: 'development',
+  mode: 'none',
   entry: path.join(__dirname, 'index.cjs.js'),
   output: {
     path: __dirname,
@@ -9,7 +9,7 @@ module.exports = [{
   },
   stats: 'none'
 }, {
-  mode: 'development',
+  mode: 'none',
   entry: path.join(__dirname, 'index.esm.js'),
   output: {
     path: __dirname,
