@@ -2,22 +2,22 @@ require('../setup')
 require('../../../dist/node-polyfill')
 const ponyfill = require('../../../dist/node-ponyfill')
 
-describe('Node Webpack CJS', () => {
+describe('Node: require on Webpack bundle', () => {
   describe('Polyfill', () => {
-    it('should polyfill Fetch', () => {
+    it('should polyfill the fetch function', () => {
       expect(fetch).to.be.a('function')
       expect(fetch.polyfill).to.equal(true)
     })
 
-    it('should polyfill Request', () => {
+    it('should polyfill the Request constructor', () => {
       expect(Request).to.be.a('function')
     })
 
-    it('should polyfill Response', () => {
+    it('should polyfill the Response constructor', () => {
       expect(Response).to.be.a('function')
     })
 
-    it('should polyfill Headers', () => {
+    it('should polyfill the Headers constructor', () => {
       expect(Headers).to.be.a('function')
     })
   })
@@ -26,20 +26,20 @@ describe('Node Webpack CJS', () => {
     // Shadows polyfill
     const { fetch, Request, Response, Headers } = ponyfill
 
-    it('should import Fetch', () => {
+    it('should import the fetch function', () => {
       expect(fetch).to.be.a('function')
       expect(fetch.polyfill).to.equal(false)
     })
 
-    it('should import Request', () => {
+    it('should import the Request constructor', () => {
       expect(Request).to.be.a('function')
     })
 
-    it('should import Response', () => {
+    it('should import the Response constructor', () => {
       expect(Response).to.be.a('function')
     })
 
-    it('should import Headers', () => {
+    it('should import the Headers constructor', () => {
       expect(Headers).to.be.a('function')
     })
   })
