@@ -22,10 +22,8 @@ describe('Browser Webpack CJS', () => {
   })
 
   describe('Ponyfill', () => {
-    const fetch = ponyfill.fetch
-    const Request = ponyfill.Request
-    const Response = ponyfill.Response
-    const Headers = ponyfill.Headers
+    // Shadows polyfill
+    const { fetch, Request, Response, Headers } = ponyfill
 
     it('should import Fetch', () => {
       expect(fetch).to.be.a('function')
