@@ -13,7 +13,7 @@ Universal WHATWG Fetch API for Node, Browsers and React Native. The scenario tha
 - **Optional polyfill**: it's up to you if something is going to be added to the global object or not
 - **Simple interface**: no instantiation, no configuration and no extra dependency
 - **WHATWG compliant**: it works the same way wherever your code runs
-- **Updated**: latest version of whatwg-fetch and node-fetch used
+- **Updated**: latest version of [whatwg-fetch](https://github.com/github/fetch/) and [node-fetch](https://github.com/bitinn/node-fetch/) used
 
 
 * * *
@@ -147,7 +147,7 @@ In a word? Risk. If the spec changes in the future, it might be problematic to d
 
 #### How does cross-fetch work?
 
-Just like isomorphic-fetch, it is just a proxy. If you're in node, it delivers you the [node-fetch](https://www.npmjs.com/package/node-fetch) library, if you're in a browser or React Native, it delivers you the github's [whatwg-fetch](https://github.com/github/fetch/). The same strategy applies whether you're using polyfill or ponyfill.
+Just like isomorphic-fetch, it is just a proxy. If you're in node, it delivers you the [node-fetch](https://github.com/bitinn/node-fetch/) library, if you're in a browser or React Native, it delivers you the github's [whatwg-fetch](https://github.com/github/fetch/). The same strategy applies whether you're using polyfill or ponyfill.
 
 
 ## Who's Using It?
