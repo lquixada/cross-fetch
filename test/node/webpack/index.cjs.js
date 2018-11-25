@@ -1,8 +1,8 @@
 require('../setup')
-require('../../../dist/node-polyfill')
+require('../../../polyfill')
 
-const fetch = require('../../../dist/node-ponyfill')
-const ponyfill = require('../../../dist/node-ponyfill')
+const fetch = require('../../..')
+const ponyfill = require('../../..')
 const addSuite = require('../../module.spec')
 
 ponyfill.defaultExport = fetch

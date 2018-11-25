@@ -1,7 +1,7 @@
-require('../../../dist/browser-polyfill')
+require('../../../polyfill')
 
-const fetch = require('../../../dist/browser-ponyfill')
-const ponyfill = require('../../../dist/browser-ponyfill')
+const fetch = require('../../..')
+const ponyfill = require('../../..')
 const addSuite = require('../../module.spec')
 
 ponyfill.defaultExport = fetch

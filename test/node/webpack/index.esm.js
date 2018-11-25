@@ -1,7 +1,7 @@
 import '../setup'
-import '../../../dist/node-polyfill'
+import '../../../polyfill'
 
-import fetch, * as ponyfill from '../../../dist/node-ponyfill'
+import fetch, * as ponyfill from '../../..'
 import addSuite from '../../module.spec'
 
 ponyfill.defaultExport = fetch

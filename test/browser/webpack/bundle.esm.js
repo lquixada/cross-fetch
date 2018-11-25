@@ -90,10 +90,10 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _dist_browser_polyfill__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
-/* harmony import */ var _dist_browser_polyfill__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_dist_browser_polyfill__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _dist_browser_ponyfill__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
-/* harmony import */ var _dist_browser_ponyfill__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_dist_browser_ponyfill__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _polyfill__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var _polyfill__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_polyfill__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var ___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
+/* harmony import */ var ___WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(___WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _module_spec__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3);
 /* harmony import */ var _module_spec__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_module_spec__WEBPACK_IMPORTED_MODULE_2__);
 
@@ -101,9 +101,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-_dist_browser_ponyfill__WEBPACK_IMPORTED_MODULE_1__["defaultExport"] = _dist_browser_ponyfill__WEBPACK_IMPORTED_MODULE_1___default.a
+___WEBPACK_IMPORTED_MODULE_1__["defaultExport"] = ___WEBPACK_IMPORTED_MODULE_1___default.a
 
-_module_spec__WEBPACK_IMPORTED_MODULE_2___default()('Browser: import on Webpack bundle', _dist_browser_ponyfill__WEBPACK_IMPORTED_MODULE_1__)
+_module_spec__WEBPACK_IMPORTED_MODULE_2___default()('Browser: import on Webpack bundle', ___WEBPACK_IMPORTED_MODULE_1__)
 
 
 /***/ }),
