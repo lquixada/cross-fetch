@@ -91,8 +91,11 @@
 __webpack_require__(1)
 __webpack_require__(88)
 
+const fetch = __webpack_require__(89)
 const ponyfill = __webpack_require__(89)
 const addSuite = __webpack_require__(91)
+
+ponyfill.defaultExport = fetch
 
 addSuite('Node: require on Webpack bundle', ponyfill)
 
@@ -37206,6 +37209,10 @@ function addSuite (envName, ponyfill) {
       it('should import the fetch function', () => {
         expect(fetch).to.be.a('function')
         expect(fetch.polyfill).to.equal(undefined)
+      })
+
+      it('should import the fetch function as the default', () => {
+        expect(ponyfill.defaultExport).to.equal(fetch)
       })
 
       it('should import the Request constructor', () => {

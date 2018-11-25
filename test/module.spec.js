@@ -33,6 +33,10 @@ function addSuite (envName, ponyfill) {
         expect(fetch.polyfill).to.equal(undefined)
       })
 
+      it('should import the fetch function as the default', () => {
+        expect(ponyfill.defaultExport).to.equal(fetch)
+      })
+
       it('should import the Request constructor', () => {
         expect(Request).to.be.a('function')
       })

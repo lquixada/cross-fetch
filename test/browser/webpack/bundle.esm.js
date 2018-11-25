@@ -100,6 +100,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+_dist_browser_ponyfill__WEBPACK_IMPORTED_MODULE_1__["defaultExport"] = _dist_browser_ponyfill__WEBPACK_IMPORTED_MODULE_1___default.a
+
 _module_spec__WEBPACK_IMPORTED_MODULE_2___default()('Browser: import on Webpack bundle', _dist_browser_ponyfill__WEBPACK_IMPORTED_MODULE_1__)
 
 
@@ -1223,6 +1226,10 @@ function addSuite (envName, ponyfill) {
       it('should import the fetch function', () => {
         expect(fetch).to.be.a('function')
         expect(fetch.polyfill).to.equal(undefined)
+      })
+
+      it('should import the fetch function as the default', () => {
+        expect(ponyfill.defaultExport).to.equal(fetch)
       })
 
       it('should import the Request constructor', () => {
