@@ -25,7 +25,7 @@ function addSuite (envName, ponyfill) {
     })
 
     describe('Ponyfill', () => {
-    // Shadows polyfill
+      // Shadows polyfill
       const { fetch, Request, Response, Headers } = ponyfill
 
       it('should import the fetch function', () => {
@@ -48,8 +48,4 @@ function addSuite (envName, ponyfill) {
   })
 }
 
-// Since this test suite needs to run on different environments,
-// we used a simplified UMD pattern here.
-if (typeof module === 'object' && module.exports) {
-  module.exports = addSuite
-}
+module.exports = addSuite

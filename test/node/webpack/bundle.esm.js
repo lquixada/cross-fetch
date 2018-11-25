@@ -37180,7 +37180,7 @@ fetch.Promise = global.Promise;
 
 /***/ }),
 /* 91 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
 /**
  * This file has all the tests needed to ensure cross-fetch is properly and equally
@@ -37209,7 +37209,7 @@ function addSuite (envName, ponyfill) {
     })
 
     describe('Ponyfill', () => {
-    // Shadows polyfill
+      // Shadows polyfill
       const { fetch, Request, Response, Headers } = ponyfill
 
       it('should import the fetch function', () => {
@@ -37232,11 +37232,7 @@ function addSuite (envName, ponyfill) {
   })
 }
 
-// Since this test suite needs to run on different environments,
-// we used a simplified UMD pattern here.
-if ( true && module.exports) {
-  module.exports = addSuite
-}
+module.exports = addSuite
 
 
 /***/ })
