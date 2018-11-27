@@ -42,6 +42,7 @@
     ],
     "globals": [
       "expect",
+      "assert",
       "chai",
       "sinon"
     ],
