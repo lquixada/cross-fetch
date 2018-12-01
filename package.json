@@ -7,22 +7,18 @@
   "browser": "dist/browser-ponyfill.js",
   "typings": "index.d.ts",
   "scripts": {
-    "pretest": "npm run -s build",
-    "pretest:browser:webpack": "webpack-cli --progress --config test/browser/webpack/webpack.config.js",
-    "pretest:node:webpack": "webpack-cli --progress --config test/node/webpack/webpack.config.js",
-    "build": "rollup -c",
-    "codecov": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
-    "deploy:major": "npm version major && git push --follow-tags",
-    "deploy:minor": "npm version minor && git push --follow-tags",
-    "deploy:patch": "npm version patch && git push --follow-tags",
-    "lint": "standard",
-    "sauce": "./tasks/sauce",
-    "test": "run-s test:browser:webpack test:browser test:node:webpack test:node lint",
-    "test:browser": "mocha-headless-chrome -f test/browser/headless/index.html",
-    "test:browser:webpack": "mocha-headless-chrome -f test/browser/webpack/index.html",
-    "test:implementation": "run-s test:browser test:node",
-    "test:node": "nyc mocha test/node/node/index.js",
-    "test:node:webpack": "mocha test/node/webpack/bundle.*.js"
+    "codecov": "make cov",
+    "deploy:major": "make deploy release=major",
+    "deploy:minor": "make deploy release=minor",
+    "deploy:patch": "make deploy release=patch",
+    "lint": "make lint",
+    "sauce": "make sauce",
+    "test": "make test",
+    "test:browser": "make test-browser",
+    "test:browser:webpack": "make test-browser-webpack",
+    "test:implementation": "make test-implementation",
+    "test:node": "make test-node",
+    "test:node:webpack": "make test-node-webpack"
   },
   "lint-staged": {
     "*.js": [
@@ -32,7 +28,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run -s build && lint-staged"
+      "pre-commit": "make build && lint-staged"
     }
   },
   "standard": {

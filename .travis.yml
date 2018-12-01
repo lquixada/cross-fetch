@@ -3,16 +3,13 @@ language: node_js
 branches:
   only:
   - /^v\\d+\\.\\d+(\\.\\d+)?(-\\S*)?$/
-before_install:
+before_script:
 - yarn --prod
 - npx snyk test
-install:
-- yarn
 script:
-- yarn test
-- yarn codecov
-- yarn sauce
-- yarn build
+- make test
+- make cov
+- make sauce
 deploy:
   provider: npm
   email: lquixada@gmail.com
