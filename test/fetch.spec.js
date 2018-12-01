@@ -45,9 +45,244 @@ function addSuite (envName) {
         expect(Request).to.be.a('function')
       })
 
-      it('should define GET as default method', function () {
+      it('should construct an url from string', function () {
+        var request = new Request('https://fetch.spec.whatwg.org/')
+        expect(request.url).to.equal('https://fetch.spec.whatwg.org/')
+      })
+
+      it('should construct url from object', function () {
+        var url = {
+          toString: function () {
+            return 'https://fetch.spec.whatwg.org/'
+          }
+        }
+        var request = new Request(url)
+        expect(request.url).to.equal('https://fetch.spec.whatwg.org/')
+      })
+
+      it('should get GET as the default method', function () {
         var request = new Request('//lquixa.da/')
         expect(request.method).to.equal('GET')
+      })
+
+      it('should set a method', function () {
+        var request = new Request('//lquixa.da/', {
+          method: 'post'
+        })
+        expect(request.method).to.equal('POST')
+      })
+
+      it('should set headers', function () {
+        var request = new Request('//lquixa.da/', {
+          headers: {
+            accept: 'application/json',
+            'Content-Type': 'text/plain'
+          }
+        })
+        expect(request.headers.get('accept')).to.equal('application/json')
+        expect(request.headers.get('content-type')).to.equal('text/plain')
+      })
+
+      it('should set a body', function () {
+        var request = new Request('//lquixa.da/', {
+          method: 'post',
+          body: 'Hello World!'
+        })
+        return request.text().then(function (body) {
+          expect(body).to.equal('Hello World!')
+        })
+      })
+
+      it.skip('construct with Request', function () {
+        var request1 = new Request('https://fetch.spec.whatwg.org/', {
+          method: 'post',
+          body: 'I work out',
+          headers: {
+            accept: 'application/json',
+            'Content-Type': 'text/plain'
+          }
+        })
+        var request2 = new Request(request1)
+
+        return request2.text().then(function (body2) {
+          expect(body2).to.equal('I work out')
+          expect(request2.method).to.equal('POST')
+          expect(request2.url).to.equal('https://fetch.spec.whatwg.org/')
+          expect(request2.headers.get('accept')).to.equal('application/json')
+          expect(request2.headers.get('content-type')).to.equal('text/plain')
+
+          return request1.text().then(
+            function () {
+              assert(false, 'original request body should have been consumed')
+            },
+            function (error) {
+              assert(error instanceof TypeError, 'expected TypeError for already read body')
+            }
+          )
+        })
+      })
+
+      it('should construct a Request from another Request', function () {
+        var request1 = new Request('https://fetch.spec.whatwg.org/', {
+          method: 'post',
+          body: 'Hello World!',
+          headers: {
+            accept: 'application/json'
+          }
+        })
+        var request2 = new Request(request1)
+
+        expect(request2.method).to.equal('POST')
+        expect(request2.headers.get('accept')).to.equal('application/json')
+
+        return request2.text().then(body => {
+          expect(body).to.equal('Hello World!')
+        })
+      })
+
+      it('should construct with Request with overriden headers', function () {
+        var request1 = new Request('https://fetch.spec.whatwg.org/', {
+          method: 'post',
+          body: 'I work out',
+          headers: {
+            accept: 'application/json',
+            'X-Request-ID': '123'
+          }
+        })
+        var request2 = new Request(request1, {
+          headers: { 'x-test': '42' }
+        })
+
+        expect(request2.headers.get('accept')).to.equal(null)
+        expect(request2.headers.get('x-request-id')).to.equal(null)
+        expect(request2.headers.get('x-test')).to.equal('42')
+      })
+
+      it('should construct with Request and override body', function () {
+        var request1 = new Request('https://fetch.spec.whatwg.org/', {
+          method: 'post',
+          body: 'I work out',
+          headers: {
+            'Content-Type': 'text/plain'
+          }
+        })
+        var request2 = new Request(request1, {
+          body: '{"wiggles": 5}',
+          headers: { 'Content-Type': 'application/json' }
+        })
+
+        return request2.json().then(function (data) {
+          expect(data.wiggles).to.equal(5)
+          expect(request2.headers.get('content-type')).to.equal('application/json')
+        })
+      })
+
+      it('construct with used Request body', function () {
+        var request1 = new Request('https://fetch.spec.whatwg.org/', {
+          method: 'post',
+          body: 'I work out'
+        })
+
+        return request1.text().then(function () {
+          /* eslint-disable no-new */
+          expect(function () { new Request(request1) }).to.throw()
+        })
+      })
+
+      it('should not have implicit Content-Type', function () {
+        var req = new Request('https://fetch.spec.whatwg.org/')
+        expect(req.headers.get('content-type')).to.equal(null)
+      })
+
+      it('POST with blank body should not have implicit Content-Type', function () {
+        var req = new Request('https://fetch.spec.whatwg.org/', {
+          method: 'post'
+        })
+        expect(req.headers.get('content-type')).to.equal(null)
+      })
+
+      it('construct with string body sets Content-Type header', function () {
+        var req = new Request('https://fetch.spec.whatwg.org/', {
+          method: 'post',
+          body: 'I work out'
+        })
+
+        expect(req.headers.get('content-type')).to.equal('text/plain;charset=UTF-8')
+      })
+
+      it('construct with body and explicit header uses header', function () {
+        var req = new Request('https://fetch.spec.whatwg.org/', {
+          method: 'post',
+          headers: { 'Content-Type': 'image/png' },
+          body: 'I work out'
+        })
+
+        expect(req.headers.get('content-type')).to.equal('image/png')
+      })
+
+      it('construct with unsupported body type', function () {
+        var req = new Request('https://fetch.spec.whatwg.org/', {
+          method: 'post',
+          body: {}
+        })
+
+        expect(req.headers.get('content-type')).to.equal('text/plain;charset=UTF-8')
+        return req.text().then(function (bodyText) {
+          expect(bodyText, '[object Object]')
+        })
+      })
+
+      it('construct with null body', function () {
+        var req = new Request('https://fetch.spec.whatwg.org/', {
+          method: 'post'
+        })
+
+        expect(req.headers.get('content-type')).to.equal(null)
+        return req.text().then(function (bodyText) {
+          expect(bodyText).to.equal('')
+        })
+      })
+
+      it('should clone GET request', function () {
+        var req = new Request('https://fetch.spec.whatwg.org/', {
+          headers: { 'content-type': 'text/plain' }
+        })
+        var clone = req.clone()
+
+        expect(clone.url).to.equal(req.url)
+        expect(clone.method).to.equal('GET')
+        expect(clone.headers.get('content-type')).to.equal('text/plain')
+        expect(clone.headers).to.not.equal(req.headers)
+        expect(req.bodyUsed).to.equal(false)
+      })
+
+      it('should clone POST request', function () {
+        var req = new Request('https://fetch.spec.whatwg.org/', {
+          method: 'post',
+          headers: { 'content-type': 'text/plain' },
+          body: 'I work out'
+        })
+        var clone = req.clone()
+
+        expect(clone.method).to.equal('POST')
+        expect(clone.headers.get('content-type')).to.equal('text/plain')
+        expect(clone.headers).to.not.equal(req.headers)
+        expect(req.bodyUsed).to.equal(false)
+
+        return Promise.all([clone.text(), req.clone().text()]).then(function (bodies) {
+          expect(bodies).to.deep.equal(['I work out', 'I work out'])
+        })
+      })
+
+      it.skip('clone with used Request body', function () {
+        var req = new Request('https://fetch.spec.whatwg.org/', {
+          method: 'post',
+          body: 'I work out'
+        })
+
+        return req.text().then(function () {
+          expect(function () { req.clone() }).to.throw()
+        })
       })
     })
 
@@ -181,7 +416,7 @@ function addSuite (envName) {
         expect(headers.has('Content-Type')).to.equal(true)
       })
 
-      it('deletes headers', function () {
+      it('should delete header', function () {
         var headers = new Headers({ Accept: 'application/json' })
         expect(headers.has('Accept')).to.equal(true)
 
