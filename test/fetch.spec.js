@@ -96,7 +96,7 @@ function addSuite (envName) {
       it.skip('construct with Request', function () {
         var request1 = new Request('https://fetch.spec.whatwg.org/', {
           method: 'post',
-          body: 'I work out',
+          body: 'Hello World!',
           headers: {
             accept: 'application/json',
             'Content-Type': 'text/plain'
@@ -105,7 +105,7 @@ function addSuite (envName) {
         var request2 = new Request(request1)
 
         return request2.text().then(function (body2) {
-          expect(body2).to.equal('I work out')
+          expect(body2).to.equal('Hello World!')
           expect(request2.method).to.equal('POST')
           expect(request2.url).to.equal('https://fetch.spec.whatwg.org/')
           expect(request2.headers.get('accept')).to.equal('application/json')
@@ -143,7 +143,7 @@ function addSuite (envName) {
       it('should construct with Request with overriden headers', function () {
         var request1 = new Request('https://fetch.spec.whatwg.org/', {
           method: 'post',
-          body: 'I work out',
+          body: 'Hello World!',
           headers: {
             accept: 'application/json',
             'X-Request-ID': '123'
@@ -161,7 +161,7 @@ function addSuite (envName) {
       it('should construct with Request and override body', function () {
         var request1 = new Request('https://fetch.spec.whatwg.org/', {
           method: 'post',
-          body: 'I work out',
+          body: 'Hello World!',
           headers: {
             'Content-Type': 'text/plain'
           }
@@ -180,7 +180,7 @@ function addSuite (envName) {
       it('construct with used Request body', function () {
         var request1 = new Request('https://fetch.spec.whatwg.org/', {
           method: 'post',
-          body: 'I work out'
+          body: 'Hello World!'
         })
 
         return request1.text().then(function () {
@@ -204,7 +204,7 @@ function addSuite (envName) {
       it('construct with string body sets Content-Type header', function () {
         var req = new Request('https://fetch.spec.whatwg.org/', {
           method: 'post',
-          body: 'I work out'
+          body: 'Hello World!'
         })
 
         expect(req.headers.get('content-type')).to.equal('text/plain;charset=UTF-8')
@@ -214,7 +214,7 @@ function addSuite (envName) {
         var req = new Request('https://fetch.spec.whatwg.org/', {
           method: 'post',
           headers: { 'Content-Type': 'image/png' },
-          body: 'I work out'
+          body: 'Hello World!'
         })
 
         expect(req.headers.get('content-type')).to.equal('image/png')
@@ -260,7 +260,7 @@ function addSuite (envName) {
         var req = new Request('https://fetch.spec.whatwg.org/', {
           method: 'post',
           headers: { 'content-type': 'text/plain' },
-          body: 'I work out'
+          body: 'Hello World!'
         })
         var clone = req.clone()
 
@@ -270,14 +270,14 @@ function addSuite (envName) {
         expect(req.bodyUsed).to.equal(false)
 
         return Promise.all([clone.text(), req.clone().text()]).then(function (bodies) {
-          expect(bodies).to.deep.equal(['I work out', 'I work out'])
+          expect(bodies).to.deep.equal(['Hello World!', 'Hello World!'])
         })
       })
 
       it.skip('clone with used Request body', function () {
         var req = new Request('https://fetch.spec.whatwg.org/', {
           method: 'post',
-          body: 'I work out'
+          body: 'Hello World!'
         })
 
         return req.text().then(function () {
@@ -291,9 +291,70 @@ function addSuite (envName) {
         expect(Response).to.be.a('function')
       })
 
-      it('should be ok :)', function () {
-        var response = new Response()
-        expect(response.ok).to.equal(true)
+      it('should default to status 200 OK', function () {
+        var res = new Response()
+        expect(res.status).to.equal(200)
+        expect(res.statusText).to.equal('OK')
+        expect(res.ok).to.equal(true)
+      })
+
+      it('should default to status 200 OK when an explicit undefined status code is passed', function () {
+        var res = new Response('', { status: undefined })
+        expect(res.status).to.equal(200)
+        expect(res.statusText).to.equal('OK')
+        expect(res.ok).to.equal(true)
+      })
+
+      it('should create Headers object from raw headers', function () {
+        var response = new Response('{"foo":"bar"}', {
+          headers: { 'content-type': 'application/json' }
+        })
+        expect(response.headers instanceof Headers).to.equal(true)
+        return response.json().then(function (json) {
+          expect(json.foo).to.equal('bar')
+          return json
+        })
+      })
+
+      it('should always creates a new Headers instance', function () {
+        var headers = new Headers({ 'x-hello': 'world' })
+        var res = new Response('', { headers: headers })
+
+        expect(res.headers.get('x-hello')).to.equal('world')
+        expect(res.headers).to.not.equal(headers)
+      })
+
+      it('should clone text response', function () {
+        var res = new Response('{"foo":"bar"}', {
+          headers: { 'content-type': 'application/json' }
+        })
+        var clone = res.clone()
+
+        expect(clone.headers).to.not.equal(res.headers, 'headers were cloned')
+        expect(clone.headers.get('content-type'), 'application/json')
+
+        return Promise.all([clone.json(), res.json()]).then(function (jsons) {
+          expect(jsons[0]).to.deep.equal(jsons[1], 'json of cloned object is the same as original')
+        })
+      })
+
+      it('should construct with body and explicit header uses header', function () {
+        var response = new Response('Hello World!', {
+          headers: {
+            'Content-Type': 'text/plain'
+          }
+        })
+
+        expect(response.headers.get('content-type')).to.equal('text/plain')
+      })
+
+      it('should have no content when null is passed as first argument', function () {
+        var response = new Response(null)
+
+        expect(response.headers.get('content-type')).to.equal(null)
+        return response.text().then(function (body) {
+          expect(body).to.equal('')
+        })
       })
     })
 
