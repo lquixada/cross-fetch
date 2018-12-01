@@ -1,7 +1,7 @@
 all: test
 
 node_modules/:
-	yarn
+	npm install
 
 build: node_modules
 	npx rollup -c

@@ -4,7 +4,7 @@ branches:
   only:
   - /^v\\d+\\.\\d+(\\.\\d+)?(-\\S*)?$/
 before_script:
-- yarn --prod
+- npm install --prod
 - npx snyk test
 script:
 - make test
