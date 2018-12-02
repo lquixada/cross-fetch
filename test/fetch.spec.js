@@ -3,16 +3,8 @@
  * working in browser and node environment.
  */
 
-function addFetchSuite (name) {
-  var responseToText = function (res) {
-    if (res.status >= 400) {
-      throw new Error('Bad server response')
-    }
-
-    return res.text()
-  }
-
-  describe(name, function () {
+function addFetchSuite (envName) {
+  describe(envName, function () {
     describe('fetch', function () {
       it('should be defined', function () {
         expect(fetch).to.be.a('function')
@@ -24,18 +16,228 @@ function addFetchSuite (name) {
       })
 
       it('should facilitate the making of requests', function () {
-        return fetch('//lquixa.da/succeed.txt')
-          .then(responseToText)
+        return fetch('https://fet.ch/succeed')
+          .then(function (res) {
+            if (res.status >= 400) {
+              throw new Error('Bad server response')
+            }
+
+            return res.text()
+          })
           .then(function (data) {
             expect(data).to.equal('hello world.')
           })
       })
 
-      it('should do the right thing with bad requests', function () {
-        return fetch('//lquixa.da/fail.txt')
-          .then(responseToText)
+      it('should catch bad responses', function () {
+        return fetch('https://fet.ch/fail')
+          .then(function (res) {
+            if (res.status >= 400) {
+              throw new Error('Bad server response')
+            }
+
+            return res.text()
+          })
           .catch(function (err) {
             expect(err.toString()).to.equal('Error: Bad server response')
+          })
+      })
+
+      it('should resolve promise on 500 error', function () {
+        return fetch('https://fet.ch/error')
+          .then(function (res) {
+            expect(res.status).to.equal(500)
+            expect(res.ok).to.equal(false)
+            return res.text()
+          })
+          .then(function (data) {
+            expect(data).to.equal('error world.')
+          })
+      })
+
+      it('should reject when Request constructor throws', function () {
+        return fetch('https://fet.ch/succeed', { method: 'GET', body: 'invalid' })
+          .then(function () {
+            expect.fail('Invalid Request init was accepted')
+          })
+          .catch(function (error) {
+            expect(error).to.be.an.instanceof(TypeError, 'Rejected with Error')
+          })
+      })
+
+      it('should send headers', function () {
+        return fetch('https://fet.ch/request', {
+          headers: {
+            Accept: 'application/json',
+            'X-Test': '42'
+          }
+        })
+          .then(function (res) {
+            return res.json()
+          })
+          .then(function (data) {
+            expect(data.headers['accept']).to.equal('application/json')
+            expect(data.headers['x-test']).to.equal('42')
+          })
+      })
+
+      it('with Request as argument', function () {
+        var request = new Request('https://fet.ch/request', {
+          headers: {
+            Accept: 'application/json',
+            'X-Test': '42'
+          }
+        })
+
+        return fetch(request)
+          .then(function (res) {
+            return res.json()
+          })
+          .then(function (data) {
+            expect(data.headers['accept']).to.equal('application/json')
+            expect(data.headers['x-test']).to.equal('42')
+          })
+      })
+
+      it('should reuse same Request multiple times', function () {
+        var request = new Request('https://fet.ch/request', {
+          headers: {
+            Accept: 'application/json',
+            'X-Test': '42'
+          }
+        })
+
+        var responses = []
+
+        return fetch(request)
+          .then(function (res) {
+            responses.push(res)
+            return fetch(request)
+          })
+          .then(function (res) {
+            responses.push(res)
+            return fetch(request)
+          })
+          .then(function (res) {
+            responses.push(res)
+            return Promise.all(
+              responses.map(function (res) {
+                return res.json()
+              })
+            )
+          })
+          .then(function (data) {
+            data.forEach(function (json) {
+              expect(json.headers['accept']).to.equal('application/json')
+              expect(json.headers['x-test']).to.equal('42')
+            })
+          })
+      })
+
+      it('should populate body', function () {
+        return fetch('https://fet.ch/succeed')
+          .then(function (res) {
+            expect(res.status).to.equal(200)
+            expect(res.ok).to.equal(true)
+            return res.text()
+          })
+          .then(function (data) {
+            expect(data).to.equal('hello world.')
+          })
+      })
+
+      it('should parse headers', function () {
+        return fetch('https://fet.ch/request').then(function (res) {
+          expect(res.headers.get('Date')).to.equal('Sat, 23 Sep 2017 15:41:16 GMT-0300')
+          expect(res.headers.get('Content-Type')).to.equal('application/json')
+        })
+      })
+
+      it('should support HTTP GET', function () {
+        return fetch('https://fet.ch/request', {
+          method: 'get'
+        })
+          .then(function (res) {
+            return res.json()
+          })
+          .then(function (data) {
+            expect(data.method).to.equal('GET')
+            expect(data.body).to.equal('')
+          })
+      })
+
+      it('should throw error on GET with body', function () {
+        expect(function () {
+          /* eslint-disable no-new */
+          new Request('', {
+            method: 'get',
+            body: 'invalid'
+          })
+        }).to.throw(TypeError)
+      })
+
+      it('should throw error on HEAD with body', function () {
+        expect(function () {
+          /* eslint-disable no-new */
+          new Request('', {
+            method: 'head',
+            body: 'invalid'
+          })
+        }).to.throw(TypeError)
+      })
+
+      it('should support HTTP POST', function () {
+        return fetch('https://fet.ch/request', {
+          method: 'post',
+          body: 'name=Hubot'
+        })
+          .then(function (res) {
+            return res.json()
+          })
+          .then(function (data) {
+            expect(data.method).to.equal('POST')
+            expect(data.body).to.equal('name=Hubot')
+          })
+      })
+
+      it('should support HTTP PUT', function () {
+        return fetch('https://fet.ch/request', {
+          method: 'put',
+          body: 'name=Hubot'
+        })
+          .then(function (res) {
+            return res.json()
+          })
+          .then(function (data) {
+            expect(data.method).to.equal('PUT')
+            expect(data.body).to.equal('name=Hubot')
+          })
+      })
+
+      it('should support HTTP PATCH', function () {
+        return fetch('https://fet.ch/request', {
+          method: 'PATCH',
+          body: 'name=Hubot'
+        })
+          .then(function (res) {
+            return res.json()
+          })
+          .then(function (data) {
+            expect(data.method).to.equal('PATCH')
+            expect(data.body).to.equal('name=Hubot')
+          })
+      })
+
+      it('should support HTTP DELETE', function () {
+        return fetch('https://fet.ch/request', {
+          method: 'delete'
+        })
+          .then(function (res) {
+            return res.json()
+          })
+          .then(function (data) {
+            expect(data.method).to.equal('DELETE')
+            expect(data.body).to.equal('')
           })
       })
     })
@@ -46,34 +248,34 @@ function addFetchSuite (name) {
       })
 
       it('should construct an url from string', function () {
-        var request = new Request('https://fetch.spec.whatwg.org/')
-        expect(request.url).to.equal('https://fetch.spec.whatwg.org/')
+        var request = new Request('https://fet.ch/')
+        expect(request.url).to.equal('https://fet.ch/')
       })
 
       it('should construct url from object', function () {
         var url = {
           toString: function () {
-            return 'https://fetch.spec.whatwg.org/'
+            return 'https://fet.ch/'
           }
         }
         var request = new Request(url)
-        expect(request.url).to.equal('https://fetch.spec.whatwg.org/')
+        expect(request.url).to.equal('https://fet.ch/')
       })
 
       it('should get GET as the default method', function () {
-        var request = new Request('//lquixa.da/')
+        var request = new Request('https://fet.ch/')
         expect(request.method).to.equal('GET')
       })
 
       it('should set a method', function () {
-        var request = new Request('//lquixa.da/', {
+        var request = new Request('https://fet.ch/', {
           method: 'post'
         })
         expect(request.method).to.equal('POST')
       })
 
       it('should set headers', function () {
-        var request = new Request('//lquixa.da/', {
+        var request = new Request('https://fet.ch/', {
           headers: {
             accept: 'application/json',
             'Content-Type': 'text/plain'
@@ -84,17 +286,17 @@ function addFetchSuite (name) {
       })
 
       it('should set a body', function () {
-        var request = new Request('//lquixa.da/', {
+        var request = new Request('https://fet.ch/', {
           method: 'post',
           body: 'Hello World!'
         })
-        return request.text().then(function (body) {
-          expect(body).to.equal('Hello World!')
+        return request.text().then(function (data) {
+          expect(data).to.equal('Hello World!')
         })
       })
 
       it.skip('construct with Request', function () {
-        var request1 = new Request('https://fetch.spec.whatwg.org/', {
+        var request1 = new Request('https://fet.ch/', {
           method: 'post',
           body: 'Hello World!',
           headers: {
@@ -104,26 +306,26 @@ function addFetchSuite (name) {
         })
         var request2 = new Request(request1)
 
-        return request2.text().then(function (body2) {
-          expect(body2).to.equal('Hello World!')
+        return request2.text().then(function (data) {
+          expect(data).to.equal('Hello World!')
           expect(request2.method).to.equal('POST')
-          expect(request2.url).to.equal('https://fetch.spec.whatwg.org/')
+          expect(request2.url).to.equal('https://fet.ch/')
           expect(request2.headers.get('accept')).to.equal('application/json')
           expect(request2.headers.get('content-type')).to.equal('text/plain')
 
           return request1.text().then(
             function () {
-              assert(false, 'original request body should have been consumed')
+              expect.fail('original request body should have been consumed')
             },
             function (error) {
-              assert(error instanceof TypeError, 'expected TypeError for already read body')
+              expect(error).to.be.an.instanceof(TypeError, 'expected TypeError for already read body')
             }
           )
         })
       })
 
       it('should construct a Request from another Request', function () {
-        var request1 = new Request('https://fetch.spec.whatwg.org/', {
+        var request1 = new Request('https://fet.ch/', {
           method: 'post',
           body: 'Hello World!',
           headers: {
@@ -135,13 +337,13 @@ function addFetchSuite (name) {
         expect(request2.method).to.equal('POST')
         expect(request2.headers.get('accept')).to.equal('application/json')
 
-        return request2.text().then(body => {
-          expect(body).to.equal('Hello World!')
+        return request2.text().then(function (data) {
+          expect(data).to.equal('Hello World!')
         })
       })
 
       it('should construct with Request with overriden headers', function () {
-        var request1 = new Request('https://fetch.spec.whatwg.org/', {
+        var request1 = new Request('https://fet.ch/', {
           method: 'post',
           body: 'Hello World!',
           headers: {
@@ -159,7 +361,7 @@ function addFetchSuite (name) {
       })
 
       it('should construct with Request and override body', function () {
-        var request1 = new Request('https://fetch.spec.whatwg.org/', {
+        var request1 = new Request('https://fet.ch/', {
           method: 'post',
           body: 'Hello World!',
           headers: {
@@ -178,7 +380,7 @@ function addFetchSuite (name) {
       })
 
       it('construct with used Request body', function () {
-        var request1 = new Request('https://fetch.spec.whatwg.org/', {
+        var request1 = new Request('https://fet.ch/', {
           method: 'post',
           body: 'Hello World!'
         })
@@ -190,65 +392,62 @@ function addFetchSuite (name) {
       })
 
       it('should not have implicit Content-Type', function () {
-        var req = new Request('https://fetch.spec.whatwg.org/')
+        var req = new Request('https://fet.ch/')
         expect(req.headers.get('content-type')).to.equal(null)
       })
 
       it('POST with blank body should not have implicit Content-Type', function () {
-        var req = new Request('https://fetch.spec.whatwg.org/', {
+        var req = new Request('https://fet.ch/', {
           method: 'post'
         })
         expect(req.headers.get('content-type')).to.equal(null)
       })
 
       it('construct with string body sets Content-Type header', function () {
-        var req = new Request('https://fetch.spec.whatwg.org/', {
+        var req = new Request('https://fet.ch/', {
           method: 'post',
           body: 'Hello World!'
         })
-
         expect(req.headers.get('content-type')).to.equal('text/plain;charset=UTF-8')
       })
 
       it('construct with body and explicit header uses header', function () {
-        var req = new Request('https://fetch.spec.whatwg.org/', {
+        var req = new Request('https://fet.ch/', {
           method: 'post',
           headers: { 'Content-Type': 'image/png' },
           body: 'Hello World!'
         })
-
         expect(req.headers.get('content-type')).to.equal('image/png')
       })
 
       it('construct with unsupported body type', function () {
-        var req = new Request('https://fetch.spec.whatwg.org/', {
+        var req = new Request('https://fet.ch/', {
           method: 'post',
           body: {}
         })
 
         expect(req.headers.get('content-type')).to.equal('text/plain;charset=UTF-8')
-        return req.text().then(function (bodyText) {
-          expect(bodyText, '[object Object]')
+        return req.text().then(function (data) {
+          expect(data, '[object Object]')
         })
       })
 
       it('construct with null body', function () {
-        var req = new Request('https://fetch.spec.whatwg.org/', {
+        var req = new Request('https://fet.ch/', {
           method: 'post'
         })
 
         expect(req.headers.get('content-type')).to.equal(null)
-        return req.text().then(function (bodyText) {
-          expect(bodyText).to.equal('')
+        return req.text().then(function (data) {
+          expect(data).to.equal('')
         })
       })
 
       it('should clone GET request', function () {
-        var req = new Request('https://fetch.spec.whatwg.org/', {
+        var req = new Request('https://fet.ch/', {
           headers: { 'content-type': 'text/plain' }
         })
         var clone = req.clone()
-
         expect(clone.url).to.equal(req.url)
         expect(clone.method).to.equal('GET')
         expect(clone.headers.get('content-type')).to.equal('text/plain')
@@ -257,7 +456,7 @@ function addFetchSuite (name) {
       })
 
       it('should clone POST request', function () {
-        var req = new Request('https://fetch.spec.whatwg.org/', {
+        var req = new Request('https://fet.ch/', {
           method: 'post',
           headers: { 'content-type': 'text/plain' },
           body: 'Hello World!'
@@ -268,18 +467,16 @@ function addFetchSuite (name) {
         expect(clone.headers.get('content-type')).to.equal('text/plain')
         expect(clone.headers).to.not.equal(req.headers)
         expect(req.bodyUsed).to.equal(false)
-
-        return Promise.all([clone.text(), req.clone().text()]).then(function (bodies) {
-          expect(bodies).to.deep.equal(['Hello World!', 'Hello World!'])
+        return Promise.all([clone.text(), req.clone().text()]).then(function (data) {
+          expect(data).to.deep.equal(['Hello World!', 'Hello World!'])
         })
       })
 
       it.skip('clone with used Request body', function () {
-        var req = new Request('https://fetch.spec.whatwg.org/', {
+        var req = new Request('https://fet.ch/', {
           method: 'post',
           body: 'Hello World!'
         })
-
         return req.text().then(function () {
           expect(function () { req.clone() }).to.throw()
         })
@@ -309,10 +506,10 @@ function addFetchSuite (name) {
         var response = new Response('{"foo":"bar"}', {
           headers: { 'content-type': 'application/json' }
         })
-        expect(response.headers instanceof Headers).to.equal(true)
-        return response.json().then(function (json) {
-          expect(json.foo).to.equal('bar')
-          return json
+        expect(response.headers).to.be.an.instanceof(Headers)
+        return response.json().then(function (data) {
+          expect(data.foo).to.equal('bar')
+          return data
         })
       })
 
@@ -333,8 +530,8 @@ function addFetchSuite (name) {
         expect(clone.headers).to.not.equal(res.headers, 'headers were cloned')
         expect(clone.headers.get('content-type'), 'application/json')
 
-        return Promise.all([clone.json(), res.json()]).then(function (jsons) {
-          expect(jsons[0]).to.deep.equal(jsons[1], 'json of cloned object is the same as original')
+        return Promise.all([clone.json(), res.json()]).then(function (data) {
+          expect(data[0]).to.deep.equal(data[1], 'json of cloned object is the same as original')
         })
       })
 
@@ -352,8 +549,8 @@ function addFetchSuite (name) {
         var response = new Response(null)
 
         expect(response.headers.get('content-type')).to.equal(null)
-        return response.text().then(function (body) {
-          expect(body).to.equal('')
+        return response.text().then(function (data) {
+          expect(data).to.equal('')
         })
       })
     })

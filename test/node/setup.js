@@ -1,13 +1,37 @@
 const nock = require('nock')
 
-before(() => {
-  nock('https://lquixa.da')
-    .persist()
-    .get('/succeed.txt')
-    .reply(200, 'hello world.')
+const reply = function (uri, reqBody) {
+  const reqHeaders = Object.assign({}, this.req.headers)
+  const resHeaders = {
+    'Content-Type': 'application/json',
+    'Date': 'Sat, 23 Sep 2017 15:41:16 GMT-0300'
+  }
 
-  nock('https://lquixa.da')
+  for (let key in reqHeaders) {
+    let value = reqHeaders[key]
+    reqHeaders[key] = Array.isArray(value) ? value[0] : value
+  }
+
+  return [
+    200,
+    JSON.stringify({
+      method: this.method,
+      headers: reqHeaders,
+      body: reqBody || ''
+    }),
+    resHeaders
+  ]
+}
+
+before(() => {
+  nock('https://fet.ch')
     .persist()
-    .get('/fail.txt')
-    .reply(404, 'good bye world.')
+    .get('/succeed').reply(200, 'hello world.')
+    .get('/fail').reply(404, 'good bye world.')
+    .get('/error').reply(500, 'error world.')
+    .get('/request').reply(reply)
+    .post('/request').reply(reply)
+    .put('/request').reply(reply)
+    .delete('/request').reply(reply)
+    .patch('/request').reply(reply)
 })

@@ -1191,8 +1191,8 @@ exports.default = __root__.fetch
  * imported/required in webpack bundle for node and browser environments.
  */
 
-function addModuleSuite (envName, ponyfill) {
-  describe(envName + ': import on Webpack bundle', () => {
+function addModuleSuite (name, ponyfill) {
+  describe(name, () => {
     describe('Polyfill', () => {
       it('should polyfill the fetch function', () => {
         expect(fetch).to.be.a('function')
