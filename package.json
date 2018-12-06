@@ -6,20 +6,6 @@
   "main": "dist/node-ponyfill.js",
   "browser": "dist/browser-ponyfill.js",
   "typings": "index.d.ts",
-  "scripts": {
-    "codecov": "make cov",
-    "deploy:major": "make deploy release=major",
-    "deploy:minor": "make deploy release=minor",
-    "deploy:patch": "make deploy release=patch",
-    "lint": "make lint",
-    "sauce": "make sauce",
-    "test": "make test",
-    "test:browser": "make test-browser",
-    "test:browser:webpack": "make test-browser-webpack",
-    "test:implementation": "make test-implementation",
-    "test:node": "make test-node",
-    "test:node:webpack": "make test-node-webpack"
-  },
   "lint-staged": {
     "*.js": [
       "standard --fix",
