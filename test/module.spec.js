@@ -3,8 +3,8 @@
  * imported/required in webpack bundle for node and browser environments.
  */
 
-function addSuite (envName, ponyfill) {
-  describe(envName, () => {
+function addModuleSuite (name, ponyfill) {
+  describe(name, () => {
     describe('Polyfill', () => {
       it('should polyfill the fetch function', () => {
         expect(fetch).to.be.a('function')
@@ -52,4 +52,4 @@ function addSuite (envName, ponyfill) {
   })
 }
 
-module.exports = addSuite
+module.exports = addModuleSuite

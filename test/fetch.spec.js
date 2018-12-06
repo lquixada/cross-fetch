@@ -3,7 +3,7 @@
  * working in browser and node environment.
  */
 
-function addSuite (envName) {
+function addFetchSuite (name) {
   var responseToText = function (res) {
     if (res.status >= 400) {
       throw new Error('Bad server response')
@@ -12,7 +12,7 @@ function addSuite (envName) {
     return res.text()
   }
 
-  describe(envName, function () {
+  describe(name, function () {
     describe('fetch', function () {
       it('should be defined', function () {
         expect(fetch).to.be.a('function')
@@ -567,5 +567,5 @@ function addSuite (envName) {
 // Since this test suite needs to run on different environments,
 // we used a simplified UMD pattern here.
 if (typeof module === 'object' && module.exports) {
-  module.exports = addSuite
+  module.exports = addFetchSuite
 }

@@ -1,5 +1,5 @@
 require('../setup')
 require('../../../dist/node-polyfill')
 
-const addSuite = require('../../fetch.spec')
-addSuite('Node: implementation of the Fetch API')
+const addFetchSuite = require('../../fetch.spec')
+addFetchSuite('Node: implementation of the Fetch API')

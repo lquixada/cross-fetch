@@ -2,8 +2,8 @@ require('../../../polyfill')
 
 const fetch = require('../../..')
 const ponyfill = require('../../..')
-const addSuite = require('../../module.spec')
+const addModuleSuite = require('../../module.spec')
 
 ponyfill.defaultExport = fetch
 
-addSuite('Browser: require on Webpack bundle', ponyfill)
+addModuleSuite('Browser: require on Webpack bundle', ponyfill)
