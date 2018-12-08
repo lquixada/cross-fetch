@@ -39,7 +39,7 @@ function addFetchSuite (envName) {
             return res.text()
           })
           .catch(function (err) {
-            expect(err.toString()).to.equal('Error: Bad server response')
+            expect(err).to.be.an.instanceof(Error, 'Bad server response')
           })
       })
 
@@ -60,8 +60,8 @@ function addFetchSuite (envName) {
           .then(function () {
             expect.fail('Invalid Request init was accepted')
           })
-          .catch(function (error) {
-            expect(error).to.be.an.instanceof(TypeError, 'Rejected with Error')
+          .catch(function (err) {
+            expect(err).to.be.an.instanceof(TypeError, 'Rejected with Error')
           })
       })
 
@@ -317,8 +317,8 @@ function addFetchSuite (envName) {
             function () {
               expect.fail('original request body should have been consumed')
             },
-            function (error) {
-              expect(error).to.be.an.instanceof(TypeError, 'expected TypeError for already read body')
+            function (err) {
+              expect(err).to.be.an.instanceof(TypeError, 'expected TypeError for already read body')
             }
           )
         })
