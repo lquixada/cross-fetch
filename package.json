@@ -56,15 +56,15 @@
     "lint-staged": "8.1.0",
     "mocha": "5.2.0",
     "mocha-headless-chrome": "2.0.1",
-    "nock": "10.0.2",
+    "nock": "10.0.4",
     "nyc": "13.1.0",
     "ora": "3.0.0",
-    "rollup": "0.67.3",
+    "rollup": "0.67.4",
     "rollup-plugin-copy": "0.2.3",
     "rollup-plugin-uglify": "6.0.0",
     "sinon": "7.1.1",
     "standard": "12.0.1",
-    "webpack": "4.26.0",
+    "webpack": "4.27.1",
     "webpack-cli": "3.1.2"
   },
   "files": [

@@ -21867,6 +21867,10 @@ module.exports = Interceptor;
 function Interceptor(scope, uri, method, requestBody, interceptorOptions) {
     this.scope = scope;
     this.interceptorMatchHeaders = [];
+
+    if (typeof method === 'undefined' || !method) {
+        throw new Error('The "method" parameter is required for an intercept call.');
+    }
     this.method = method.toUpperCase();
     this.uri = uri;
     this._key = this.method + ' ' + scope.basePath + scope.basePathname + (typeof uri === 'string' ? '' : '/') + uri;
@@ -22449,10 +22453,17 @@ function matchBody(spec, body) {
   if (typeof spec === 'undefined') {
     return true;
   }
+
   var options = this || {};
 
   if (Buffer.isBuffer(body)) {
     body = body.toString();
+  }
+
+  if (spec instanceof RegExp) {
+    if (typeof body === "string") {
+      return body.match(spec);
+    }
   }
 
   if (Buffer.isBuffer(spec)) {
@@ -22491,14 +22502,6 @@ function matchBody(spec, body) {
   //if Content-Type does not contains 'multipart'
   if (!isMultipart && typeof body === "string") {
     body = body.replace(/\r?\n|\r/g, '');
-  }
-
-  if (spec instanceof RegExp) {
-    if (typeof body === "string") {
-      return body.match(spec);
-    } else {
-      return qs.stringify(body).match(spec);
-    }
   }
 
   if (!isMultipart && typeof spec === "string") {
