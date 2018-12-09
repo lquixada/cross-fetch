@@ -1,5 +1,5 @@
 cross-fetch<br>
-[![Build Status](https://travis-ci.org/lquixada/cross-fetch.svg?branch=master)](https://travis-ci.org/lquixada/cross-fetch)
+[![Build Status](https://travis-ci.org/lquixada/cross-fetch.svg)](https://travis-ci.org/lquixada/cross-fetch)
 [![Build Status](https://saucelabs.com/buildstatus/cross-fetch)](https://saucelabs.com/u/cross-fetch)
 [![codecov](https://codecov.io/gh/lquixada/cross-fetch/branch/master/graph/badge.svg)](https://codecov.io/gh/lquixada/cross-fetch)
 [![dependencies Status](https://david-dm.org/lquixada/cross-fetch/status.svg)](https://david-dm.org/lquixada/cross-fetch)
