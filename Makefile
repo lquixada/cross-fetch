@@ -25,6 +25,9 @@ lint:
 sauce:
 	./tasks/sauce
 
+snyk:
+	npx snyk test
+
 test: test-node test-node-webpack test-browser test-browser-webpack lint
 
 test-browser: build

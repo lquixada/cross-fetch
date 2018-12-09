@@ -5,7 +5,7 @@ branches:
   - /^v\d+\.\d+(\.\d+)?(-\S*)?$/
 before_script:
 - npm install --prod
-- npx snyk test
+- make snyk
 script:
 - make test
 - make cov
