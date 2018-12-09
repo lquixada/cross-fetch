@@ -2,7 +2,7 @@ sudo: false
 language: node_js
 branches:
   only:
-  - /^v\\d+\\.\\d+(\\.\\d+)?(-\\S*)?$/
+  - /^v\d+\.\d+(\.\d+)?(-\S*)?$/
 before_script:
 - npm install --prod
 - npx snyk test
