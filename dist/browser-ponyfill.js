@@ -1,3 +1,4 @@
+var realFetch = this && this.fetch;
 var __root__ = (function (root) {
 function F() { this.fetch = false; }
 F.prototype = root;
