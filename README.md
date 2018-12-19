@@ -7,9 +7,9 @@ cross-fetch<br>
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 ================
 
-Universal WHATWG Fetch API for Node, Browsers and React Native. The scenario that cross-fetch really shines is when the same javascript codebase needs to run on different platforms.
+Universal WHATWG Fetch API for Node, Browsers and React Native. The scenario that cross-fetch really shines is when the same JavaScript codebase needs to run on different platforms.
 
-- **Platform agnostic**: browsers, node or react native
+- **Platform agnostic**: browsers, Node or React Native
 - **Optional polyfill**: it's up to you if something is going to be added to the global object or not
 - **Simple interface**: no instantiation, no configuration and no extra dependency
 - **WHATWG compliant**: it works the same way wherever your code runs
@@ -153,7 +153,7 @@ Just like isomorphic-fetch, it is just a proxy. If you're in node, it delivers y
 ## Who's Using It?
 
 * [VulcanJS](http://vulcanjs.org)
-* [graphql-request](https://github.com/graphcool/graphql-request)
+* [graphql-request](https://github.com/prisma/graphql-request)
 * [Swagger](https://swagger.io/)
 
 
