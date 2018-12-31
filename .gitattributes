@@ -1,2 +1,3 @@
+*.pbxproj -text
 dist/**    -diff -merge
 dist/**    linguist-generated=true
