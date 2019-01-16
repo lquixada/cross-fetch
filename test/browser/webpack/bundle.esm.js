@@ -1180,9 +1180,9 @@ var irrelevant = (function (exports) {
 }({}));
 })(__self__);
 delete __self__.fetch.polyfill
-exports = __self__.fetch
+exports = __self__.fetch // Export as default
 exports.default = __self__.fetch // For TypeScript consumers without esModuleInterop.
-exports.fetch = __self__.fetch
+exports.fetch = __self__.fetch // Export as a member
 exports.Headers = __self__.Headers
 exports.Request = __self__.Request
 exports.Response = __self__.Response
