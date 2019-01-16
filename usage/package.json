@@ -5,13 +5,12 @@
   "react-native": "index.js",
   "private": true,
   "scripts": {
-    "start": "node node_modules/react-native/local-cli/cli.js start",
-    "prerun:node": "npm run -s build",
-    "prerun:web": "npm run -s build",
-    "build": "webpack-cli",
-    "run:index": "node github",
-    "run:node": "node node/bundle",
-    "run:web": "node puppeteer"
+    "build:native": "node node_modules/react-native/local-cli/cli.js start",
+    "node:bundle": "webpack-cli && node node/bundle",
+    "node:index": "node github",
+    "headless": "webpack-cli && node puppeteer",
+    "android": "react-native run-android",
+    "ios": "react-native run-ios"
   },
   "dependencies": {
     "react": "16.6.3",
