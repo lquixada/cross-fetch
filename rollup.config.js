@@ -19,7 +19,7 @@ export default [
       name: 'irrelevant',
       strict: false,
       banner: outdent(`
-        var __root__ = (function (root) {
+        var __self__ = (function (root) {
           function F() { this.fetch = false; }
           F.prototype = root;
           return new F();
@@ -28,18 +28,18 @@ export default [
         (function(self) {
       `),
       footer: outdent(`
-        })(__root__);
+        })(__self__);
 
-        delete __root__.fetch.polyfill
+        delete __self__.fetch.polyfill
 
-        module.exports = exports = __root__.fetch
-        exports.fetch = __root__.fetch
-        exports.Headers = __root__.Headers
-        exports.Request = __root__.Request
-        exports.Response = __root__.Response
+        exports = __self__.fetch // Export as default
+        exports.default = __self__.fetch // For TypeScript consumers without esModuleInterop.
+        exports.fetch = __self__.fetch // Export as a member
+        exports.Headers = __self__.Headers
+        exports.Request = __self__.Request
+        exports.Response = __self__.Response
 
-        // Needed for TypeScript consumers without esModuleInterop.
-        exports.default = __root__.fetch
+        module.exports = exports
       `)
     },
     plugins: [
