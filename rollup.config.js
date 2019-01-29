@@ -69,6 +69,7 @@ export default [
     plugins: [
       copy({
         'src/node-polyfill.js': 'dist/node-polyfill.js',
+        'src/react-native-ponyfill.js': 'dist/react-native-ponyfill.js',
         verbose: true
       })
     ],
