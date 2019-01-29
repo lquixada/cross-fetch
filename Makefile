@@ -28,7 +28,7 @@ sauce:
 snyk:
 	npx snyk test
 
-test: test-node test-node-webpack test-browser test-browser-webpack lint
+test: test-node test-node-webpack test-browser test-browser-webpack test-react-native lint
 
 test-browser: build
 	npx mocha-headless-chrome -f test/browser/headless/index.html
@@ -43,5 +43,8 @@ test-node: build
 
 test-node-webpack: build build-node-webpack
 	npx mocha test/node/webpack/bundle.*.js
+
+test-react-native: build
+	npx mocha test/react-native/index.js
 
 .PHONY: all build build-browser-webpack build-node-webpack deploy lint test test-browser test-browser-webpack test-node test-node-webpack  sauce
