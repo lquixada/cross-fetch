@@ -45,6 +45,7 @@ export default [
     plugins: [
       copy({
         'src/node-ponyfill.js': 'dist/node-ponyfill.js',
+        'src/react-native-ponyfill.js': 'dist/react-native-ponyfill.js',
         verbose: true
       })
     ],
@@ -69,7 +70,7 @@ export default [
     plugins: [
       copy({
         'src/node-polyfill.js': 'dist/node-polyfill.js',
-        'src/react-native-ponyfill.js': 'dist/react-native-ponyfill.js',
+        'src/react-native-polyfill.js': 'dist/react-native-polyfill.js',
         verbose: true
       })
     ],
