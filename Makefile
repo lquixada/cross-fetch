@@ -1,7 +1,7 @@
 all: test
 
 node_modules: package.json
-	npm install
+	npm install && /usr/bin/touch node_modules
 
 build: node_modules
 	npx rollup -c
