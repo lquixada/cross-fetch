@@ -1,6 +1,6 @@
 all: test
 
-node_modules/:
+node_modules: package.json
 	npm install
 
 build: node_modules
