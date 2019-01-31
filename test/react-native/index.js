@@ -1,5 +1,5 @@
 describe('react-native', function () {
-  it('just re-exports the global functions', function () {
+  it('re-exports the global functions', function () {
     const globalFetch = global.fetch = function globalFetch () {}
     const globalHeaders = global.Headers = function globalHeaders () {}
     const globalRequest = global.Request = function globalRequest () {}
@@ -18,7 +18,7 @@ describe('react-native', function () {
     delete global.Response
   })
 
-  it('doesn\'t touch the global functions when polyfilling', function () {
+  it('does not touch the global functions when polyfilling', function () {
     const globalFetch = global.fetch = function globalFetch () {}
     const globalHeaders = global.Headers = function globalHeaders () {}
     const globalRequest = global.Request = function globalRequest () {}
