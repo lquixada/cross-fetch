@@ -1,3 +1,4 @@
+import React from 'react'
 import { AppRegistry, NavigatorIOS } from 'react-native'
 import { name as appName } from './app.json'
 import Home from './native'
