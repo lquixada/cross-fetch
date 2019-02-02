@@ -4,6 +4,7 @@ language: node_js
 #   only:
 #   - /^v\d+\.\d+(\.\d+)?(-\S*)?$/
 before_script:
+- make travis-env
 - npm install --prod
 - make snyk
 script:
