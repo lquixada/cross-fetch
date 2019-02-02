@@ -3,13 +3,13 @@ all: test
 node_modules: package.json
 	npm install && /usr/bin/touch node_modules
 
-build: node_modules
-	npx rollup -c
+dist: node_modules
+	npx rollup -c && /usr/bin/touch dist
 
-build-browser-webpack: build
+test/browser/webpack/bundle.%.js: dist
 	npx webpack-cli --progress --config test/browser/webpack/webpack.config.js
 
-build-node-webpack: build
+test/node/webpack/bundle.%.js: dist
 	npx webpack-cli --progress --config test/node/webpack/webpack.config.js
 
 cov:
@@ -33,21 +33,21 @@ snyk:
 
 test: test-node test-node-webpack test-browser test-browser-webpack test-react-native lint
 
-test-browser: build
+test-browser: dist
 	npx mocha-headless-chrome -f test/browser/headless/index.html
 
-test-browser-webpack: build build-browser-webpack
+test-browser-webpack: test/browser/webpack/bundle.cjs.js test/browser/webpack/bundle.esm.js
 	npx mocha-headless-chrome -f test/browser/webpack/index.html
 
 test-implementation: test-node test-browser
 
-test-node: build
+test-node: dist
 	npx nyc mocha test/node/node/index.js
 
-test-node-webpack: build build-node-webpack
+test-node-webpack: test/node/webpack/bundle.cjs.js test/node/webpack/bundle.esm.js
 	npx mocha test/node/webpack/bundle.*.js
 
-test-react-native: build
+test-react-native: dist
 	npx mocha test/react-native/index.js
 
-.PHONY: all build build-browser-webpack build-node-webpack deploy lint test test-browser test-browser-webpack test-node test-node-webpack  sauce
+.PHONY: all build deploy lint test test-browser test-browser-webpack test-node test-node-webpack  sauce
