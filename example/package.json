@@ -4,14 +4,6 @@
   "main": "index.js",
   "react-native": "index.js",
   "private": true,
-  "scripts": {
-    "build:native": "node node_modules/react-native/local-cli/cli.js start",
-    "node:bundle": "webpack-cli && node node/bundle",
-    "node:index": "node github",
-    "headless": "webpack-cli && node web/puppeteer",
-    "android": "react-native run-android",
-    "ios": "react-native run-ios"
-  },
   "dependencies": {
     "cross-fetch": "3.0.0",
     "react": "16.6.3",
