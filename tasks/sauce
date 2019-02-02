@@ -2,17 +2,24 @@
 /* eslint no-console: "off" */
 const ora = require('ora')
 const fetch = require('node-fetch')
-const pkg = require('../package')
 
 // For some unknown reason, ora doesn't output anything on CI environments.
 const spinner = ora()
 
 // Environment variables
 const isCI = !!process.env.CI
-const pr = process.env.TRAVIS_PULL_REQUEST
+const travisBranch = process.env.TRAVIS_BRANCH
+const travisTag = process.env.TRAVIS_TAG
+const travisPR = process.env.TRAVIS_PULL_REQUEST
 const name = process.env.SAUCE_USER_NAME
 const key = process.env.SAUCE_ACCESS_KEY
-const build = (pr === 'false' ? `v${pkg.version}` : `PR #${pr}`)
+let build = travisBranch
+
+if (travisTag) {
+  build = travisTag
+} else if (travisPR !== 'false') {
+  build = `PR #${travisPR}`
+}
 
 // Settings
 const url = `https://${name}:${key}@saucelabs.com/rest/v1/${name}/js-tests`
