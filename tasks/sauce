@@ -8,17 +8,19 @@ const spinner = ora()
 
 // Environment variables
 const isCI = !!process.env.CI
+const travisCommit = process.env.TRAVIS_COMMIT
 const travisBranch = process.env.TRAVIS_BRANCH
-const travisTag = process.env.TRAVIS_TAG
 const travisPR = process.env.TRAVIS_PULL_REQUEST
+const travisPRSha = process.env.TRAVIS_PULL_REQUEST_SHA
+const travisTag = process.env.TRAVIS_TAG
 const name = process.env.SAUCE_USER_NAME
 const key = process.env.SAUCE_ACCESS_KEY
-let build = travisBranch
+let build = `${travisBranch} - ${travisCommit.substr(0, 6)}`
 
 if (travisTag) {
   build = travisTag
 } else if (travisPR !== 'false') {
-  build = `PR #${travisPR}`
+  build = `PR #${travisPR} - ${travisPRSha.substr(0, 6)}`
 }
 
 // Settings
