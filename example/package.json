@@ -13,12 +13,11 @@
     "ios": "react-native run-ios"
   },
   "dependencies": {
+    "cross-fetch": "3.0.0",
     "react": "16.6.3",
     "react-native": "0.57.8"
   },
   "devDependencies": {
-    "cross-fetch": "3.0.0",
-    "metro-react-native-babel-preset": "0.51.1",
     "puppeteer": "1.11.0",
     "webpack": "4.27.1",
     "webpack-cli": "3.1.2"
