@@ -19,7 +19,10 @@ cov:
 deploy:
 	npm version $(release) && git push --follow-tags
 
-travis-env:
+env-circle:
+	env | sort | grep CIRCLE
+
+env-travis:
 	env | sort | grep TRAVIS_
 
 lint:
