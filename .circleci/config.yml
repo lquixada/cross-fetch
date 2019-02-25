@@ -35,18 +35,15 @@ workflows:
   version: 2
   cross-fetch:
     jobs:
+      - cross-browser
       - security
       - test
-      - cross-browser
-      - hold:
+      - publish:
           type: approval
           requires:
             - cross-browser
             - security
             - test
-      - publish:
-          requires:
-            - hold
           filters:
             branches:
               ignore: /.*/
