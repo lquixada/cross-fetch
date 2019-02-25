@@ -30,6 +30,13 @@ jobs:
       - attach_workspace:
           at: .
       - run: make sauce
+  lint:
+    <<: *defaults
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run: make lint
   test:
     <<: *defaults
     steps:
@@ -65,6 +72,7 @@ workflows:
       - cross-browser:
           requires:
             - build
+      - lint
       - security
       - test:
           requires:
@@ -73,6 +81,7 @@ workflows:
           type: approval
           requires:
             - cross-browser
+            - lint
             - security
             - test
           filters:

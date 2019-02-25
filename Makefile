@@ -1,4 +1,4 @@
-all: test
+all: test lint
 
 node_modules: package.json
 	npm install && /usr/bin/touch node_modules
@@ -31,7 +31,7 @@ sauce:
 snyk:
 	npx snyk test
 
-test: test-node test-node-webpack test-browser test-browser-webpack test-react-native lint
+test: test-node test-node-webpack test-browser test-browser-webpack test-react-native
 
 test-browser: dist
 	npx mocha-headless-chrome -f test/browser/headless/index.html
