@@ -72,8 +72,12 @@ workflows:
       - cross-browser:
           requires:
             - build
-      - lint
-      - security
+      - lint:
+          requires:
+            - build
+      - security:
+          requires:
+            - build
       - test:
           requires:
             - build
