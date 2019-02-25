@@ -9,24 +9,31 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v1-cross-fetch-{{ .Branch }}-{{ checksum "package-lock.lock" }}
+            - v1-cross-fetch-{{ .Branch }}-{{ checksum "package-lock.json" }}
             - v1-cross-fetch-{{ .Branch }}-
             - v1-cross-fetch-
       - run: npm install
       - save_cache:
-          key: v1-cross-fetch-{{ .Branch }}-{{ checksum "package-lock.lock" }}
+          key: v1-cross-fetch-{{ .Branch }}-{{ checksum "package-lock.json" }}
           paths:
             - node_modules/
+      - persist_to_workspace:
+          root: .
+          paths:
+            - node_modules
   cross-browser:
     <<: *defaults
     steps:
       - checkout
-      - run: npm install
+      - attach_workspace:
+          at: .
       - run: make sauce
   test:
     <<: *defaults
     steps:
       - checkout
+      - attach_workspace:
+          at: .
       - run: sudo apt-get update
       - run:
           # This is needed for puppeteer to work inside the container
@@ -37,11 +44,15 @@ jobs:
     <<: *defaults
     steps:
       - checkout
+      - attach_workspace:
+          at: .
       - run: make snyk
   publish:
     <<: *defaults
     steps:
       - checkout
+      - attach_workspace:
+          at: .
       - run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
       - run: npm publish
 workflows:
