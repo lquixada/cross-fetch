@@ -1,15 +1,30 @@
 version: 2
+defaults: &defaults
+  docker:
+    - image: circleci/node:8.12
 jobs:
+  install:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-cross-fetch-{{ .Branch }}-{{ checksum "package-lock.lock" }}
+            - v1-cross-fetch-{{ .Branch }}-
+            - v1-cross-fetch-
+      - run: npm install
+      - save_cache:
+          key: v1-cross-fetch-{{ .Branch }}-{{ checksum "package-lock.lock" }}
+          paths:
+            - node_modules/
   cross-browser:
-    docker:
-      - image: circleci/node:8.12
+    <<: *defaults
     steps:
       - checkout
       - run: npm install
       - run: make sauce
   test:
-    docker:
-      - image: circleci/node:8.12
+    <<: *defaults
     steps:
       - checkout
       - run: sudo apt-get update
@@ -19,14 +34,12 @@ jobs:
       - run: make test
       - run: make cov
   security:
-    docker:
-      - image: circleci/node:8.12
+    <<: *defaults
     steps:
       - checkout
       - run: make snyk
   publish:
-    docker:
-      - image: circleci/node:8.12
+    <<: *defaults
     steps:
       - checkout
       - run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
@@ -35,9 +48,14 @@ workflows:
   version: 2
   cross-fetch:
     jobs:
-      - cross-browser
+      - install
+      - cross-browser:
+          requires:
+            - install
       - security
-      - test
+      - test:
+          requires:
+            - install
       - publish:
           type: approval
           requires:
