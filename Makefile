@@ -12,6 +12,8 @@ test/browser/webpack/bundle.%.js: dist
 test/node/webpack/bundle.%.js: dist
 	npx webpack-cli --progress --config test/node/webpack/webpack.config.js
 
+build: dist
+
 cov:
 	npx nyc report --reporter=text-lcov > coverage.lcov && npx codecov
 
@@ -50,4 +52,4 @@ test-node-webpack: test/node/webpack/bundle.cjs.js test/node/webpack/bundle.esm.
 test-react-native: dist
 	npx mocha test/react-native/index.js
 
-.PHONY: all build deploy lint test test-browser test-browser-webpack test-node test-node-webpack  sauce
+.PHONY: all dist deploy lint test test-browser test-browser-webpack test-node test-node-webpack sauce
