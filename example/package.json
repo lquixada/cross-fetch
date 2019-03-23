@@ -5,7 +5,7 @@
   "react-native": "index.js",
   "private": true,
   "dependencies": {
-    "cross-fetch": "3.0.0",
+    "cross-fetch": "github:lquixada/cross-fetch",
     "react": "16.6.3",
     "react-native": "0.57.8"
   },
