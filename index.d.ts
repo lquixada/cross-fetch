@@ -1,3 +1,5 @@
+/// <reference lib="dom" />
+
 declare const _fetch: typeof fetch;
 declare const _Request: typeof Request;
 declare const _Response: typeof Response;
