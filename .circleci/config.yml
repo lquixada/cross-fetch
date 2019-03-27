@@ -1,7 +1,7 @@
 version: 2
 defaults: &defaults
   docker:
-    - image: circleci/node:8.12
+    - image: circleci/node:8.15.1-stretch
 jobs:
   build:
     <<: *defaults
