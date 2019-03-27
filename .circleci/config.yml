@@ -67,59 +67,34 @@ jobs:
       - run: npm publish
 workflows:
   version: 2
-  ci: # On branch push, run all tests
-    jobs:
-      - build
-      - cross-browser:
-          requires:
-            - build
-      - lint:
-          requires:
-            - build
-      - security:
-          requires:
-            - build
-      - test:
-          requires:
-            - build
-  release: # On tag push, run all tests and ask for approval to deploy
+  ci:
     jobs:
       - build:
           filters:
-            branches:
-              ignore: /.*/
             tags:
               only: /^v\d\.\d\.\d.*/
       - cross-browser:
           requires:
             - build
           filters:
-            branches:
-              ignore: /.*/
             tags:
               only: /^v\d\.\d\.\d.*/
       - lint:
           requires:
             - build
           filters:
-            branches:
-              ignore: /.*/
             tags:
               only: /^v\d\.\d\.\d.*/
       - security:
           requires:
             - build
           filters:
-            branches:
-              ignore: /.*/
             tags:
               only: /^v\d\.\d\.\d.*/
       - test:
           requires:
             - build
           filters:
-            branches:
-              ignore: /.*/
             tags:
               only: /^v\d\.\d\.\d.*/
       - approval:
