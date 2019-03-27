@@ -122,13 +122,21 @@ workflows:
               ignore: /.*/
             tags:
               only: /^v\d\.\d\.\d.*/
-      - publish:
+      - approval:
           type: approval
           requires:
             - cross-browser
             - lint
             - security
             - test
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^v\d\.\d\.\d.*/
+      - publish:
+          requires:
+            - approval
           filters:
             branches:
               ignore: /.*/
