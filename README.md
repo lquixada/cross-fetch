@@ -1,5 +1,6 @@
 cross-fetch<br>
 [![NPM Version](https://img.shields.io/npm/v/cross-fetch.svg?branch=master)](https://www.npmjs.com/package/cross-fetch)
+[![Downloads Per Week](https://img.shields.io/npm/dw/cross-fetch.svg?color=blue)](https://www.npmjs.com/package/cross-fetch)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![dependencies Status](https://david-dm.org/lquixada/cross-fetch/status.svg)](https://david-dm.org/lquixada/cross-fetch)
 [![Build Status](https://circleci.com/gh/lquixada/cross-fetch.svg?style=shield)](https://circleci.com/gh/lquixada/cross-fetch)
