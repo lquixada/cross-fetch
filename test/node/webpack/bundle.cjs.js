@@ -35307,7 +35307,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 // Based on https://github.com/tmpvar/jsdom/blob/aa85b2abf07766ff7bf5c1f6daafb3726f2f2db5/lib/jsdom/living/blob.js
-// (MIT licensed)
+
+// fix for "Readable" isn't a named export issue
+const Readable = stream__WEBPACK_IMPORTED_MODULE_0__.Readable;
 
 const BUFFER = Symbol('buffer');
 const TYPE = Symbol('type');
@@ -35320,6 +35322,7 @@ class Blob {
 		const options = arguments[1];
 
 		const buffers = [];
+		let size = 0;
 
 		if (blobParts) {
 			const a = blobParts;
@@ -35338,6 +35341,7 @@ class Blob {
 				} else {
 					buffer = Buffer.from(typeof element === 'string' ? element : String(element));
 				}
+				size += buffer.length;
 				buffers.push(buffer);
 			}
 		}
@@ -35354,6 +35358,24 @@ class Blob {
 	}
 	get type() {
 		return this[TYPE];
+	}
+	text() {
+		return Promise.resolve(this[BUFFER].toString());
+	}
+	arrayBuffer() {
+		const buf = this[BUFFER];
+		const ab = buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength);
+		return Promise.resolve(ab);
+	}
+	stream() {
+		const readable = new Readable();
+		readable._read = function () {};
+		readable.push(this[BUFFER]);
+		readable.push(null);
+		return readable;
+	}
+	toString() {
+		return '[object Blob]';
 	}
 	slice() {
 		const size = this.size;
@@ -35463,10 +35485,19 @@ function Body(body) {
 	if (body == null) {
 		// body is undefined or null
 		body = null;
-	} else if (typeof body === 'string') ; else if (isURLSearchParams(body)) ; else if (body instanceof Blob) ; else if (Buffer.isBuffer(body)) ; else if (Object.prototype.toString.call(body) === '[object ArrayBuffer]') ; else if (ArrayBuffer.isView(body)) ; else if (body instanceof stream__WEBPACK_IMPORTED_MODULE_0__) ; else {
+	} else if (isURLSearchParams(body)) {
+		// body is a URLSearchParams
+		body = Buffer.from(body.toString());
+	} else if (isBlob(body)) ; else if (Buffer.isBuffer(body)) ; else if (Object.prototype.toString.call(body) === '[object ArrayBuffer]') {
+		// body is ArrayBuffer
+		body = Buffer.from(body);
+	} else if (ArrayBuffer.isView(body)) {
+		// body is ArrayBufferView
+		body = Buffer.from(body.buffer, body.byteOffset, body.byteLength);
+	} else if (body instanceof stream__WEBPACK_IMPORTED_MODULE_0__) ; else {
 		// none of the above
-		// coerce to string
-		body = String(body);
+		// coerce to string then buffer
+		body = Buffer.from(String(body));
 	}
 	this[INTERNALS] = {
 		body,
@@ -35572,7 +35603,6 @@ Body.prototype = {
 			return convertBody(buffer, _this3.headers);
 		});
 	}
-
 };
 
 // In browsers, all properties are enumerable.
@@ -35615,38 +35645,25 @@ function consumeBody() {
 		return Body.Promise.reject(this[INTERNALS].error);
 	}
 
+	let body = this.body;
+
 	// body is null
-	if (this.body === null) {
+	if (body === null) {
 		return Body.Promise.resolve(Buffer.alloc(0));
 	}
 
-	// body is string
-	if (typeof this.body === 'string') {
-		return Body.Promise.resolve(Buffer.from(this.body));
-	}
-
 	// body is blob
-	if (this.body instanceof Blob) {
-		return Body.Promise.resolve(this.body[BUFFER]);
+	if (isBlob(body)) {
+		body = body.stream();
 	}
 
 	// body is buffer
-	if (Buffer.isBuffer(this.body)) {
-		return Body.Promise.resolve(this.body);
-	}
-
-	// body is ArrayBuffer
-	if (Object.prototype.toString.call(this.body) === '[object ArrayBuffer]') {
-		return Body.Promise.resolve(Buffer.from(this.body));
-	}
-
-	// body is ArrayBufferView
-	if (ArrayBuffer.isView(this.body)) {
-		return Body.Promise.resolve(Buffer.from(this.body.buffer, this.body.byteOffset, this.body.byteLength));
+	if (Buffer.isBuffer(body)) {
+		return Body.Promise.resolve(body);
 	}
 
 	// istanbul ignore if: should never happen
-	if (!(this.body instanceof stream__WEBPACK_IMPORTED_MODULE_0__)) {
+	if (!(body instanceof stream__WEBPACK_IMPORTED_MODULE_0__)) {
 		return Body.Promise.resolve(Buffer.alloc(0));
 	}
 
@@ -35668,7 +35685,7 @@ function consumeBody() {
 		}
 
 		// handle stream errors
-		_this4.body.on('error', function (err) {
+		body.on('error', function (err) {
 			if (err.name === 'AbortError') {
 				// if the request was aborted, reject with this Error
 				abort = true;
@@ -35679,7 +35696,7 @@ function consumeBody() {
 			}
 		});
 
-		_this4.body.on('data', function (chunk) {
+		body.on('data', function (chunk) {
 			if (abort || chunk === null) {
 				return;
 			}
@@ -35694,7 +35711,7 @@ function consumeBody() {
 			accum.push(chunk);
 		});
 
-		_this4.body.on('end', function () {
+		body.on('end', function () {
 			if (abort) {
 				return;
 			}
@@ -35702,7 +35719,7 @@ function consumeBody() {
 			clearTimeout(resTimeout);
 
 			try {
-				resolve(Buffer.concat(accum));
+				resolve(Buffer.concat(accum, accumBytes));
 			} catch (err) {
 				// handle streams that have accumulated too much data (issue #414)
 				reject(new FetchError(`Could not create Buffer from response body for ${_this4.url}: ${err.message}`, 'system', err));
@@ -35788,6 +35805,15 @@ function isURLSearchParams(obj) {
 }
 
 /**
+ * Check if `obj` is a W3C `Blob` object (which `File` inherits from)
+ * @param  {*} obj
+ * @return {boolean}
+ */
+function isBlob(obj) {
+	return typeof obj === 'object' && typeof obj.arrayBuffer === 'function' && typeof obj.type === 'string' && typeof obj.stream === 'function' && typeof obj.constructor === 'function' && typeof obj.constructor.name === 'string' && /^(Blob|File)$/.test(obj.constructor.name) && /^(Blob|File)$/.test(obj[Symbol.toStringTag]);
+}
+
+/**
  * Clone body given Res/Req instance
  *
  * @param   Mixed  instance  Response or Request instance
@@ -35827,12 +35853,9 @@ function clone(instance) {
  *
  * @param   Mixed  instance  Response or Request instance
  */
-function extractContentType(instance) {
-	const body = instance.body;
-
+function extractContentType(body) {
 	// istanbul ignore if: Currently, because of a guard in Request, body
 	// can never be null. Included here for completeness.
-
 	if (body === null) {
 		// body is null
 		return null;
@@ -35842,7 +35865,7 @@ function extractContentType(instance) {
 	} else if (isURLSearchParams(body)) {
 		// body is a URLSearchParams
 		return 'application/x-www-form-urlencoded;charset=UTF-8';
-	} else if (body instanceof Blob) {
+	} else if (isBlob(body)) {
 		// body is blob
 		return body.type || null;
 	} else if (Buffer.isBuffer(body)) {
@@ -35857,10 +35880,13 @@ function extractContentType(instance) {
 	} else if (typeof body.getBoundary === 'function') {
 		// detect form data input from form-data module
 		return `multipart/form-data;boundary=${body.getBoundary()}`;
-	} else {
+	} else if (body instanceof stream__WEBPACK_IMPORTED_MODULE_0__) {
 		// body is stream
 		// can't really do much about this
 		return null;
+	} else {
+		// Body constructor defaults other things to string
+		return 'text/plain;charset=UTF-8';
 	}
 }
 
@@ -35881,24 +35907,11 @@ function getTotalBytes(instance) {
 	if (body === null) {
 		// body is null
 		return 0;
-	} else if (typeof body === 'string') {
-		// body is string
-		return Buffer.byteLength(body);
-	} else if (isURLSearchParams(body)) {
-		// body is URLSearchParams
-		return Buffer.byteLength(String(body));
-	} else if (body instanceof Blob) {
-		// body is blob
+	} else if (isBlob(body)) {
 		return body.size;
 	} else if (Buffer.isBuffer(body)) {
 		// body is buffer
 		return body.length;
-	} else if (Object.prototype.toString.call(body) === '[object ArrayBuffer]') {
-		// body is ArrayBuffer
-		return body.byteLength;
-	} else if (ArrayBuffer.isView(body)) {
-		// body is ArrayBufferView
-		return body.byteLength;
 	} else if (body && typeof body.getLengthSync === 'function') {
 		// detect form data input from form-data module
 		if (body._lengthRetrievers && body._lengthRetrievers.length == 0 || // 1.x
@@ -35909,8 +35922,7 @@ function getTotalBytes(instance) {
 		return null;
 	} else {
 		// body is stream
-		// can't really do much about this
-		return null;
+		return instance.size || null;
 	}
 }
 
@@ -35927,29 +35939,11 @@ function writeToStream(dest, instance) {
 	if (body === null) {
 		// body is null
 		dest.end();
-	} else if (typeof body === 'string') {
-		// body is string
-		dest.write(body);
-		dest.end();
-	} else if (isURLSearchParams(body)) {
-		// body is URLSearchParams
-		dest.write(Buffer.from(String(body)));
-		dest.end();
-	} else if (body instanceof Blob) {
-		// body is blob
-		dest.write(body[BUFFER]);
-		dest.end();
+	} else if (isBlob(body)) {
+		body.stream().pipe(dest);
 	} else if (Buffer.isBuffer(body)) {
 		// body is buffer
 		dest.write(body);
-		dest.end();
-	} else if (Object.prototype.toString.call(body) === '[object ArrayBuffer]') {
-		// body is ArrayBuffer
-		dest.write(Buffer.from(body));
-		dest.end();
-	} else if (ArrayBuffer.isView(body)) {
-		// body is ArrayBufferView
-		dest.write(Buffer.from(body.buffer, body.byteOffset, body.byteLength));
 		dest.end();
 	} else {
 		// body is stream
@@ -35971,7 +35965,7 @@ const invalidHeaderCharRegex = /[^\t\x20-\x7e\x80-\xff]/;
 
 function validateName(name) {
 	name = `${name}`;
-	if (invalidTokenRegex.test(name)) {
+	if (invalidTokenRegex.test(name) || name === '') {
 		throw new TypeError(`${name} is not a legal HTTP header name`);
 	}
 }
@@ -36358,12 +36352,21 @@ class Response {
 		Body.call(this, body, opts);
 
 		const status = opts.status || 200;
+		const headers = new Headers(opts.headers);
+
+		if (body != null && !headers.has('Content-Type')) {
+			const contentType = extractContentType(body);
+			if (contentType) {
+				headers.append('Content-Type', contentType);
+			}
+		}
 
 		this[INTERNALS$1] = {
 			url: opts.url,
 			status,
 			statusText: opts.statusText || STATUS_CODES[status],
-			headers: new Headers(opts.headers)
+			headers,
+			counter: opts.counter
 		};
 	}
 
@@ -36380,6 +36383,10 @@ class Response {
   */
 	get ok() {
 		return this[INTERNALS$1].status >= 200 && this[INTERNALS$1].status < 300;
+	}
+
+	get redirected() {
+		return this[INTERNALS$1].counter > 0;
 	}
 
 	get statusText() {
@@ -36401,7 +36408,8 @@ class Response {
 			status: this.status,
 			statusText: this.statusText,
 			headers: this.headers,
-			ok: this.ok
+			ok: this.ok,
+			redirected: this.redirected
 		});
 	}
 }
@@ -36412,6 +36420,7 @@ Object.defineProperties(Response.prototype, {
 	url: { enumerable: true },
 	status: { enumerable: true },
 	ok: { enumerable: true },
+	redirected: { enumerable: true },
 	statusText: { enumerable: true },
 	headers: { enumerable: true },
 	clone: { enumerable: true }
@@ -36492,9 +36501,9 @@ class Request {
 
 		const headers = new Headers(init.headers || input.headers || {});
 
-		if (init.body != null) {
-			const contentType = extractContentType(this);
-			if (contentType !== null && !headers.has('Content-Type')) {
+		if (inputBody != null && !headers.has('Content-Type')) {
+			const contentType = extractContentType(inputBody);
+			if (contentType) {
 				headers.append('Content-Type', contentType);
 			}
 		}
@@ -36795,7 +36804,8 @@ function fetch(url, opts) {
 							compress: request.compress,
 							method: request.method,
 							body: request.body,
-							signal: request.signal
+							signal: request.signal,
+							timeout: request.timeout
 						};
 
 						// HTTP-redirect fetch step 9
@@ -36831,7 +36841,8 @@ function fetch(url, opts) {
 				statusText: res.statusMessage,
 				headers: headers,
 				size: request.size,
-				timeout: request.timeout
+				timeout: request.timeout,
+				counter: request.counter
 			};
 
 			// HTTP-network fetch step 12.1.1.3
@@ -36884,6 +36895,14 @@ function fetch(url, opts) {
 					response = new Response(body, response_options);
 					resolve(response);
 				});
+				return;
+			}
+
+			// for br
+			if (codings == 'br' && typeof zlib__WEBPACK_IMPORTED_MODULE_4__.createBrotliDecompress === 'function') {
+				body = body.pipe(zlib__WEBPACK_IMPORTED_MODULE_4__.createBrotliDecompress());
+				response = new Response(body, response_options);
+				resolve(response);
 				return;
 			}
 
