@@ -15,7 +15,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "make build && lint-staged"
+      "pre-commit": "make build && make check-dependencies && lint-staged"
     }
   },
   "standard": {
@@ -63,6 +63,7 @@
     "rollup": "1.12.3",
     "rollup-plugin-copy": "2.0.1",
     "rollup-plugin-uglify": "6.0.2",
+    "semver": "6.1.0",
     "sinon": "7.3.2",
     "standard": "12.0.1",
     "webpack": "4.32.2",

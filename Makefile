@@ -17,6 +17,9 @@ build: dist
 cov:
 	npx nyc report --reporter=text-lcov > coverage.lcov && npx codecov
 
+check-dependencies:
+	./tasks/check-mocha-headless-chrome
+
 # Example make deploy release=patch
 deploy:
 	npm version $(release) && git push --follow-tags
@@ -52,4 +55,4 @@ test-node-webpack: test/node/webpack/bundle.cjs.js test/node/webpack/bundle.esm.
 test-react-native: dist
 	npx mocha test/react-native/index.js
 
-.PHONY: all dist deploy lint test test-browser test-browser-webpack test-node test-node-webpack sauce
+.PHONY: all check-dependencies dist deploy lint test test-browser test-browser-webpack test-node test-node-webpack sauce
