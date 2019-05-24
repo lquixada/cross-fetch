@@ -35860,11 +35860,9 @@ function clone(instance) {
  *
  * This function assumes that instance.body is present.
  *
- * @param   Mixed  instance  Response or Request instance
+ * @param   Mixed  instance  Any options.body input
  */
 function extractContentType(body) {
-	// istanbul ignore if: Currently, because of a guard in Request, body
-	// can never be null. Included here for completeness.
 	if (body === null) {
 		// body is null
 		return null;
@@ -35911,7 +35909,6 @@ function extractContentType(body) {
 function getTotalBytes(instance) {
 	const body = instance.body;
 
-	// istanbul ignore if: included for completion
 
 	if (body === null) {
 		// body is null
@@ -35931,7 +35928,7 @@ function getTotalBytes(instance) {
 		return null;
 	} else {
 		// body is stream
-		return instance.size || null;
+		return null;
 	}
 }
 
@@ -36380,7 +36377,7 @@ class Response {
 	}
 
 	get url() {
-		return this[INTERNALS$1].url;
+		return this[INTERNALS$1].url || '';
 	}
 
 	get status() {
@@ -36640,7 +36637,12 @@ function getNodeRequestOptions(request) {
 		headers.set('Accept-Encoding', 'gzip,deflate');
 	}
 
-	if (!headers.has('Connection') && !request.agent) {
+	let agent = request.agent;
+	if (typeof agent === 'function') {
+		agent = agent(parsedURL);
+	}
+
+	if (!headers.has('Connection') && !agent) {
 		headers.set('Connection', 'close');
 	}
 
@@ -36650,7 +36652,7 @@ function getNodeRequestOptions(request) {
 	return Object.assign({}, parsedURL, {
 		method: request.method,
 		headers: exportNodeCompatibleHeaders(headers),
-		agent: request.agent
+		agent
 	});
 }
 
