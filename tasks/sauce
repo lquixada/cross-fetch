@@ -8,10 +8,10 @@ const spinner = ora()
 
 // Environment variables
 const isCI = !!process.env.CI
-const commit = process.env.TRAVIS_COMMIT || process.env.CIRCLE_SHA1
-const branch = process.env.TRAVIS_BRANCH || process.env.CIRCLE_BRANCH
-const pr = process.env.TRAVIS_PULL_REQUEST || process.env.CIRCLE_PULL_REQUEST
-const tag = process.env.TRAVIS_TAG
+const commit = process.env.CIRCLE_SHA1
+const branch = process.env.CIRCLE_BRANCH
+const pr = process.env.CIRCLE_PULL_REQUEST
+const tag = process.env.CIRCLE_TAG
 const name = process.env.SAUCE_USER_NAME
 const key = process.env.SAUCE_ACCESS_KEY
 let build = `${branch} - ${commit.substr(0, 6)}`
