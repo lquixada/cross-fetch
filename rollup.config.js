@@ -47,10 +47,9 @@ export default [
     },
     plugins: [
       copy({
-        targets: {
-          'src/node-ponyfill.js': 'dist/node-ponyfill.js',
-          'src/react-native-ponyfill.js': 'dist/react-native-ponyfill.js'
-        },
+        targets: [
+          { src: 'src/*-ponyfill.js', dest: 'dist' }
+        ],
         verbose: true
       })
     ],
@@ -74,10 +73,9 @@ export default [
     },
     plugins: [
       copy({
-        targets: {
-          'src/node-polyfill.js': 'dist/node-polyfill.js',
-          'src/react-native-polyfill.js': 'dist/react-native-polyfill.js'
-        },
+        targets: [
+          { src: 'src/*-polyfill.js', dest: 'dist' }
+        ],
         verbose: true
       })
     ],
