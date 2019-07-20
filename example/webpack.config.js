@@ -1,6 +1,6 @@
 const path = require('path')
 
-module.exports = [ {
+module.exports = [{
   target: 'web',
   mode: 'development',
   entry: './github.js',

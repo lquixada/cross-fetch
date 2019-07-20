@@ -53,21 +53,21 @@
   "devDependencies": {
     "chai": "4.2.0",
     "codecov": "3.5.0",
-    "husky": "3.0.0",
-    "lint-staged": "9.0.2",
-    "mocha": "6.1.4",
+    "husky": "3.0.1",
+    "lint-staged": "9.2.0",
+    "mocha": "6.2.0",
     "mocha-headless-chrome": "2.0.1",
     "nock": "10.0.6",
     "nyc": "14.1.1",
     "ora": "3.4.0",
-    "rollup": "1.16.4",
+    "rollup": "1.17.0",
     "rollup-plugin-copy": "3.0.0",
     "rollup-plugin-uglify": "6.0.2",
     "semver": "6.2.0",
     "sinon": "7.3.2",
-    "standard": "12.0.1",
-    "webpack": "4.35.2",
-    "webpack-cli": "3.3.5"
+    "standard": "13.0.2",
+    "webpack": "4.36.1",
+    "webpack-cli": "3.3.6"
   },
   "files": [
     "dist",

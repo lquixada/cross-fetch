@@ -4,11 +4,11 @@ const reply = function (uri, reqBody) {
   const reqHeaders = Object.assign({}, this.req.headers)
   const resHeaders = {
     'Content-Type': 'application/json',
-    'Date': 'Sat, 23 Sep 2017 15:41:16 GMT-0300'
+    Date: 'Sat, 23 Sep 2017 15:41:16 GMT-0300'
   }
 
-  for (let key in reqHeaders) {
-    let value = reqHeaders[key]
+  for (const key in reqHeaders) {
+    const value = reqHeaders[key]
     reqHeaders[key] = Array.isArray(value) ? value[0] : value
   }
 

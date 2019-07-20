@@ -30,7 +30,7 @@ before(function () {
   this.server.respondWith('https://fet.ch/request', function (xhr) {
     xhr.respond(200, {
       'Content-Type': 'application/json',
-      'Date': 'Sat, 23 Sep 2017 15:41:16 GMT-0300'
+      Date: 'Sat, 23 Sep 2017 15:41:16 GMT-0300'
     }, JSON.stringify({
       method: xhr.method,
       headers: xhr.requestHeaders,

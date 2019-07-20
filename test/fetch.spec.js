@@ -561,7 +561,7 @@ function addFetchSuite (envName) {
       })
 
       it('should set headers using object', function () {
-        var object = { 'Content-Type': 'application/json', 'Accept': 'application/json' }
+        var object = { 'Content-Type': 'application/json', Accept: 'application/json' }
         var headers = new Headers(object)
         expect(headers.get('Content-Type')).to.equal('application/json')
         expect(headers.get('Accept')).to.equal('application/json')
@@ -610,12 +610,12 @@ function addFetchSuite (envName) {
       })
 
       it('should set null header as a string value', function () {
-        var headers = new Headers({ 'Custom': null })
+        var headers = new Headers({ Custom: null })
         expect(headers.get('Custom')).to.equal('null')
       })
 
       it('should set an undefined header as a string value', function () {
-        var headers = new Headers({ 'Custom': undefined })
+        var headers = new Headers({ Custom: undefined })
         expect(headers.get('Custom')).to.equal('undefined')
       })
 
@@ -631,7 +631,7 @@ function addFetchSuite (envName) {
 
       it('should not init an invalid header', function () {
         /* eslint-disable no-new */
-        expect(function () { new Headers({ 'Héy': 'ok' }) }).to.throw()
+        expect(function () { new Headers({ Héy: 'ok' }) }).to.throw()
       })
 
       it('should not set an invalid header', function () {
@@ -724,7 +724,7 @@ function addFetchSuite (envName) {
 
       it('should be iterable with keys', function () {
         var headers = new Headers({
-          'Accept': 'application/json, text/plain',
+          Accept: 'application/json, text/plain',
           'Content-Type': 'text/html'
         })
 
@@ -736,7 +736,7 @@ function addFetchSuite (envName) {
 
       it('should be iterable with values', function () {
         var headers = new Headers({
-          'Accept': 'application/json, text/plain',
+          Accept: 'application/json, text/plain',
           'Content-Type': 'text/html'
         })
 
@@ -748,7 +748,7 @@ function addFetchSuite (envName) {
 
       it('should be iterable with entries', function () {
         var headers = new Headers({
-          'Accept': 'application/json, text/plain',
+          Accept: 'application/json, text/plain',
           'Content-Type': 'text/html'
         })
 
