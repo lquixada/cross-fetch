@@ -1,0 +1,15 @@
+{
+  "name": "cross-fetch-on-browser",
+  "version": "0.0.1",
+  "scripts": {
+    "prebrowser": "webpack",
+    "browser": "node puppeteer"
+  },
+  "dependencies": {
+    "cross-fetch": "github:lquixada/cross-fetch"
+  },
+  "devDependencies": {
+    "puppeteer": "1.19.0",
+    "webpack": "4.38.0"
+  }
+}

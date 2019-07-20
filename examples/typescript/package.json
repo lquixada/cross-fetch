@@ -1,0 +1,14 @@
+{
+  "name": "cross-fetch-on-typescript",
+  "version": "0.0.1",
+  "scripts": {
+    "ts": "ts-node index"
+  },
+  "dependencies": {
+    "cross-fetch": "github:lquixada/cross-fetch"
+  },
+  "devDependencies": {
+    "ts-node": "8.3.0",
+    "typescript": "3.5.3"
+  }
+}

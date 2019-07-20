@@ -1,0 +1,15 @@
+{
+  "name": "cross-fetch-on-node",
+  "version": "0.0.1",
+  "scripts": {
+    "prebundle": "webpack",
+    "bundle": "node bundle",
+    "index": "node index"
+  },
+  "dependencies": {
+    "cross-fetch": "github:lquixada/cross-fetch"
+  },
+  "devDependencies": {
+    "webpack": "4.38.0"
+  }
+}

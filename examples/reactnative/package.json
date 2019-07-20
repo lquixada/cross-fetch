@@ -1,0 +1,23 @@
+{
+  "name": "cross-fetch-on-react-native",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "postinstall": "cd ios && pod install && cd -",
+    "start": "react-native start",
+    "ios": "react-native run-ios",
+    "android": "react-native run-android"
+  },
+  "dependencies": {
+    "cross-fetch": "github:lquixada/cross-fetch",
+    "react": "16.8.6",
+    "react-native": "0.60.4",
+    "react-native-gesture-handler": "1.3.0",
+    "react-navigation": "3.11.1"
+  },
+  "devDependencies": {
+    "@babel/core": "7.5.5",
+    "@babel/runtime": "7.5.5",
+    "metro-react-native-babel-preset": "0.55.0"
+  }
+}
