@@ -1,11 +1,11 @@
 version: 2
 defaults: &defaults
   docker:
-    - image: circleci/node:8.15.1-stretch
+    - image: circleci/node:10.19
 jobs:
   build:
     docker:
-      - image: circleci/node:8.15.1-stretch
+      - image: circleci/node:10.19
     steps:
       - checkout
       - restore_cache:
