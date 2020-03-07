@@ -59,7 +59,7 @@
     "mocha": "7.1.0",
     "mocha-headless-chrome": "2.0.1",
     "nock": "12.0.2",
-    "nyc": "14.1.1",
+    "nyc": "15.0.0",
     "ora": "4.0.3",
     "rollup": "1.19.4",
     "rollup-plugin-copy": "3.3.0",
