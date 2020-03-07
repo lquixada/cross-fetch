@@ -9,8 +9,7 @@
   "typings": "index.d.ts",
   "lint-staged": {
     "*.js": [
-      "standard --fix",
-      "git add"
+      "standard --fix"
     ]
   },
   "husky": {
@@ -55,7 +54,7 @@
     "chai": "4.2.0",
     "codecov": "3.6.5",
     "husky": "4.2.3",
-    "lint-staged": "9.2.1",
+    "lint-staged": "10.0.8",
     "mocha": "7.1.0",
     "mocha-headless-chrome": "2.0.1",
     "nock": "12.0.2",
