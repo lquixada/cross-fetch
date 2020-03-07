@@ -58,7 +58,7 @@
     "lint-staged": "9.2.1",
     "mocha": "7.1.0",
     "mocha-headless-chrome": "2.0.1",
-    "nock": "10.0.6",
+    "nock": "12.0.2",
     "nyc": "14.1.1",
     "ora": "3.4.0",
     "rollup": "1.19.4",
