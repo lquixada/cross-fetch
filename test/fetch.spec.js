@@ -76,7 +76,7 @@ function addFetchSuite (envName) {
             return res.json()
           })
           .then(function (data) {
-            expect(data.headers['accept']).to.equal('application/json')
+            expect(data.headers.accept).to.equal('application/json')
             expect(data.headers['x-test']).to.equal('42')
           })
       })
@@ -94,7 +94,7 @@ function addFetchSuite (envName) {
             return res.json()
           })
           .then(function (data) {
-            expect(data.headers['accept']).to.equal('application/json')
+            expect(data.headers.accept).to.equal('application/json')
             expect(data.headers['x-test']).to.equal('42')
           })
       })
@@ -128,7 +128,7 @@ function addFetchSuite (envName) {
           })
           .then(function (data) {
             data.forEach(function (json) {
-              expect(json.headers['accept']).to.equal('application/json')
+              expect(json.headers.accept).to.equal('application/json')
               expect(json.headers['x-test']).to.equal('42')
             })
           })
