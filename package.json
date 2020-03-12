@@ -5,6 +5,17 @@
   "homepage": "https://github.com/lquixada/cross-fetch",
   "main": "dist/node-ponyfill.js",
   "browser": "dist/browser-ponyfill.js",
+  "exports": {
+    ".": {
+      "require": "./dist/node-ponyfill.js",
+      "import": "./dist/node-ponyfill.mjs"
+    },
+    "./polyfill": {
+      "require": "./dist/node-polyfill.js",
+      "import": "./dist/node-polyfill.js"
+    }
+  },
+  "sideEffects": ["./dist/node-polyfill.js"],
   "react-native": "dist/react-native-ponyfill.js",
   "typings": "index.d.ts",
   "lint-staged": {
