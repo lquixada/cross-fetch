@@ -20474,6 +20474,7 @@ class InterceptedRequestRouter {
     debug('req.end')
     const { req } = this
 
+    // handle the different overloaded param signatures
     if (typeof chunk === 'function') {
       callback = chunk
       chunk = null
@@ -20482,19 +20483,19 @@ class InterceptedRequestRouter {
       encoding = null
     }
 
+    if (typeof callback === 'function') {
+      req.once('finish', callback)
+    }
+
     if (!req.aborted && !this.playbackStarted) {
-      req.write(chunk, encoding, () => {
-        if (typeof callback === 'function') {
-          callback()
-        }
-        this.startPlayback()
-        req.emit('finish')
-        req.emit('end')
-      })
+      req.write(chunk, encoding)
+      this.startPlayback()
     }
     if (req.aborted) {
       this.emitError(new Error('Request aborted'))
     }
+
+    return req
   }
 
   handleFlushHeaders() {
@@ -20602,6 +20603,11 @@ class InterceptedRequestRouter {
 
     if (matchedInterceptor) {
       debug('interceptor identified, starting mocking')
+
+      // wait to emit the finish event until we know for sure an Interceptor is going to playback.
+      // otherwise an unmocked request might emit finish twice.
+      req.finished = true
+      req.emit('finish')
 
       playbackInterceptor({
         req,
@@ -20776,6 +20782,7 @@ module.exports = class Socket extends EventEmitter {
     }
 
     this.bufferSize = 0
+    this.writableLength = 0
     this.writable = true
     this.readable = true
     this.pending = false
@@ -20921,7 +20928,7 @@ function selectDefaultHeaders(existingHeaders, defaultHeaders) {
 }
 
 /**
- * Play back an intercepto using the given request and mock response.
+ * Play back an interceptor using the given request and mock response.
  */
 function playbackInterceptor({
   req,
