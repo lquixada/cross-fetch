@@ -76,6 +76,11 @@
   ],
   "keywords": [
     "fetch",
+    "http",
+    "url",
+    "promise",
+    "async",
+    "await",
     "isomorphic",
     "universal",
     "node",
