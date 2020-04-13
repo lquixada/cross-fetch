@@ -152,9 +152,9 @@ Just like isomorphic-fetch, it is just a proxy. If you're in node, it delivers y
 
 ## Who's Using It?
 
-* [VulcanJS](http://vulcanjs.org)
-* [graphql-request](https://github.com/prisma/graphql-request)
-* [Swagger](https://swagger.io/)
+|[![The New York Times](./docs/images/logo-nytimes.png)](https://www.nytimes.com/)|[![Swagger](./docs/images/logo-swagger.png)](https://swagger.io/)|[![VulcanJS](./docs/images/logo-vulcanjs.png)](http://vulcanjs.org)|[![graphql-request](./docs/images/logo-graphql-request.png)](https://github.com/prisma/graphql-request)|
+|:---:|:---:|:---:|:---:|
+|The New York Times|Swagger|VulcanJS|graphql-request|
 
 
 ## Supported environments
