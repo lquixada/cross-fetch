@@ -1,3 +1,0 @@
---require chai/register-expect
---require chai/register-assert
---check-leaks

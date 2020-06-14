@@ -34,6 +34,13 @@
       "bundle.*.js"
     ]
   },
+  "mocha": {
+    "require": [
+      "chai/register-expect",
+      "chai/register-assert"
+    ],
+    "check-leaks": true
+  },
   "nyc": {
     "temp-dir": ".reports/.coverage"
   },
@@ -54,7 +61,7 @@
     "codecov": "3.7.0",
     "husky": "4.2.5",
     "lint-staged": "10.2.10",
-    "mocha": "7.1.1",
+    "mocha": "8.0.1",
     "mocha-headless-chrome": "2.0.1",
     "nock": "12.0.3",
     "nyc": "15.1.0",
