@@ -54,7 +54,7 @@
     "url": "https://github.com/lquixada/cross-fetch/issues"
   },
   "dependencies": {
-    "node-fetch": "2.6.0"
+    "node-fetch": "2.6.1"
   },
   "devDependencies": {
     "chai": "4.2.0",
