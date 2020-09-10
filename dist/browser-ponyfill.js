@@ -9,6 +9,7 @@ return new F();
 (function(self) {
 
 var irrelevant = (function (exports) {
+
   var support = {
     searchParams: 'URLSearchParams' in self,
     iterable: 'Symbol' in self && 'iterator' in Symbol,

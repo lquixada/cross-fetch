@@ -113,6 +113,7 @@ _module_spec__WEBPACK_IMPORTED_MODULE_2___default()('Browser: import on Webpack 
 (function(self) {
 
 var irrelevant = (function (exports) {
+
   var support = {
     searchParams: 'URLSearchParams' in self,
     iterable: 'Symbol' in self && 'iterator' in Symbol,
@@ -656,6 +657,7 @@ return new F();
 (function(self) {
 
 var irrelevant = (function (exports) {
+
   var support = {
     searchParams: 'URLSearchParams' in self,
     iterable: 'Symbol' in self && 'iterator' in Symbol,
