@@ -24,9 +24,6 @@ check-dependencies:
 deploy:
 	npm version $(release) && git push --follow-tags
 
-travis-env:
-	env | sort | grep TRAVIS_
-
 lint:
 	npx standard
 
