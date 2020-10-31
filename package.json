@@ -14,7 +14,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "make build && lint-staged"
+      "pre-commit": "make build && lint-staged",
+      "pre-push": "make"
     }
   },
   "standard": {
