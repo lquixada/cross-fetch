@@ -16,9 +16,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-___WEBPACK_IMPORTED_MODULE_1__.defaultExport = (___WEBPACK_IMPORTED_MODULE_1___default())
-
-_module_spec__WEBPACK_IMPORTED_MODULE_2___default()('Browser: import on Webpack bundle', ___WEBPACK_IMPORTED_MODULE_1__)
+_module_spec__WEBPACK_IMPORTED_MODULE_2___default()('Browser: import on Webpack bundle', {
+  ...___WEBPACK_IMPORTED_MODULE_1__,
+  defaultExport: (___WEBPACK_IMPORTED_MODULE_1___default())
+})
 
 
 /***/ }),

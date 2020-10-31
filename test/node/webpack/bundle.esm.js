@@ -19,9 +19,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-___WEBPACK_IMPORTED_MODULE_2__.defaultExport = (___WEBPACK_IMPORTED_MODULE_2___default())
-
-_module_spec__WEBPACK_IMPORTED_MODULE_3___default()('Node: import on Webpack bundle', ___WEBPACK_IMPORTED_MODULE_2__)
+_module_spec__WEBPACK_IMPORTED_MODULE_3___default()('Node: import on Webpack bundle', {
+  ...___WEBPACK_IMPORTED_MODULE_2__,
+  defaultExport: (___WEBPACK_IMPORTED_MODULE_2___default())
+})
 
 
 /***/ }),
@@ -6235,8 +6236,8 @@ module.exports = require("path");;
 /* 38 */
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
-var fetchNode = __webpack_require__(39)
-var fetch = fetchNode.fetch.bind({})
+const fetchNode = __webpack_require__(39)
+const fetch = fetchNode.fetch.bind({})
 
 fetch.polyfill = true
 
@@ -6252,10 +6253,10 @@ if (!global.fetch) {
 /* 39 */
 /***/ ((module, exports, __webpack_require__) => {
 
-var nodeFetch = __webpack_require__(40)
-var realFetch = nodeFetch.default || nodeFetch
+const nodeFetch = __webpack_require__(40)
+const realFetch = nodeFetch.default || nodeFetch
 
-var fetch = function (url, options) {
+const fetch = function (url, options) {
   // Support schemaless URIs on the server for parity with the browser.
   // Ex: //github.com/ -> https://github.com/
   if (/^\/\//.test(url)) {

@@ -1,5 +1,5 @@
-var fetchNode = require('./node-ponyfill')
-var fetch = fetchNode.fetch.bind({})
+const fetchNode = require('./node-ponyfill')
+const fetch = fetchNode.fetch.bind({})
 
 fetch.polyfill = true
 

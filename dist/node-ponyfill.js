@@ -1,7 +1,7 @@
-var nodeFetch = require('node-fetch')
-var realFetch = nodeFetch.default || nodeFetch
+const nodeFetch = require('node-fetch')
+const realFetch = nodeFetch.default || nodeFetch
 
-var fetch = function (url, options) {
+const fetch = function (url, options) {
   // Support schemaless URIs on the server for parity with the browser.
   // Ex: //github.com/ -> https://github.com/
   if (/^\/\//.test(url)) {
