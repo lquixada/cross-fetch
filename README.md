@@ -24,7 +24,6 @@ Universal WHATWG Fetch API for Node, Browsers and React Native. The scenario tha
 -   [Usage](#usage)
 -   [Demo & API](#demo--api)
 -   [FAQ](#faq)
--   [Supported environments](#supported-environments)
 -   [Thanks](#thanks)
 -   [License](#license)
 -   [Author](#author)
