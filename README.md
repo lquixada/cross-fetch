@@ -157,15 +157,6 @@ Just like isomorphic-fetch, it is just a proxy. If you're in node, it delivers y
 |The New York Times|Apollo GraphQL|Facebook|Swagger|VulcanJS|graphql-request|
 
 
-## Supported environments
-
-* Node 10+
-* React-Native
-* Browsers:
-
-[![Build Status](https://saucelabs.com/browser-matrix/cross-fetch.svg)](https://saucelabs.com/u/cross-fetch)
-
-
 ## Thanks
 
 Heavily inspired by the works of [matthew-andrews](https://github.com/matthew-andrews). Kudos to him!

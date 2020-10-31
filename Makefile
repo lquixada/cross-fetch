@@ -27,9 +27,6 @@ deploy:
 lint:
 	npx standard
 
-sauce:
-	./tasks/sauce
-
 snyk:
 	npx snyk test
 
@@ -52,4 +49,4 @@ test-node-webpack: test/node/webpack/bundle.cjs.js test/node/webpack/bundle.esm.
 test-react-native: dist
 	npx mocha test/react-native/index.js
 
-.PHONY: all check-dependencies dist deploy lint test test-browser test-browser-webpack test-node test-node-webpack sauce
+.PHONY: all check-dependencies dist deploy lint test test-browser test-browser-webpack test-node test-node-webpack

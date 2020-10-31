@@ -24,13 +24,6 @@ jobs:
           paths:
             - node_modules
             - dist
-  cross-browser:
-    <<: *defaults
-    steps:
-      - checkout
-      - attach_workspace:
-          at: .
-      - run: make sauce
   lint:
     <<: *defaults
     steps:
@@ -73,12 +66,6 @@ workflows:
           filters:
             tags:
               only: /^v\d\.\d\.\d.*/
-      - cross-browser:
-          requires:
-            - build
-          filters:
-            tags:
-              only: /^v\d\.\d\.\d.*/
       - lint:
           requires:
             - build
@@ -100,7 +87,6 @@ workflows:
       - approval:
           type: approval
           requires:
-            - cross-browser
             - lint
             - security
             - test
