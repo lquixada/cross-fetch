@@ -1,108 +1,8 @@
-/******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
-/******/
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId]) {
-/******/ 			return installedModules[moduleId].exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			i: moduleId,
-/******/ 			l: false,
-/******/ 			exports: {}
-/******/ 		};
-/******/
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
-/******/ 		// Flag the module as loaded
-/******/ 		module.l = true;
-/******/
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/
-/******/
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-/******/
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-/******/
-/******/ 	// define getter function for harmony exports
-/******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
-/******/ 		}
-/******/ 	};
-/******/
-/******/ 	// define __esModule on exports
-/******/ 	__webpack_require__.r = function(exports) {
-/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 		}
-/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 	};
-/******/
-/******/ 	// create a fake namespace object
-/******/ 	// mode & 1: value is a module id, require it
-/******/ 	// mode & 2: merge all properties of value into the ns
-/******/ 	// mode & 4: return value when already ns object
-/******/ 	// mode & 8|1: behave like require
-/******/ 	__webpack_require__.t = function(value, mode) {
-/******/ 		if(mode & 1) value = __webpack_require__(value);
-/******/ 		if(mode & 8) return value;
-/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
-/******/ 		var ns = Object.create(null);
-/******/ 		__webpack_require__.r(ns);
-/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
-/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
-/******/ 		return ns;
-/******/ 	};
-/******/
-/******/ 	// getDefaultExport function for compatibility with non-harmony modules
-/******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
-/******/ 			function getDefault() { return module['default']; } :
-/******/ 			function getModuleExports() { return module; };
-/******/ 		__webpack_require__.d(getter, 'a', getter);
-/******/ 		return getter;
-/******/ 	};
-/******/
-/******/ 	// Object.prototype.hasOwnProperty.call
-/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/******/
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
-/******/
-/******/
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
-/******/ })
-/************************************************************************/
-/******/ ([
-/* 0 */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(1)
-__webpack_require__(38)
-
-const fetch = __webpack_require__(39)
-const ponyfill = __webpack_require__(39)
-const addModuleSuite = __webpack_require__(41)
-
-ponyfill.defaultExport = fetch
-
-addModuleSuite('Node: require on Webpack bundle', ponyfill)
-
-
-/***/ }),
+/******/ (() => { // webpackBootstrap
+/******/ 	var __webpack_modules__ = ([
+/* 0 */,
 /* 1 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
 const nock = __webpack_require__(2)
 
@@ -145,7 +45,7 @@ before(() => {
 
 /***/ }),
 /* 2 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
@@ -205,7 +105,7 @@ if (isOn()) {
 
 /***/ }),
 /* 3 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
@@ -491,13 +391,14 @@ module.exports = Back
 
 /***/ }),
 /* 4 */
-/***/ (function(module, exports) {
+/***/ ((module) => {
 
-module.exports = require("assert");
+"use strict";
+module.exports = require("assert");;
 
 /***/ }),
 /* 5 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
@@ -890,7 +791,7 @@ module.exports = {
 
 /***/ }),
 /* 6 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 /**
  * Detect Electron renderer / nwjs process, which is node, but we should
@@ -906,7 +807,7 @@ if (typeof process === 'undefined' || process.type === 'renderer' || process.bro
 
 /***/ }),
 /* 7 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, exports, __webpack_require__) => {
 
 /* eslint-env browser */
 
@@ -1176,7 +1077,7 @@ formatters.j = function (v) {
 
 /***/ }),
 /* 8 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 
 /**
@@ -1448,7 +1349,7 @@ module.exports = setup;
 
 /***/ }),
 /* 9 */
-/***/ (function(module, exports) {
+/***/ ((module) => {
 
 /**
  * Helpers.
@@ -1616,7 +1517,7 @@ function plural(ms, msAbs, n, name) {
 
 /***/ }),
 /* 10 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, exports, __webpack_require__) => {
 
 /**
  * Module dependencies.
@@ -1879,19 +1780,21 @@ formatters.O = function (v) {
 
 /***/ }),
 /* 11 */
-/***/ (function(module, exports) {
+/***/ ((module) => {
 
-module.exports = require("tty");
+"use strict";
+module.exports = require("tty");;
 
 /***/ }),
 /* 12 */
-/***/ (function(module, exports) {
+/***/ ((module) => {
 
-module.exports = require("util");
+"use strict";
+module.exports = require("util");;
 
 /***/ }),
 /* 13 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
@@ -2037,13 +1940,14 @@ module.exports = {
 
 /***/ }),
 /* 14 */
-/***/ (function(module, exports) {
+/***/ ((module) => {
 
-module.exports = require("os");
+"use strict";
+module.exports = require("os");;
 
 /***/ }),
 /* 15 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module) => {
 
 "use strict";
 
@@ -2058,13 +1962,14 @@ module.exports = (flag, argv = process.argv) => {
 
 /***/ }),
 /* 16 */
-/***/ (function(module, exports) {
+/***/ ((module) => {
 
-module.exports = require("querystring");
+"use strict";
+module.exports = require("querystring");;
 
 /***/ }),
 /* 17 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
@@ -2773,7 +2678,7 @@ module.exports = {
 
 /***/ }),
 /* 18 */
-/***/ (function(module, exports) {
+/***/ ((module) => {
 
 /**
  * lodash (Custom Build) <https://lodash.com/>
@@ -3769,31 +3674,35 @@ module.exports = set;
 
 /***/ }),
 /* 19 */
-/***/ (function(module, exports) {
+/***/ ((module) => {
 
-module.exports = require("timers");
+"use strict";
+module.exports = require("timers");;
 
 /***/ }),
 /* 20 */
-/***/ (function(module, exports) {
+/***/ ((module) => {
 
-module.exports = require("url");
+"use strict";
+module.exports = require("url");;
 
 /***/ }),
 /* 21 */
-/***/ (function(module, exports) {
+/***/ ((module) => {
 
-module.exports = require("http");
+"use strict";
+module.exports = require("http");;
 
 /***/ }),
 /* 22 */
-/***/ (function(module, exports) {
+/***/ ((module) => {
 
-module.exports = require("https");
+"use strict";
+module.exports = require("https");;
 
 /***/ }),
 /* 23 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
@@ -4251,7 +4160,7 @@ module.exports = {
 
 /***/ }),
 /* 24 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
@@ -4599,7 +4508,7 @@ module.exports = { InterceptedRequestRouter }
 
 /***/ }),
 /* 25 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module) => {
 
 "use strict";
 
@@ -4691,7 +4600,7 @@ function explicitPropagate(events, source, dest) {
 
 /***/ }),
 /* 26 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
@@ -4703,13 +4612,14 @@ module.exports = new EventEmitter()
 
 /***/ }),
 /* 27 */
-/***/ (function(module, exports) {
+/***/ ((module) => {
 
-module.exports = require("events");
+"use strict";
+module.exports = require("events");;
 
 /***/ }),
 /* 28 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
@@ -4819,7 +4729,7 @@ module.exports = class Socket extends EventEmitter {
 
 /***/ }),
 /* 29 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
@@ -5153,19 +5063,21 @@ module.exports = { playbackInterceptor }
 
 /***/ }),
 /* 30 */
-/***/ (function(module, exports) {
+/***/ ((module) => {
 
-module.exports = require("stream");
+"use strict";
+module.exports = require("stream");;
 
 /***/ }),
 /* 31 */
-/***/ (function(module, exports) {
+/***/ ((module) => {
 
-module.exports = require("zlib");
+"use strict";
+module.exports = require("zlib");;
 
 /***/ }),
 /* 32 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
@@ -5787,7 +5699,7 @@ module.exports = class Interceptor {
 
 /***/ }),
 /* 33 */
-/***/ (function(module, exports) {
+/***/ ((module, exports) => {
 
 exports = module.exports = stringify
 exports.getSerialize = serializer
@@ -5820,7 +5732,7 @@ function serializer(replacer, cycleReplacer) {
 
 /***/ }),
 /* 34 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
@@ -5903,13 +5815,14 @@ function mapValuesDeep(obj, cb) {
 
 /***/ }),
 /* 35 */
-/***/ (function(module, exports) {
+/***/ ((module) => {
 
-module.exports = require("fs");
+"use strict";
+module.exports = require("fs");;
 
 /***/ }),
 /* 36 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
@@ -6289,13 +6202,14 @@ module.exports = {
 
 /***/ }),
 /* 37 */
-/***/ (function(module, exports) {
+/***/ ((module) => {
 
-module.exports = require("path");
+"use strict";
+module.exports = require("path");;
 
 /***/ }),
 /* 38 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
 var fetchNode = __webpack_require__(39)
 var fetch = fetchNode.fetch.bind({})
@@ -6312,7 +6226,7 @@ if (!global.fetch) {
 
 /***/ }),
 /* 39 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, exports, __webpack_require__) => {
 
 var nodeFetch = __webpack_require__(40)
 var realFetch = nodeFetch.default || nodeFetch
@@ -6338,14 +6252,17 @@ exports.default = fetch
 
 /***/ }),
 /* 40 */
-/***/ (function(__webpack_module__, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Headers", function() { return Headers; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Request", function() { return Request; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Response", function() { return Response; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FetchError", function() { return FetchError; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__,
+/* harmony export */   "Headers": () => /* binding */ Headers,
+/* harmony export */   "Request": () => /* binding */ Request,
+/* harmony export */   "Response": () => /* binding */ Response,
+/* harmony export */   "FetchError": () => /* binding */ FetchError
+/* harmony export */ });
 /* harmony import */ var stream__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(30);
 /* harmony import */ var http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(21);
 /* harmony import */ var url__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(20);
@@ -7987,13 +7904,13 @@ fetch.isRedirect = function (code) {
 // expose Promise
 fetch.Promise = global.Promise;
 
-/* harmony default export */ __webpack_exports__["default"] = (fetch);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (fetch);
 
 
 
 /***/ }),
 /* 41 */
-/***/ (function(module, exports) {
+/***/ ((module) => {
 
 /**
  * This file has all the tests needed to ensure cross-fetch is properly and equally
@@ -8053,4 +7970,74 @@ module.exports = addModuleSuite
 
 
 /***/ })
-/******/ ]);
+/******/ 	]);
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		if(__webpack_module_cache__[moduleId]) {
+/******/ 			return __webpack_module_cache__[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop)
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+(() => {
+__webpack_require__(1)
+__webpack_require__(38)
+
+const fetch = __webpack_require__(39)
+const ponyfill = __webpack_require__(39)
+const addModuleSuite = __webpack_require__(41)
+
+ponyfill.defaultExport = fetch
+
+addModuleSuite('Node: require on Webpack bundle', ponyfill)
+
+})();
+
+/******/ })()
+;
