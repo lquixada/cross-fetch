@@ -1,31 +1,6 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ([
-/* 0 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _setup__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
-/* harmony import */ var _setup__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_setup__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _polyfill__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(38);
-/* harmony import */ var _polyfill__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_polyfill__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var ___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(39);
-/* harmony import */ var ___WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(___WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _module_spec__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(41);
-/* harmony import */ var _module_spec__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_module_spec__WEBPACK_IMPORTED_MODULE_3__);
-
-
-
-
-
-
-_module_spec__WEBPACK_IMPORTED_MODULE_3___default()('Node: import on Webpack bundle', {
-  ...___WEBPACK_IMPORTED_MODULE_2__,
-  defaultExport: (___WEBPACK_IMPORTED_MODULE_2___default())
-})
-
-
-/***/ }),
+/* 0 */,
 /* 1 */
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -7968,6 +7943,13 @@ function addModuleSuite (name, ponyfill) {
     })
 
     describe('Ponyfill', () => {
+      before(() => {
+        delete global.fetch
+        delete global.Request
+        delete global.Response
+        delete global.Headers
+      });
+
       // Shadows polyfill
       const { fetch, Request, Response, Headers } = ponyfill
 
@@ -8025,18 +8007,6 @@ module.exports = addModuleSuite
 /******/ 	}
 /******/ 	
 /************************************************************************/
-/******/ 	/* webpack/runtime/compat get default export */
-/******/ 	(() => {
-/******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__webpack_require__.n = (module) => {
-/******/ 			var getter = module && module.__esModule ?
-/******/ 				() => module['default'] :
-/******/ 				() => module;
-/******/ 			__webpack_require__.d(getter, { a: getter });
-/******/ 			return getter;
-/******/ 		};
-/******/ 	})();
-/******/ 	
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
@@ -8066,9 +8036,20 @@ module.exports = addModuleSuite
 /******/ 	})();
 /******/ 	
 /************************************************************************/
-/******/ 	// startup
-/******/ 	// Load entry module
-/******/ 	__webpack_require__(0);
-/******/ 	// This entry module used 'exports' so it can't be inlined
+(() => {
+__webpack_require__(1)
+__webpack_require__(38)
+
+const fetch = __webpack_require__(39)
+const ponyfill = __webpack_require__(39)
+const addModuleSuite = __webpack_require__(41)
+
+addModuleSuite('Node: require on Webpack bundle', {
+  ...ponyfill,
+  defaultExport: fetch
+})
+
+})();
+
 /******/ })()
 ;

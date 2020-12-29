@@ -6,10 +6,10 @@ node_modules: package.json
 dist: node_modules
 	npx rollup -c && /usr/bin/touch dist
 
-test/browser/webpack/bundle.%.js: dist
+test/browser/webpack/test.%.js: dist
 	npx webpack --progress --config test/browser/webpack/webpack.config.js
 
-test/node/webpack/bundle.%.js: dist
+test/node/webpack/test.%.js: dist
 	npx webpack --progress --config test/node/webpack/webpack.config.js
 
 build: dist
@@ -32,7 +32,7 @@ test: test-node test-node-webpack test-browser test-browser-webpack test-react-n
 test-browser: dist
 	npx mocha-headless-chrome -f test/browser/headless/index.html
 
-test-browser-webpack: test/browser/webpack/bundle.cjs.js test/browser/webpack/bundle.esm.js
+test-browser-webpack: test/browser/webpack/test.cjs.js test/browser/webpack/test.esm.js
 	npx mocha-headless-chrome -f test/browser/webpack/index.html
 
 test-implementation: test-node test-browser
@@ -40,8 +40,8 @@ test-implementation: test-node test-browser
 test-node: dist
 	npx nyc mocha test/node/node/index.js
 
-test-node-webpack: test/node/webpack/bundle.cjs.js test/node/webpack/bundle.esm.js
-	npx mocha test/node/webpack/bundle.*.js
+test-node-webpack: test/node/webpack/test.cjs.js test/node/webpack/test.esm.js
+	npx mocha test/node/webpack/test.*.js
 
 test-react-native: dist
 	npx mocha test/react-native/index.js

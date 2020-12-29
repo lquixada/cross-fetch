@@ -6,7 +6,7 @@ module.exports = ['cjs', 'esm'].map(format => ({
   entry: path.join(__dirname, `index.${format}.js`),
   output: {
     path: __dirname,
-    filename: `bundle.${format}.js`
+    filename: `test.${format}.js`
   },
   stats: 'none'
 }))

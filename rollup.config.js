@@ -8,9 +8,15 @@ const input = path.join(__dirname, 'node_modules', 'whatwg-fetch', 'fetch.js')
 const outdent = str => str.replace(/^\s*/mg, '')
 
 export default [
-  // Ponyfill for commonjs usage via require('cross-fetch')
-  // Wraps up the whatwg-fetch code in order to prevent
-  // it from adding fetch to the global object.
+  /**
+   * Ponyfill for CommonJS or EcmaScript Modules
+   * Description:
+   *   Wraps up the whatwg-fetch code in order to prevent it from adding fetch to
+   *   the global object.
+   * Usage examples:
+   * - const fetch = require('cross-fetch')
+   * - import fetch from 'cross-fetch')
+   */
   {
     input,
     output: {
@@ -19,28 +25,31 @@ export default [
       name: 'irrelevant',
       strict: false,
       banner: outdent(`
-        var __self__ = (function (root) {
+        var global = typeof self !== 'undefined' ? self : this;
+        var __self__ = (function () {
           function F() {
             this.fetch = false;
-            this.DOMException = root.DOMException
+            this.DOMException = global.DOMException
           }
-          F.prototype = root;
+          F.prototype = global;
           return new F();
-        })(typeof self !== 'undefined' ? self : this);
+        })();
 
         (function(self) {
       `),
       footer: outdent(`
+          delete fetch.polyfill
         })(__self__);
 
-        delete __self__.fetch.polyfill
+        // Choose between native implementation (global) or custom implementation (__self__)
+        var ctx = global.fetch ? global : __self__;
 
-        exports = __self__.fetch // To enable: import fetch from 'cross-fetch'
-        exports.default = __self__.fetch // For TypeScript consumers without esModuleInterop.
-        exports.fetch = __self__.fetch // To enable: import {fetch} from 'cross-fetch'
-        exports.Headers = __self__.Headers
-        exports.Request = __self__.Request
-        exports.Response = __self__.Response
+        exports = ctx.fetch // To enable: import fetch from 'cross-fetch'
+        exports.default = ctx.fetch // For TypeScript consumers without esModuleInterop.
+        exports.fetch = ctx.fetch // To enable: import {fetch} from 'cross-fetch'
+        exports.Headers = ctx.Headers
+        exports.Request = ctx.Request
+        exports.Response = ctx.Response
 
         module.exports = exports
       `)
@@ -56,7 +65,12 @@ export default [
     context: 'this'
   },
 
-  // Polyfill for commonjs usage via require('cross-fetch/polyfill')
+  /**
+   * Polyfill for CommonJS or EcmaScript Modules
+   * Usage examples:
+   * - require('cross-fetch/polyfill')
+   * - import 'cross-fetch/polyfill'
+   */
   {
     input,
     output: {
@@ -82,7 +96,11 @@ export default [
     context: 'this'
   },
 
-  // For browser usage via <script> tag.
+  /**
+   * Browser
+   * Usage examples:
+   * - <script src="cross-fetch.js"></script>
+   */
   {
     input,
     output: {

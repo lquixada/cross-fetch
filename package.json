@@ -31,8 +31,8 @@
     ],
     "ignore": [
       "/dist/",
-      "bundle.js",
-      "bundle.*.js"
+      "test.js",
+      "test.*.js"
     ]
   },
   "mocha": {

@@ -542,14 +542,15 @@ var irrelevant = (function (exports) {
 /* 2 */
 /***/ (function(module, exports) {
 
-var __self__ = (function (root) {
+var global = typeof self !== 'undefined' ? self : this;
+var __self__ = (function () {
 function F() {
 this.fetch = false;
-this.DOMException = root.DOMException
+this.DOMException = global.DOMException
 }
-F.prototype = root;
+F.prototype = global;
 return new F();
-})(typeof self !== 'undefined' ? self : this);
+})();
 (function(self) {
 
 var irrelevant = (function (exports) {
@@ -1081,14 +1082,16 @@ var irrelevant = (function (exports) {
   return exports;
 
 }({}));
+delete fetch.polyfill
 })(__self__);
-delete __self__.fetch.polyfill
-exports = __self__.fetch // To enable: import fetch from 'cross-fetch'
-exports.default = __self__.fetch // For TypeScript consumers without esModuleInterop.
-exports.fetch = __self__.fetch // To enable: import {fetch} from 'cross-fetch'
-exports.Headers = __self__.Headers
-exports.Request = __self__.Request
-exports.Response = __self__.Response
+// Choose between native implementation (global) or custom implementation (__self__)
+var ctx = global.fetch ? global : __self__;
+exports = ctx.fetch // To enable: import fetch from 'cross-fetch'
+exports.default = ctx.fetch // For TypeScript consumers without esModuleInterop.
+exports.fetch = ctx.fetch // To enable: import {fetch} from 'cross-fetch'
+exports.Headers = ctx.Headers
+exports.Request = ctx.Request
+exports.Response = ctx.Response
 module.exports = exports
 
 
@@ -1187,9 +1190,10 @@ const fetch = __webpack_require__(2)
 const ponyfill = __webpack_require__(2)
 const addModuleSuite = __webpack_require__(3)
 
-ponyfill.defaultExport = fetch
-
-addModuleSuite('Browser: require on Webpack bundle', ponyfill)
+addModuleSuite('Browser: require on Webpack bundle', {
+  ...ponyfill,
+  defaultExport: fetch
+})
 
 })();
 
