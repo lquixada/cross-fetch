@@ -1,6 +1,24 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ([
-/* 0 */,
+/* 0 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _setup_server__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var _setup_server__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_setup_server__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _polyfill__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(38);
+/* harmony import */ var _polyfill__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_polyfill__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _polyfill_spec__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(41);
+/* harmony import */ var _polyfill_spec__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_polyfill_spec__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+
+_polyfill_spec__WEBPACK_IMPORTED_MODULE_2___default()('Node: import polyfill on Webpack bundle')
+
+
+/***/ }),
 /* 1 */
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -7921,58 +7939,23 @@ fetch.Promise = global.Promise;
  * imported/required in webpack bundle for node and browser environments.
  */
 
-function addModuleSuite (name, ponyfill) {
+function addModuleSuite (name) {
   describe(name, () => {
-    describe('Polyfill', () => {
-      it('should polyfill the fetch function', () => {
-        expect(fetch).to.be.a('function')
-        expect(fetch.polyfill).to.equal(true)
-      })
-
-      it('should polyfill the Request constructor', () => {
-        expect(Request).to.be.a('function')
-      })
-
-      it('should polyfill the Response constructor', () => {
-        expect(Response).to.be.a('function')
-      })
-
-      it('should polyfill Headers constructor', () => {
-        expect(Headers).to.be.a('function')
-      })
+    it('should polyfill the fetch function', () => {
+      expect(fetch).to.be.a('function')
+      expect(fetch.polyfill).to.equal(true)
     })
 
-    describe('Ponyfill', () => {
-      before(() => {
-        delete global.fetch
-        delete global.Request
-        delete global.Response
-        delete global.Headers
-      });
+    it('should polyfill the Request constructor', () => {
+      expect(Request).to.be.a('function')
+    })
 
-      // Shadows polyfill
-      const { fetch, Request, Response, Headers } = ponyfill
+    it('should polyfill the Response constructor', () => {
+      expect(Response).to.be.a('function')
+    })
 
-      it('should import the fetch function', () => {
-        expect(fetch).to.be.a('function')
-        expect(fetch.polyfill).to.equal(undefined)
-      })
-
-      it('should import the fetch function as the default', () => {
-        expect(ponyfill.defaultExport).to.equal(fetch)
-      })
-
-      it('should import the Request constructor', () => {
-        expect(Request).to.be.a('function')
-      })
-
-      it('should import the Response constructor', () => {
-        expect(Response).to.be.a('function')
-      })
-
-      it('should import the Headers constructor', () => {
-        expect(Headers).to.be.a('function')
-      })
+    it('should polyfill Headers constructor', () => {
+      expect(Headers).to.be.a('function')
     })
   })
 }
@@ -8007,6 +7990,18 @@ module.exports = addModuleSuite
 /******/ 	}
 /******/ 	
 /************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => module['default'] :
+/******/ 				() => module;
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
@@ -8036,20 +8031,9 @@ module.exports = addModuleSuite
 /******/ 	})();
 /******/ 	
 /************************************************************************/
-(() => {
-__webpack_require__(1)
-__webpack_require__(38)
-
-const fetch = __webpack_require__(39)
-const ponyfill = __webpack_require__(39)
-const addModuleSuite = __webpack_require__(41)
-
-addModuleSuite('Node: require on Webpack bundle', {
-  ...ponyfill,
-  defaultExport: fetch
-})
-
-})();
-
+/******/ 	// startup
+/******/ 	// Load entry module
+/******/ 	__webpack_require__(0);
+/******/ 	// This entry module used 'exports' so it can't be inlined
 /******/ })()
 ;

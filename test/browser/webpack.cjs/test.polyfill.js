@@ -1,12 +1,9 @@
-var global = typeof self !== 'undefined' ? self : this;
-var __self__ = (function () {
-function F() {
-this.fetch = false;
-this.DOMException = global.DOMException
-}
-F.prototype = global;
-return new F();
-})();
+/******/ (() => { // webpackBootstrap
+/******/ 	var __webpack_modules__ = ([
+/* 0 */,
+/* 1 */
+/***/ (function() {
+
 (function(self) {
 
 var irrelevant = (function (exports) {
@@ -538,14 +535,76 @@ var irrelevant = (function (exports) {
   return exports;
 
 }({}));
-})(__self__);
-delete __self__.fetch.polyfill;
-// Choose between native implementation (global) or custom implementation (__self__)
-var ctx = global.fetch ? global : __self__;
-exports = ctx.fetch // To enable: import fetch from 'cross-fetch'
-exports.default = ctx.fetch // For TypeScript consumers without esModuleInterop.
-exports.fetch = ctx.fetch // To enable: import {fetch} from 'cross-fetch'
-exports.Headers = ctx.Headers
-exports.Request = ctx.Request
-exports.Response = ctx.Response
-module.exports = exports
+})(typeof self !== 'undefined' ? self : this);
+
+
+/***/ }),
+/* 2 */
+/***/ ((module) => {
+
+/**
+ * This file has all the tests needed to ensure cross-fetch is properly and equally
+ * imported/required in webpack bundle for node and browser environments.
+ */
+
+function addModuleSuite (name) {
+  describe(name, () => {
+    it('should polyfill the fetch function', () => {
+      expect(fetch).to.be.a('function')
+      expect(fetch.polyfill).to.equal(true)
+    })
+
+    it('should polyfill the Request constructor', () => {
+      expect(Request).to.be.a('function')
+    })
+
+    it('should polyfill the Response constructor', () => {
+      expect(Response).to.be.a('function')
+    })
+
+    it('should polyfill Headers constructor', () => {
+      expect(Headers).to.be.a('function')
+    })
+  })
+}
+
+module.exports = addModuleSuite
+
+
+/***/ })
+/******/ 	]);
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		if(__webpack_module_cache__[moduleId]) {
+/******/ 			return __webpack_module_cache__[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+(() => {
+__webpack_require__(1)
+const addModuleSuite = __webpack_require__(2)
+
+addModuleSuite('Browser: require polyfill on Webpack bundle')
+
+})();
+
+/******/ })()
+;

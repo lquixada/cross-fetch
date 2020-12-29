@@ -1,4 +1,4 @@
-require('../setup')
+require('../setup.server')
 require('../../../dist/node-polyfill')
 
 const addFetchSuite = require('../../fetch.spec')

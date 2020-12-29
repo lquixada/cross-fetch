@@ -31,6 +31,7 @@
     ],
     "ignore": [
       "/dist/",
+      "bundle.js",
       "test.js",
       "test.*.js"
     ]

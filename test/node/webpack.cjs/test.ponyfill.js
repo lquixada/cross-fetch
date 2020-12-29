@@ -1,31 +1,6 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ([
-/* 0 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _setup__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
-/* harmony import */ var _setup__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_setup__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _polyfill__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(38);
-/* harmony import */ var _polyfill__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_polyfill__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var ___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(39);
-/* harmony import */ var ___WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(___WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _module_spec__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(41);
-/* harmony import */ var _module_spec__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_module_spec__WEBPACK_IMPORTED_MODULE_3__);
-
-
-
-
-
-
-_module_spec__WEBPACK_IMPORTED_MODULE_3___default()('Node: import on Webpack bundle', {
-  ...___WEBPACK_IMPORTED_MODULE_2__,
-  defaultExport: (___WEBPACK_IMPORTED_MODULE_2___default())
-})
-
-
-/***/ }),
+/* 0 */,
 /* 1 */
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -840,21 +815,12 @@ if (typeof process === 'undefined' || process.type === 'renderer' || process.bro
  * This is the web browser implementation of `debug()`.
  */
 
+exports.log = log;
 exports.formatArgs = formatArgs;
 exports.save = save;
 exports.load = load;
 exports.useColors = useColors;
 exports.storage = localstorage();
-exports.destroy = (() => {
-	let warned = false;
-
-	return () => {
-		if (!warned) {
-			warned = true;
-			console.warn('Instance method `debug.destroy()` is deprecated and no longer does anything. It will be removed in the next major version of `debug`.');
-		}
-	};
-})();
 
 /**
  * Colors.
@@ -1015,14 +981,18 @@ function formatArgs(args) {
 }
 
 /**
- * Invokes `console.debug()` when available.
- * No-op when `console.debug` is not a "function".
- * If `console.debug` is not available, falls back
- * to `console.log`.
+ * Invokes `console.log()` when available.
+ * No-op when `console.log` is not a "function".
  *
  * @api public
  */
-exports.log = console.debug || console.log || (() => {});
+function log(...args) {
+	// This hackery is required for IE8/9, where
+	// the `console.log` function doesn't have 'apply'
+	return typeof console === 'object' &&
+		console.log &&
+		console.log(...args);
+}
 
 /**
  * Save `namespaces`.
@@ -1123,11 +1093,15 @@ function setup(env) {
 	createDebug.enable = enable;
 	createDebug.enabled = enabled;
 	createDebug.humanize = __webpack_require__(9);
-	createDebug.destroy = destroy;
 
 	Object.keys(env).forEach(key => {
 		createDebug[key] = env[key];
 	});
+
+	/**
+	* Active `debug` instances.
+	*/
+	createDebug.instances = [];
 
 	/**
 	* The currently active debug mode names, and names to skip.
@@ -1170,7 +1144,6 @@ function setup(env) {
 	*/
 	function createDebug(namespace) {
 		let prevTime;
-		let enableOverride = null;
 
 		function debug(...args) {
 			// Disabled?
@@ -1200,7 +1173,7 @@ function setup(env) {
 			args[0] = args[0].replace(/%([a-zA-Z%])/g, (match, format) => {
 				// If we encounter an escaped % then don't increase the array index
 				if (match === '%%') {
-					return '%';
+					return match;
 				}
 				index++;
 				const formatter = createDebug.formatters[format];
@@ -1223,26 +1196,31 @@ function setup(env) {
 		}
 
 		debug.namespace = namespace;
+		debug.enabled = createDebug.enabled(namespace);
 		debug.useColors = createDebug.useColors();
-		debug.color = createDebug.selectColor(namespace);
+		debug.color = selectColor(namespace);
+		debug.destroy = destroy;
 		debug.extend = extend;
-		debug.destroy = createDebug.destroy; // XXX Temporary. Will be removed in the next major release.
+		// Debug.formatArgs = formatArgs;
+		// debug.rawLog = rawLog;
 
-		Object.defineProperty(debug, 'enabled', {
-			enumerable: true,
-			configurable: false,
-			get: () => enableOverride === null ? createDebug.enabled(namespace) : enableOverride,
-			set: v => {
-				enableOverride = v;
-			}
-		});
-
-		// Env-specific initialization logic for debug instances
+		// env-specific initialization logic for debug instances
 		if (typeof createDebug.init === 'function') {
 			createDebug.init(debug);
 		}
 
+		createDebug.instances.push(debug);
+
 		return debug;
+	}
+
+	function destroy() {
+		const index = createDebug.instances.indexOf(this);
+		if (index !== -1) {
+			createDebug.instances.splice(index, 1);
+			return true;
+		}
+		return false;
 	}
 
 	function extend(namespace, delimiter) {
@@ -1281,6 +1259,11 @@ function setup(env) {
 			} else {
 				createDebug.names.push(new RegExp('^' + namespaces + '$'));
 			}
+		}
+
+		for (i = 0; i < createDebug.instances.length; i++) {
+			const instance = createDebug.instances[i];
+			instance.enabled = createDebug.enabled(instance.namespace);
 		}
 	}
 
@@ -1354,14 +1337,6 @@ function setup(env) {
 			return val.stack || val.message;
 		}
 		return val;
-	}
-
-	/**
-	* XXX DO NOT USE. This is a temporary stub function.
-	* XXX It WILL be removed in the next major release.
-	*/
-	function destroy() {
-		console.warn('Instance method `debug.destroy()` is deprecated and no longer does anything. It will be removed in the next major version of `debug`.');
 	}
 
 	createDebug.enable(createDebug.load());
@@ -1561,10 +1536,6 @@ exports.formatArgs = formatArgs;
 exports.save = save;
 exports.load = load;
 exports.useColors = useColors;
-exports.destroy = util.deprecate(
-	() => {},
-	'Instance method `debug.destroy()` is deprecated and no longer does anything. It will be removed in the next major version of `debug`.'
-);
 
 /**
  * Colors.
@@ -1794,9 +1765,7 @@ const {formatters} = module.exports;
 formatters.o = function (v) {
 	this.inspectOpts.colors = this.useColors;
 	return util.inspect(v, this.inspectOpts)
-		.split('\n')
-		.map(str => str.trim())
-		.join(' ');
+		.replace(/\s*\n\s*/g, ' ');
 };
 
 /**
@@ -1911,7 +1880,7 @@ function supportsColor(haveStream, streamIsTTY) {
 	}
 
 	if ('CI' in env) {
-		if (['TRAVIS', 'CIRCLECI', 'APPVEYOR', 'GITLAB_CI', 'GITHUB_ACTIONS', 'BUILDKITE'].some(sign => sign in env) || env.CI_NAME === 'codeship') {
+		if (['TRAVIS', 'CIRCLECI', 'APPVEYOR', 'GITLAB_CI'].some(sign => sign in env) || env.CI_NAME === 'codeship') {
 			return 1;
 		}
 
@@ -1920,6 +1889,10 @@ function supportsColor(haveStream, streamIsTTY) {
 
 	if ('TEAMCITY_VERSION' in env) {
 		return /^(9\.(0*[1-9]\d*)\.|\d{2,}\.)/.test(env.TEAMCITY_VERSION) ? 1 : 0;
+	}
+
+	if ('GITHUB_ACTIONS' in env) {
+		return 1;
 	}
 
 	if (env.COLORTERM === 'truecolor') {
@@ -4387,9 +4360,7 @@ class InterceptedRequestRouter {
       req.once('finish', callback)
     }
 
-    if (chunk) {
-      req.write(chunk, encoding)
-    }
+    req.write(chunk, encoding)
     req.finished = true
     this.maybeStartPlayback()
 
@@ -6187,7 +6158,7 @@ function define(nockDefs) {
     let response
     if (!nockDef.response) {
       response = ''
-      // TODO: Rename `responseIsBinary` to `responseIsUtf8Representable`.
+      // TODO: Rename `responseIsBinary` to `reponseIsUtf8Representable`.
     } else if (nockDef.responseIsBinary) {
       response = Buffer.from(nockDef.response, 'hex')
     } else {
@@ -6238,26 +6209,9 @@ module.exports = require("path");;
 
 /***/ }),
 /* 38 */
-/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
-
-const fetchNode = __webpack_require__(39)
-const fetch = fetchNode.fetch.bind({})
-
-fetch.polyfill = true
-
-if (!global.fetch) {
-  global.fetch = fetch
-  global.Response = fetchNode.Response
-  global.Headers = fetchNode.Headers
-  global.Request = fetchNode.Request
-}
-
-
-/***/ }),
-/* 39 */
 /***/ ((module, exports, __webpack_require__) => {
 
-const nodeFetch = __webpack_require__(40)
+const nodeFetch = __webpack_require__(39)
 const realFetch = nodeFetch.default || nodeFetch
 
 const fetch = function (url, options) {
@@ -6280,7 +6234,7 @@ exports.default = fetch
 
 
 /***/ }),
-/* 40 */
+/* 39 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -7938,7 +7892,7 @@ fetch.Promise = global.Promise;
 
 
 /***/ }),
-/* 41 */
+/* 40 */
 /***/ ((module) => {
 
 /**
@@ -7948,56 +7902,27 @@ fetch.Promise = global.Promise;
 
 function addModuleSuite (name, ponyfill) {
   describe(name, () => {
-    describe('Polyfill', () => {
-      it('should polyfill the fetch function', () => {
-        expect(fetch).to.be.a('function')
-        expect(fetch.polyfill).to.equal(true)
-      })
+    const { fetch, Request, Response, Headers } = ponyfill
 
-      it('should polyfill the Request constructor', () => {
-        expect(Request).to.be.a('function')
-      })
-
-      it('should polyfill the Response constructor', () => {
-        expect(Response).to.be.a('function')
-      })
-
-      it('should polyfill Headers constructor', () => {
-        expect(Headers).to.be.a('function')
-      })
+    it('should import the fetch function', () => {
+      expect(fetch).to.be.a('function')
+      expect(fetch.polyfill).to.equal(undefined)
     })
 
-    describe('Ponyfill', () => {
-      before(() => {
-        delete global.fetch
-        delete global.Request
-        delete global.Response
-        delete global.Headers
-      });
+    it('should import the fetch function as the default', () => {
+      expect(ponyfill.defaultExport).to.equal(fetch)
+    })
 
-      // Shadows polyfill
-      const { fetch, Request, Response, Headers } = ponyfill
+    it('should import the Request constructor', () => {
+      expect(Request).to.be.a('function')
+    })
 
-      it('should import the fetch function', () => {
-        expect(fetch).to.be.a('function')
-        expect(fetch.polyfill).to.equal(undefined)
-      })
+    it('should import the Response constructor', () => {
+      expect(Response).to.be.a('function')
+    })
 
-      it('should import the fetch function as the default', () => {
-        expect(ponyfill.defaultExport).to.equal(fetch)
-      })
-
-      it('should import the Request constructor', () => {
-        expect(Request).to.be.a('function')
-      })
-
-      it('should import the Response constructor', () => {
-        expect(Response).to.be.a('function')
-      })
-
-      it('should import the Headers constructor', () => {
-        expect(Headers).to.be.a('function')
-      })
+    it('should import the Headers constructor', () => {
+      expect(Headers).to.be.a('function')
     })
   })
 }
@@ -8032,18 +7957,6 @@ module.exports = addModuleSuite
 /******/ 	}
 /******/ 	
 /************************************************************************/
-/******/ 	/* webpack/runtime/compat get default export */
-/******/ 	(() => {
-/******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__webpack_require__.n = (module) => {
-/******/ 			var getter = module && module.__esModule ?
-/******/ 				() => module['default'] :
-/******/ 				() => module;
-/******/ 			__webpack_require__.d(getter, { a: getter });
-/******/ 			return getter;
-/******/ 		};
-/******/ 	})();
-/******/ 	
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
@@ -8073,9 +7986,19 @@ module.exports = addModuleSuite
 /******/ 	})();
 /******/ 	
 /************************************************************************/
-/******/ 	// startup
-/******/ 	// Load entry module
-/******/ 	__webpack_require__(0);
-/******/ 	// This entry module used 'exports' so it can't be inlined
+(() => {
+__webpack_require__(1)
+
+const fetch = __webpack_require__(38)
+const ponyfill = __webpack_require__(38)
+const addModuleSuite = __webpack_require__(40)
+
+addModuleSuite('Node: require ponyfill on Webpack bundle', {
+  ...ponyfill,
+  defaultExport: fetch
+})
+
+})();
+
 /******/ })()
 ;

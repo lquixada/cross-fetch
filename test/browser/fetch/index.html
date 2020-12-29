@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!--
+    Although this file is for headless tests, it can be used as a local file in GUI browsers.
+    That's why we include the css below.
+  -->
+  <link href="../../../node_modules/mocha/mocha.css" rel="stylesheet" />
+</head>
+
+<body>
+  <div id="mocha"></div>
+
+  <script src="../../../node_modules/sinon/pkg/sinon.js"></script>
+  <script src="../../../node_modules/chai/chai.js"></script>
+  <script src="../../../node_modules/mocha/mocha.js"></script>
+
+  <script src="../setup.env.js"></script>
+  <script src="../setup.server.js"></script>
+  <script src="../../../dist/cross-fetch.js"></script>
+  <script src="../../fetch.spec.js"></script>
+
+  <script>
+    addFetchSuite('Browser: compliance check with Fetch API specs');
+    mocha.checkLeaks();
+    mocha.run();
+  </script>
+</body>
+</html>

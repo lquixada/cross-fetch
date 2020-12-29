@@ -38,8 +38,9 @@ export default [
         (function(self) {
       `),
       footer: outdent(`
-          delete fetch.polyfill
         })(__self__);
+
+        delete __self__.fetch.polyfill;
 
         // Choose between native implementation (global) or custom implementation (__self__)
         var ctx = global.fetch ? global : __self__;

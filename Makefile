@@ -27,23 +27,27 @@ lint:
 snyk:
 	npx snyk test
 
-test: test-node test-node-webpack test-browser test-browser-webpack test-react-native
+test: test-node-fetch test-node-webpack-cjs test-node-webpack-esm test-browser-fetch test-browser-webpack-cjs test-browser-webpack-esm test-react-native
 
-test-browser: dist
-	npx mocha-headless-chrome -f test/browser/headless/index.html
+test-browser-fetch: dist
+	./test/browser/fetch/run.sh
 
-test-browser-webpack: test/browser/webpack/test.cjs.js test/browser/webpack/test.esm.js
-	npx mocha-headless-chrome -f test/browser/webpack/index.html
+test-browser-webpack-cjs:
+	./test/browser/webpack.cjs/run.sh
 
-test-implementation: test-node test-browser
+test-browser-webpack-esm:
+	./test/browser/webpack.esm/run.sh
 
-test-node: dist
-	npx nyc mocha test/node/node/index.js
+test-node-fetch: dist
+	./test/node/fetch/run.sh
 
-test-node-webpack: test/node/webpack/test.cjs.js test/node/webpack/test.esm.js
-	npx mocha test/node/webpack/test.*.js
+test-node-webpack-cjs:
+	./test/node/webpack.cjs/run.sh
+
+test-node-webpack-esm:
+	./test/node/webpack.esm/run.sh
 
 test-react-native: dist
-	npx mocha test/react-native/index.js
+	./test/react-native/run.sh
 
-.PHONY: all dist deploy lint test test-browser test-browser-webpack test-node test-node-webpack
+.PHONY: all dist deploy lint test test-browser-fetch test-browser-webpack-cjs test-browser-webpack-esm test-node-fetch test-node-webpack-cjs test-node-webpack-esm
