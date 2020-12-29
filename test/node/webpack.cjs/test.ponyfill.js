@@ -6223,6 +6223,8 @@ const fetch = function (url, options) {
   return realFetch.call(this, url, options)
 }
 
+fetch.ponyfill = true
+
 module.exports = exports = fetch
 exports.fetch = fetch
 exports.Headers = nodeFetch.Headers
@@ -7907,6 +7909,7 @@ function addModuleSuite (name, ponyfill) {
     it('should import the fetch function', () => {
       expect(fetch).to.be.a('function')
       expect(fetch.polyfill).to.equal(undefined)
+      expect(fetch.ponyfill).to.equal(true)
     })
 
     it('should import the fetch function as the default', () => {

@@ -6244,6 +6244,8 @@ const fetch = function (url, options) {
   return realFetch.call(this, url, options)
 }
 
+fetch.ponyfill = true
+
 module.exports = exports = fetch
 exports.fetch = fetch
 exports.Headers = nodeFetch.Headers
@@ -7926,6 +7928,7 @@ function addModuleSuite (name) {
     it('should polyfill the fetch function', () => {
       expect(fetch).to.be.a('function')
       expect(fetch.polyfill).to.equal(true)
+      expect(fetch.ponyfill).to.equal(undefined)
     })
 
     it('should polyfill the Request constructor', () => {

@@ -545,6 +545,7 @@ var irrelevant = (function (exports) {
 
 }({}));
 })(__self__);
+__self__.fetch.ponyfill = true;
 delete __self__.fetch.polyfill;
 // Choose between native implementation (global) or custom implementation (__self__)
 var ctx = global.fetch ? global : __self__;
@@ -573,6 +574,7 @@ function addModuleSuite (name, ponyfill) {
     it('should import the fetch function', () => {
       expect(fetch).to.be.a('function')
       expect(fetch.polyfill).to.equal(undefined)
+      expect(fetch.ponyfill).to.equal(true)
     })
 
     it('should import the fetch function as the default', () => {

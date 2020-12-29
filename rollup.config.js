@@ -40,6 +40,7 @@ export default [
       footer: outdent(`
         })(__self__);
 
+        __self__.fetch.ponyfill = true;
         delete __self__.fetch.polyfill;
 
         // Choose between native implementation (global) or custom implementation (__self__)

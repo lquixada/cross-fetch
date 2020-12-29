@@ -8,6 +8,7 @@ function addModuleSuite (name) {
     it('should polyfill the fetch function', () => {
       expect(fetch).to.be.a('function')
       expect(fetch.polyfill).to.equal(true)
+      expect(fetch.ponyfill).to.equal(undefined)
     })
 
     it('should polyfill the Request constructor', () => {
