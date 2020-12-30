@@ -5,18 +5,42 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _polyfill__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
-/* harmony import */ var _polyfill__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_polyfill__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _polyfill_spec__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
-/* harmony import */ var _polyfill_spec__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_polyfill_spec__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _setup_env__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var _setup_env__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_setup_env__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _polyfill__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
+/* harmony import */ var _polyfill__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_polyfill__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _polyfill_spec__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3);
+/* harmony import */ var _polyfill_spec__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_polyfill_spec__WEBPACK_IMPORTED_MODULE_2__);
 
 
 
-_polyfill_spec__WEBPACK_IMPORTED_MODULE_1___default()('Browser: import polyfill on Webpack bundle')
+
+_polyfill_spec__WEBPACK_IMPORTED_MODULE_2___default()('Browser: import polyfill on Webpack bundle')
+
+mocha.checkLeaks()
+mocha.run()
 
 
 /***/ }),
 /* 1 */
+/***/ (() => {
+
+// Enable mocha's bdd style
+mocha.setup('bdd')
+
+// Add chai's expect to the global scope
+window.expect = chai.expect
+window.assert = chai.assert
+
+// Delete native fetch api to force the polyfill installation for test purposes
+delete window.fetch
+delete window.Request
+delete window.Response
+delete window.Headers
+
+
+/***/ }),
+/* 2 */
 /***/ (function() {
 
 (function(self) {
@@ -554,7 +578,7 @@ var irrelevant = (function (exports) {
 
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ ((module) => {
 
 /**

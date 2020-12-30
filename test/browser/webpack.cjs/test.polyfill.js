@@ -2,6 +2,24 @@
 /******/ 	var __webpack_modules__ = ([
 /* 0 */,
 /* 1 */
+/***/ (() => {
+
+// Enable mocha's bdd style
+mocha.setup('bdd')
+
+// Add chai's expect to the global scope
+window.expect = chai.expect
+window.assert = chai.assert
+
+// Delete native fetch api to force the polyfill installation for test purposes
+delete window.fetch
+delete window.Request
+delete window.Response
+delete window.Headers
+
+
+/***/ }),
+/* 2 */
 /***/ (function() {
 
 (function(self) {
@@ -539,7 +557,7 @@ var irrelevant = (function (exports) {
 
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ ((module) => {
 
 /**
@@ -601,9 +619,13 @@ module.exports = addModuleSuite
 /************************************************************************/
 (() => {
 __webpack_require__(1)
-const addModuleSuite = __webpack_require__(2)
+__webpack_require__(2)
+const addModuleSuite = __webpack_require__(3)
 
 addModuleSuite('Browser: require polyfill on Webpack bundle')
+
+mocha.checkLeaks()
+mocha.run()
 
 })();
 

@@ -5,21 +5,45 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var ___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
-/* harmony import */ var ___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _ponyfill_spec__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
-/* harmony import */ var _ponyfill_spec__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_ponyfill_spec__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _setup_env__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var _setup_env__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_setup_env__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var ___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
+/* harmony import */ var ___WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(___WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _ponyfill_spec__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3);
+/* harmony import */ var _ponyfill_spec__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_ponyfill_spec__WEBPACK_IMPORTED_MODULE_2__);
 
 
 
-_ponyfill_spec__WEBPACK_IMPORTED_MODULE_1___default()('Browser: import ponyfill on Webpack bundle', {
-  ...___WEBPACK_IMPORTED_MODULE_0__,
-  defaultExport: (___WEBPACK_IMPORTED_MODULE_0___default())
+
+_ponyfill_spec__WEBPACK_IMPORTED_MODULE_2___default()('Browser: import ponyfill on Webpack bundle', {
+  ...___WEBPACK_IMPORTED_MODULE_1__,
+  defaultExport: (___WEBPACK_IMPORTED_MODULE_1___default())
 })
+
+mocha.checkLeaks()
+mocha.run()
 
 
 /***/ }),
 /* 1 */
+/***/ (() => {
+
+// Enable mocha's bdd style
+mocha.setup('bdd')
+
+// Add chai's expect to the global scope
+window.expect = chai.expect
+window.assert = chai.assert
+
+// Delete native fetch api to force the polyfill installation for test purposes
+delete window.fetch
+delete window.Request
+delete window.Response
+delete window.Headers
+
+
+/***/ }),
+/* 2 */
 /***/ (function(module, exports) {
 
 var global = typeof self !== 'undefined' ? self : this;
@@ -577,7 +601,7 @@ module.exports = exports
 
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ ((module) => {
 
 /**
