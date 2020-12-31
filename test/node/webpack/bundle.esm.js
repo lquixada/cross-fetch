@@ -4385,7 +4385,9 @@ class InterceptedRequestRouter {
       req.once('finish', callback)
     }
 
-    req.write(chunk, encoding)
+    if (chunk) {
+      req.write(chunk, encoding)
+    }
     req.finished = true
     this.maybeStartPlayback()
 
@@ -6183,7 +6185,7 @@ function define(nockDefs) {
     let response
     if (!nockDef.response) {
       response = ''
-      // TODO: Rename `responseIsBinary` to `reponseIsUtf8Representable`.
+      // TODO: Rename `responseIsBinary` to `responseIsUtf8Representable`.
     } else if (nockDef.responseIsBinary) {
       response = Buffer.from(nockDef.response, 'hex')
     } else {
