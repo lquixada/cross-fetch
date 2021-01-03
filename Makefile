@@ -7,10 +7,10 @@ dist: node_modules
 	npx rollup -c && /usr/bin/touch dist
 
 test/browser/webpack/bundle.%.js: dist
-	npx webpack-cli --progress --config test/browser/webpack/webpack.config.js
+	npx webpack --progress --config test/browser/webpack/webpack.config.js
 
 test/node/webpack/bundle.%.js: dist
-	npx webpack-cli --progress --config test/node/webpack/webpack.config.js
+	npx webpack --progress --config test/node/webpack/webpack.config.js
 
 build: dist
 
