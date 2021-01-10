@@ -33,19 +33,19 @@ test-browser-fetch: dist
 	./test/browser/fetch/run.sh
 
 test-browser-webpack-cjs:
-	./test/browser/webpack.cjs/run.sh
+	./test/browser/module.cjs/run.sh
 
 test-browser-webpack-esm:
-	./test/browser/webpack.esm/run.sh
+	./test/browser/module.esm/run.sh
 
 test-node-fetch: dist
 	./test/node/fetch/run.sh
 
 test-node-webpack-cjs:
-	./test/node/webpack.cjs/run.sh
+	./test/node/module.cjs/run.sh
 
 test-node-webpack-esm:
-	./test/node/webpack.esm/run.sh
+	./test/node/module.esm/run.sh
 
 test-react-native: dist
 	./test/react-native/run.sh

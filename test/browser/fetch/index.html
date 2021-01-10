@@ -22,7 +22,9 @@
   <script src="../../fetch.spec.js"></script>
 
   <script>
-    addFetchSuite('Browser: compliance check with Fetch API specs');
+    describe('Browser: compliance check with Fetch API specs', () => {
+      addFetchSuite();
+    });
     mocha.checkLeaks();
     mocha.run();
   </script>

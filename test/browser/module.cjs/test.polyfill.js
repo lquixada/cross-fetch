@@ -1,30 +1,6 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ([
-/* 0 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _setup_env__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
-/* harmony import */ var _setup_env__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_setup_env__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var ___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
-/* harmony import */ var ___WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(___WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _ponyfill_spec__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3);
-/* harmony import */ var _ponyfill_spec__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_ponyfill_spec__WEBPACK_IMPORTED_MODULE_2__);
-
-
-
-
-_ponyfill_spec__WEBPACK_IMPORTED_MODULE_2___default()('Browser: import ponyfill on Webpack bundle', {
-  ...___WEBPACK_IMPORTED_MODULE_1__,
-  defaultExport: (___WEBPACK_IMPORTED_MODULE_1___default())
-})
-
-mocha.checkLeaks()
-mocha.run()
-
-
-/***/ }),
+/* 0 */,
 /* 1 */
 /***/ (() => {
 
@@ -44,17 +20,8 @@ delete window.Headers
 
 /***/ }),
 /* 2 */
-/***/ (function(module, exports) {
+/***/ (function() {
 
-var global = typeof self !== 'undefined' ? self : this;
-var __self__ = (function () {
-function F() {
-this.fetch = false;
-this.DOMException = global.DOMException
-}
-F.prototype = global;
-return new F();
-})();
 (function(self) {
 
 var irrelevant = (function (exports) {
@@ -586,18 +553,7 @@ var irrelevant = (function (exports) {
   return exports;
 
 }({}));
-})(__self__);
-__self__.fetch.ponyfill = true;
-delete __self__.fetch.polyfill;
-// Choose between native implementation (global) or custom implementation (__self__)
-var ctx = global.fetch ? global : __self__;
-exports = ctx.fetch // To enable: import fetch from 'cross-fetch'
-exports.default = ctx.fetch // For TypeScript consumers without esModuleInterop.
-exports.fetch = ctx.fetch // To enable: import {fetch} from 'cross-fetch'
-exports.Headers = ctx.Headers
-exports.Request = ctx.Request
-exports.Response = ctx.Response
-module.exports = exports
+})(typeof self !== 'undefined' ? self : this);
 
 
 /***/ }),
@@ -609,31 +565,23 @@ module.exports = exports
  * imported/required in webpack bundle for node and browser environments.
  */
 
-function addModuleSuite (name, ponyfill) {
-  describe(name, () => {
-    const { fetch, Request, Response, Headers } = ponyfill
+function addModuleSuite () {
+  it('should polyfill the fetch function', () => {
+    expect(fetch).to.be.a('function')
+    expect(fetch.polyfill).to.equal(true)
+    expect(fetch.ponyfill).to.equal(undefined)
+  })
 
-    it('should import the fetch function', () => {
-      expect(fetch).to.be.a('function')
-      expect(fetch.polyfill).to.equal(undefined)
-      expect(fetch.ponyfill).to.equal(true)
-    })
+  it('should polyfill the Request constructor', () => {
+    expect(Request).to.be.a('function')
+  })
 
-    it('should import the fetch function as the default', () => {
-      expect(ponyfill.defaultExport).to.equal(fetch)
-    })
+  it('should polyfill the Response constructor', () => {
+    expect(Response).to.be.a('function')
+  })
 
-    it('should import the Request constructor', () => {
-      expect(Request).to.be.a('function')
-    })
-
-    it('should import the Response constructor', () => {
-      expect(Response).to.be.a('function')
-    })
-
-    it('should import the Headers constructor', () => {
-      expect(Headers).to.be.a('function')
-    })
+  it('should polyfill Headers constructor', () => {
+    expect(Headers).to.be.a('function')
   })
 }
 
@@ -667,50 +615,19 @@ module.exports = addModuleSuite
 /******/ 	}
 /******/ 	
 /************************************************************************/
-/******/ 	/* webpack/runtime/compat get default export */
-/******/ 	(() => {
-/******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__webpack_require__.n = (module) => {
-/******/ 			var getter = module && module.__esModule ?
-/******/ 				() => module['default'] :
-/******/ 				() => module;
-/******/ 			__webpack_require__.d(getter, { a: getter });
-/******/ 			return getter;
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/define property getters */
-/******/ 	(() => {
-/******/ 		// define getter functions for harmony exports
-/******/ 		__webpack_require__.d = (exports, definition) => {
-/******/ 			for(var key in definition) {
-/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
-/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
-/******/ 				}
-/******/ 			}
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
-/******/ 	(() => {
-/******/ 		__webpack_require__.o = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop)
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/make namespace object */
-/******/ 	(() => {
-/******/ 		// define __esModule on exports
-/******/ 		__webpack_require__.r = (exports) => {
-/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 			}
-/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/************************************************************************/
-/******/ 	// startup
-/******/ 	// Load entry module
-/******/ 	__webpack_require__(0);
-/******/ 	// This entry module used 'exports' so it can't be inlined
+(() => {
+__webpack_require__(1)
+__webpack_require__(2)
+const addModuleSuite = __webpack_require__(3)
+
+describe('Browser: require polyfill on Webpack bundle', () => {
+  addModuleSuite()
+})
+
+mocha.checkLeaks()
+mocha.run()
+
+})();
+
 /******/ })()
 ;

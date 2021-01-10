@@ -3,25 +3,23 @@
  * imported/required in webpack bundle for node and browser environments.
  */
 
-function addModuleSuite (name) {
-  describe(name, () => {
-    it('should polyfill the fetch function', () => {
-      expect(fetch).to.be.a('function')
-      expect(fetch.polyfill).to.equal(true)
-      expect(fetch.ponyfill).to.equal(undefined)
-    })
+function addModuleSuite () {
+  it('should polyfill the fetch function', () => {
+    expect(fetch).to.be.a('function')
+    expect(fetch.polyfill).to.equal(true)
+    expect(fetch.ponyfill).to.equal(undefined)
+  })
 
-    it('should polyfill the Request constructor', () => {
-      expect(Request).to.be.a('function')
-    })
+  it('should polyfill the Request constructor', () => {
+    expect(Request).to.be.a('function')
+  })
 
-    it('should polyfill the Response constructor', () => {
-      expect(Response).to.be.a('function')
-    })
+  it('should polyfill the Response constructor', () => {
+    expect(Response).to.be.a('function')
+  })
 
-    it('should polyfill Headers constructor', () => {
-      expect(Headers).to.be.a('function')
-    })
+  it('should polyfill Headers constructor', () => {
+    expect(Headers).to.be.a('function')
   })
 }
 

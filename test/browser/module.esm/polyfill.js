@@ -2,7 +2,9 @@ import '../setup.env'
 import '../../../polyfill'
 import addModuleSuite from '../../polyfill.spec'
 
-addModuleSuite('Browser: import polyfill on Webpack bundle')
+describe('Browser: import polyfill on Webpack bundle', () => {
+  addModuleSuite()
+})
 
 mocha.checkLeaks()
 mocha.run()

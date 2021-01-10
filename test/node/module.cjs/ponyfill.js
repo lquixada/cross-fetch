@@ -4,7 +4,9 @@ const fetch = require('../../..')
 const ponyfill = require('../../..')
 const addModuleSuite = require('../../ponyfill.spec')
 
-addModuleSuite('Node: require ponyfill on Webpack bundle', {
-  ...ponyfill,
-  defaultExport: fetch
+describe('Node: require ponyfill on Webpack bundle', () => {
+  addModuleSuite({
+    ...ponyfill,
+    defaultExport: fetch
+  })
 })
