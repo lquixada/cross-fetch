@@ -590,6 +590,7 @@ var irrelevant = (function (exports) {
 }({}));
 })(__self__);
 __self__.fetch.ponyfill = true;
+// Remove "polyfill" property added by whatwg-fetch
 delete __self__.fetch.polyfill;
 // Choose between native implementation (global) or custom implementation (__self__)
 var ctx = global.fetch ? global : __self__;
