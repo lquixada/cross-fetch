@@ -15,10 +15,17 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-describe('Browser: import ponyfill on Webpack bundle', () => {
-  (0,_module_spec__WEBPACK_IMPORTED_MODULE_2__.addModuleSuite)(___WEBPACK_IMPORTED_MODULE_1__)
-  ;(0,_module_spec__WEBPACK_IMPORTED_MODULE_2__.addPonyfillSuite)({ ...___WEBPACK_IMPORTED_MODULE_1__, defaultExport: (___WEBPACK_IMPORTED_MODULE_1___default()) })
-})
+if (/globals=off/.test(location.search)) {
+  describe('Browser:Ponyfill:Import:Webpack', () => {
+    (0,_module_spec__WEBPACK_IMPORTED_MODULE_2__.addModuleSuite)(___WEBPACK_IMPORTED_MODULE_1__)
+    ;(0,_module_spec__WEBPACK_IMPORTED_MODULE_2__.addPonyfillSuite)({ ...___WEBPACK_IMPORTED_MODULE_1__, defaultExport: (___WEBPACK_IMPORTED_MODULE_1___default()) })
+  })
+} else {
+  describe('Browser:Native:Import:Webpack', () => {
+    (0,_module_spec__WEBPACK_IMPORTED_MODULE_2__.addModuleSuite)(___WEBPACK_IMPORTED_MODULE_1__)
+    ;(0,_module_spec__WEBPACK_IMPORTED_MODULE_2__.addNativeSuite)({ fetch })
+  })
+}
 
 mocha.checkLeaks()
 mocha.run()
@@ -35,11 +42,13 @@ mocha.setup('bdd')
 window.expect = chai.expect
 window.assert = chai.assert
 
-// Delete native fetch api to force the polyfill installation for test purposes
-delete window.fetch
-delete window.Request
-delete window.Response
-delete window.Headers
+if (/globals=off/.test(location.search)) {
+  // Delete native fetch api to force the polyfill installation for test purposes
+  delete window.fetch
+  delete window.Request
+  delete window.Response
+  delete window.Headers
+}
 
 
 /***/ }),
@@ -629,14 +638,14 @@ function addModuleSuite ({ fetch, Request, Response, Headers }) {
 }
 
 function addPolyfillSuite ({ fetch }) {
-  it('should polyfill the fetch function', () => {
+  it('should use the polyfill fetch function', () => {
     expect(fetch.polyfill).to.equal(true)
     expect(fetch.ponyfill).to.equal(undefined)
   })
 }
 
 function addPonyfillSuite ({ fetch, defaultExport }) {
-  it('should ponyfill the fetch function', () => {
+  it('should use the ponyfill fetch function', () => {
     expect(fetch.polyfill).to.equal(undefined)
     expect(fetch.ponyfill).to.equal(true)
   })
@@ -646,8 +655,16 @@ function addPonyfillSuite ({ fetch, defaultExport }) {
   })
 }
 
+function addNativeSuite ({ fetch }) {
+  it('should use the native fetch function', () => {
+    expect(fetch.polyfill).to.equal(undefined)
+    expect(fetch.ponyfill).to.equal(undefined)
+  })
+}
+
 module.exports = {
   addModuleSuite,
+  addNativeSuite,
   addPolyfillSuite,
   addPonyfillSuite
 }

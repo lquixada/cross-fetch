@@ -1,4 +1,4 @@
-describe('react-native', () => {
+describe('ReactNative', () => {
   it('re-exports the global functions', () => {
     const globalFetch = global.fetch = function globalFetch () {}
     const globalHeaders = global.Headers = function globalHeaders () {}

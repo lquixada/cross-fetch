@@ -1,11 +1,18 @@
 require('../setup.env')
 require('../../../polyfill')
-const { addModuleSuite, addPolyfillSuite } = require('../../module.spec')
+const { addModuleSuite, addPolyfillSuite, addNativeSuite } = require('../../module.spec')
 
-describe('Browser: require polyfill on Webpack bundle', () => {
-  addModuleSuite({ fetch, Request, Response, Headers })
-  addPolyfillSuite({ fetch })
-})
+if (/globals=off/.test(location.search)) {
+  describe('Browser:Polyfill:Require:Webpack', () => {
+    addModuleSuite({ fetch, Request, Response, Headers })
+    addPolyfillSuite({ fetch })
+  })
+} else {
+  describe('Browser:Native:Require:Webpack', () => {
+    addModuleSuite({ fetch, Request, Response, Headers })
+    addNativeSuite({ fetch })
+  })
+}
 
 mocha.checkLeaks()
 mocha.run()

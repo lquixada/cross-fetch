@@ -7925,14 +7925,14 @@ function addModuleSuite ({ fetch, Request, Response, Headers }) {
 }
 
 function addPolyfillSuite ({ fetch }) {
-  it('should polyfill the fetch function', () => {
+  it('should use the polyfill fetch function', () => {
     expect(fetch.polyfill).to.equal(true)
     expect(fetch.ponyfill).to.equal(undefined)
   })
 }
 
 function addPonyfillSuite ({ fetch, defaultExport }) {
-  it('should ponyfill the fetch function', () => {
+  it('should use the ponyfill fetch function', () => {
     expect(fetch.polyfill).to.equal(undefined)
     expect(fetch.ponyfill).to.equal(true)
   })
@@ -7942,8 +7942,16 @@ function addPonyfillSuite ({ fetch, defaultExport }) {
   })
 }
 
+function addNativeSuite ({ fetch }) {
+  it('should use the native fetch function', () => {
+    expect(fetch.polyfill).to.equal(undefined)
+    expect(fetch.ponyfill).to.equal(undefined)
+  })
+}
+
 module.exports = {
   addModuleSuite,
+  addNativeSuite,
   addPolyfillSuite,
   addPonyfillSuite
 }
@@ -8012,7 +8020,7 @@ const defaultExport = __webpack_require__(38)
 const namedExports = __webpack_require__(38)
 const { addModuleSuite, addPonyfillSuite } = __webpack_require__(40)
 
-describe('Node: require ponyfill on Webpack bundle', () => {
+describe('Node:Ponyfill:Require:Webpack', () => {
   addModuleSuite(namedExports)
   addPonyfillSuite({ ...namedExports, defaultExport })
 })

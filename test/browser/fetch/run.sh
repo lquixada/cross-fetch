@@ -1,2 +1,2 @@
 #!/bin/sh
-npx mocha-headless-chrome -f $(dirname "$0")/index.html
+npx mocha-headless-chrome -f $(dirname "$0")/index.html?globals=off

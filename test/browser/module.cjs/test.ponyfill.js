@@ -11,11 +11,13 @@ mocha.setup('bdd')
 window.expect = chai.expect
 window.assert = chai.assert
 
-// Delete native fetch api to force the polyfill installation for test purposes
-delete window.fetch
-delete window.Request
-delete window.Response
-delete window.Headers
+if (/globals=off/.test(location.search)) {
+  // Delete native fetch api to force the polyfill installation for test purposes
+  delete window.fetch
+  delete window.Request
+  delete window.Response
+  delete window.Headers
+}
 
 
 /***/ }),
@@ -605,14 +607,14 @@ function addModuleSuite ({ fetch, Request, Response, Headers }) {
 }
 
 function addPolyfillSuite ({ fetch }) {
-  it('should polyfill the fetch function', () => {
+  it('should use the polyfill fetch function', () => {
     expect(fetch.polyfill).to.equal(true)
     expect(fetch.ponyfill).to.equal(undefined)
   })
 }
 
 function addPonyfillSuite ({ fetch, defaultExport }) {
-  it('should ponyfill the fetch function', () => {
+  it('should use the ponyfill fetch function', () => {
     expect(fetch.polyfill).to.equal(undefined)
     expect(fetch.ponyfill).to.equal(true)
   })
@@ -622,8 +624,16 @@ function addPonyfillSuite ({ fetch, defaultExport }) {
   })
 }
 
+function addNativeSuite ({ fetch }) {
+  it('should use the native fetch function', () => {
+    expect(fetch.polyfill).to.equal(undefined)
+    expect(fetch.ponyfill).to.equal(undefined)
+  })
+}
+
 module.exports = {
   addModuleSuite,
+  addNativeSuite,
   addPolyfillSuite,
   addPonyfillSuite
 }
@@ -660,12 +670,19 @@ module.exports = {
 __webpack_require__(1)
 const defaultExport = __webpack_require__(2)
 const namedExports = __webpack_require__(2)
-const { addModuleSuite, addPonyfillSuite } = __webpack_require__(3)
+const { addModuleSuite, addPonyfillSuite, addNativeSuite } = __webpack_require__(3)
 
-describe('Browser: require ponyfill on Webpack bundle', () => {
-  addModuleSuite(namedExports)
-  addPonyfillSuite({ ...namedExports, defaultExport })
-})
+if (/globals=off/.test(location.search)) {
+  describe('Browser:Ponyfill:Require:Webpack', () => {
+    addModuleSuite(namedExports)
+    addPonyfillSuite({ ...namedExports, defaultExport })
+  })
+} else {
+  describe('Browser:Native:Require:Webpack', () => {
+    addModuleSuite(namedExports)
+    addNativeSuite({ fetch })
+  })
+}
 
 mocha.checkLeaks()
 mocha.run()

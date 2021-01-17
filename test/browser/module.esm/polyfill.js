@@ -1,11 +1,18 @@
 import '../setup.env'
 import '../../../polyfill'
-import { addModuleSuite, addPolyfillSuite } from '../../module.spec'
+import { addModuleSuite, addPolyfillSuite, addNativeSuite } from '../../module.spec'
 
-describe('Browser: import polyfill on Webpack bundle', () => {
-  addModuleSuite({ fetch, Request, Response, Headers })
-  addPolyfillSuite({ fetch })
-})
+if (/globals=off/.test(location.search)) {
+  describe('Browser:Polyfill:Import:Webpack', () => {
+    addModuleSuite({ fetch, Request, Response, Headers })
+    addPolyfillSuite({ fetch })
+  })
+} else {
+  describe('Browser:Native:Import:Webpack', () => {
+    addModuleSuite({ fetch, Request, Response, Headers })
+    addNativeSuite({ fetch })
+  })
+}
 
 mocha.checkLeaks()
 mocha.run()
