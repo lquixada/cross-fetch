@@ -7923,27 +7923,47 @@ fetch.Promise = global.Promise;
  * imported/required in webpack bundle for node and browser environments.
  */
 
-function addModuleSuite () {
-  it('should polyfill the fetch function', () => {
+function addModuleSuite ({ fetch, Request, Response, Headers }) {
+  it('should have the fetch function exposed', () => {
     expect(fetch).to.be.a('function')
-    expect(fetch.polyfill).to.equal(true)
-    expect(fetch.ponyfill).to.equal(undefined)
   })
 
-  it('should polyfill the Request constructor', () => {
+  it('should have the Request constructor exposed', () => {
     expect(Request).to.be.a('function')
   })
 
-  it('should polyfill the Response constructor', () => {
+  it('should have the Response constructor exposed', () => {
     expect(Response).to.be.a('function')
   })
 
-  it('should polyfill Headers constructor', () => {
+  it('should have Headers constructor exposed', () => {
     expect(Headers).to.be.a('function')
   })
 }
 
-module.exports = addModuleSuite
+function addPolyfillSuite ({ fetch }) {
+  it('should polyfill the fetch function', () => {
+    expect(fetch.polyfill).to.equal(true)
+    expect(fetch.ponyfill).to.equal(undefined)
+  })
+}
+
+function addPonyfillSuite ({ fetch, defaultExport }) {
+  it('should ponyfill the fetch function', () => {
+    expect(fetch.polyfill).to.equal(undefined)
+    expect(fetch.ponyfill).to.equal(true)
+  })
+
+  it('should import the fetch function as the default', () => {
+    expect(defaultExport).to.equal(fetch)
+  })
+}
+
+module.exports = {
+  addModuleSuite,
+  addPolyfillSuite,
+  addPonyfillSuite
+}
 
 
 /***/ })
@@ -8006,10 +8026,11 @@ module.exports = addModuleSuite
 __webpack_require__(1)
 __webpack_require__(38)
 
-const addModuleSuite = __webpack_require__(41)
+const { addModuleSuite, addPolyfillSuite } = __webpack_require__(41)
 
 describe('Node: require polyfill on Webpack bundle', () => {
-  addModuleSuite()
+  addModuleSuite({ fetch, Request, Response, Headers })
+  addPolyfillSuite({ fetch })
 })
 
 })();

@@ -1,12 +1,10 @@
 require('../setup.server')
 
-const fetch = require('../../..')
-const ponyfill = require('../../..')
-const addModuleSuite = require('../../ponyfill.spec')
+const defaultExport = require('../../..')
+const namedExports = require('../../..')
+const { addModuleSuite, addPonyfillSuite } = require('../../module.spec')
 
 describe('Node: require ponyfill on Webpack bundle', () => {
-  addModuleSuite({
-    ...ponyfill,
-    defaultExport: fetch
-  })
+  addModuleSuite(namedExports)
+  addPonyfillSuite({ ...namedExports, defaultExport })
 })

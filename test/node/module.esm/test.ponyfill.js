@@ -9,17 +9,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _setup_server__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_setup_server__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var ___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(38);
 /* harmony import */ var ___WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(___WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _ponyfill_spec__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(40);
-/* harmony import */ var _ponyfill_spec__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_ponyfill_spec__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _module_spec__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(40);
+/* harmony import */ var _module_spec__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_module_spec__WEBPACK_IMPORTED_MODULE_2__);
 
 
 
 
 describe('Node: import ponyfill on Webpack bundle', () => {
-  _ponyfill_spec__WEBPACK_IMPORTED_MODULE_2___default()({
-    ...___WEBPACK_IMPORTED_MODULE_1__,
-    defaultExport: (___WEBPACK_IMPORTED_MODULE_1___default())
-  })
+  (0,_module_spec__WEBPACK_IMPORTED_MODULE_2__.addModuleSuite)(___WEBPACK_IMPORTED_MODULE_1__)
+  ;(0,_module_spec__WEBPACK_IMPORTED_MODULE_2__.addPonyfillSuite)({ ...___WEBPACK_IMPORTED_MODULE_1__, defaultExport: (___WEBPACK_IMPORTED_MODULE_1___default()) })
 })
 
 
@@ -7929,11 +7927,33 @@ fetch.Promise = global.Promise;
  * imported/required in webpack bundle for node and browser environments.
  */
 
-function addModuleSuite (ponyfill) {
-  const { fetch, Request, Response, Headers, defaultExport } = ponyfill
-
-  it('should import the fetch function', () => {
+function addModuleSuite ({ fetch, Request, Response, Headers }) {
+  it('should have the fetch function exposed', () => {
     expect(fetch).to.be.a('function')
+  })
+
+  it('should have the Request constructor exposed', () => {
+    expect(Request).to.be.a('function')
+  })
+
+  it('should have the Response constructor exposed', () => {
+    expect(Response).to.be.a('function')
+  })
+
+  it('should have Headers constructor exposed', () => {
+    expect(Headers).to.be.a('function')
+  })
+}
+
+function addPolyfillSuite ({ fetch }) {
+  it('should polyfill the fetch function', () => {
+    expect(fetch.polyfill).to.equal(true)
+    expect(fetch.ponyfill).to.equal(undefined)
+  })
+}
+
+function addPonyfillSuite ({ fetch, defaultExport }) {
+  it('should ponyfill the fetch function', () => {
     expect(fetch.polyfill).to.equal(undefined)
     expect(fetch.ponyfill).to.equal(true)
   })
@@ -7941,21 +7961,13 @@ function addModuleSuite (ponyfill) {
   it('should import the fetch function as the default', () => {
     expect(defaultExport).to.equal(fetch)
   })
-
-  it('should import the Request constructor', () => {
-    expect(Request).to.be.a('function')
-  })
-
-  it('should import the Response constructor', () => {
-    expect(Response).to.be.a('function')
-  })
-
-  it('should import the Headers constructor', () => {
-    expect(Headers).to.be.a('function')
-  })
 }
 
-module.exports = addModuleSuite
+module.exports = {
+  addModuleSuite,
+  addPolyfillSuite,
+  addPonyfillSuite
+}
 
 
 /***/ })

@@ -7906,11 +7906,33 @@ fetch.Promise = global.Promise;
  * imported/required in webpack bundle for node and browser environments.
  */
 
-function addModuleSuite (ponyfill) {
-  const { fetch, Request, Response, Headers, defaultExport } = ponyfill
-
-  it('should import the fetch function', () => {
+function addModuleSuite ({ fetch, Request, Response, Headers }) {
+  it('should have the fetch function exposed', () => {
     expect(fetch).to.be.a('function')
+  })
+
+  it('should have the Request constructor exposed', () => {
+    expect(Request).to.be.a('function')
+  })
+
+  it('should have the Response constructor exposed', () => {
+    expect(Response).to.be.a('function')
+  })
+
+  it('should have Headers constructor exposed', () => {
+    expect(Headers).to.be.a('function')
+  })
+}
+
+function addPolyfillSuite ({ fetch }) {
+  it('should polyfill the fetch function', () => {
+    expect(fetch.polyfill).to.equal(true)
+    expect(fetch.ponyfill).to.equal(undefined)
+  })
+}
+
+function addPonyfillSuite ({ fetch, defaultExport }) {
+  it('should ponyfill the fetch function', () => {
     expect(fetch.polyfill).to.equal(undefined)
     expect(fetch.ponyfill).to.equal(true)
   })
@@ -7918,21 +7940,13 @@ function addModuleSuite (ponyfill) {
   it('should import the fetch function as the default', () => {
     expect(defaultExport).to.equal(fetch)
   })
-
-  it('should import the Request constructor', () => {
-    expect(Request).to.be.a('function')
-  })
-
-  it('should import the Response constructor', () => {
-    expect(Response).to.be.a('function')
-  })
-
-  it('should import the Headers constructor', () => {
-    expect(Headers).to.be.a('function')
-  })
 }
 
-module.exports = addModuleSuite
+module.exports = {
+  addModuleSuite,
+  addPolyfillSuite,
+  addPonyfillSuite
+}
 
 
 /***/ })
@@ -7994,15 +8008,13 @@ module.exports = addModuleSuite
 (() => {
 __webpack_require__(1)
 
-const fetch = __webpack_require__(38)
-const ponyfill = __webpack_require__(38)
-const addModuleSuite = __webpack_require__(40)
+const defaultExport = __webpack_require__(38)
+const namedExports = __webpack_require__(38)
+const { addModuleSuite, addPonyfillSuite } = __webpack_require__(40)
 
 describe('Node: require ponyfill on Webpack bundle', () => {
-  addModuleSuite({
-    ...ponyfill,
-    defaultExport: fetch
-  })
+  addModuleSuite(namedExports)
+  addPonyfillSuite({ ...namedExports, defaultExport })
 })
 
 })();

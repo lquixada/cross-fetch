@@ -1,10 +1,8 @@
 import '../setup.server'
-import fetch, * as ponyfill from '../../..'
-import addModuleSuite from '../../ponyfill.spec'
+import defaultExport, * as namedExports from '../../..'
+import { addModuleSuite, addPonyfillSuite } from '../../module.spec'
 
 describe('Node: import ponyfill on Webpack bundle', () => {
-  addModuleSuite({
-    ...ponyfill,
-    defaultExport: fetch
-  })
+  addModuleSuite(namedExports)
+  addPonyfillSuite({ ...namedExports, defaultExport })
 })

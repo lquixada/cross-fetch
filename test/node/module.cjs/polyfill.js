@@ -1,8 +1,9 @@
 require('../setup.server')
 require('../../../polyfill')
 
-const addModuleSuite = require('../../polyfill.spec')
+const { addModuleSuite, addPolyfillSuite } = require('../../module.spec')
 
 describe('Node: require polyfill on Webpack bundle', () => {
-  addModuleSuite()
+  addModuleSuite({ fetch, Request, Response, Headers })
+  addPolyfillSuite({ fetch })
 })

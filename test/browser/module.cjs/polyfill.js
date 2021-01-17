@@ -1,9 +1,10 @@
 require('../setup.env')
 require('../../../polyfill')
-const addModuleSuite = require('../../polyfill.spec')
+const { addModuleSuite, addPolyfillSuite } = require('../../module.spec')
 
 describe('Browser: require polyfill on Webpack bundle', () => {
-  addModuleSuite()
+  addModuleSuite({ fetch, Request, Response, Headers })
+  addPolyfillSuite({ fetch })
 })
 
 mocha.checkLeaks()

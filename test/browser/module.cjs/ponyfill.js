@@ -1,13 +1,11 @@
 require('../setup.env')
-const fetch = require('../../..')
+const defaultExport = require('../../..')
 const namedExports = require('../../..')
-const addModuleSuite = require('../../ponyfill.spec')
+const { addModuleSuite, addPonyfillSuite } = require('../../module.spec')
 
 describe('Browser: require ponyfill on Webpack bundle', () => {
-  addModuleSuite({
-    ...namedExports,
-    defaultExport: fetch
-  })
+  addModuleSuite(namedExports)
+  addPonyfillSuite({ ...namedExports, defaultExport })
 })
 
 mocha.checkLeaks()

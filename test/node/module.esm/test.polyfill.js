@@ -9,14 +9,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _setup_server__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_setup_server__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _polyfill__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(38);
 /* harmony import */ var _polyfill__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_polyfill__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _polyfill_spec__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(41);
-/* harmony import */ var _polyfill_spec__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_polyfill_spec__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _module_spec__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(41);
+/* harmony import */ var _module_spec__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_module_spec__WEBPACK_IMPORTED_MODULE_2__);
 
 
 
 
 describe('Node: import polyfill on Webpack bundle', () => {
-  _polyfill_spec__WEBPACK_IMPORTED_MODULE_2___default()()
+  (0,_module_spec__WEBPACK_IMPORTED_MODULE_2__.addModuleSuite)({ fetch, Request, Response, Headers })
+  ;(0,_module_spec__WEBPACK_IMPORTED_MODULE_2__.addPolyfillSuite)({ fetch })
 })
 
 
@@ -7943,27 +7944,47 @@ fetch.Promise = global.Promise;
  * imported/required in webpack bundle for node and browser environments.
  */
 
-function addModuleSuite () {
-  it('should polyfill the fetch function', () => {
+function addModuleSuite ({ fetch, Request, Response, Headers }) {
+  it('should have the fetch function exposed', () => {
     expect(fetch).to.be.a('function')
-    expect(fetch.polyfill).to.equal(true)
-    expect(fetch.ponyfill).to.equal(undefined)
   })
 
-  it('should polyfill the Request constructor', () => {
+  it('should have the Request constructor exposed', () => {
     expect(Request).to.be.a('function')
   })
 
-  it('should polyfill the Response constructor', () => {
+  it('should have the Response constructor exposed', () => {
     expect(Response).to.be.a('function')
   })
 
-  it('should polyfill Headers constructor', () => {
+  it('should have Headers constructor exposed', () => {
     expect(Headers).to.be.a('function')
   })
 }
 
-module.exports = addModuleSuite
+function addPolyfillSuite ({ fetch }) {
+  it('should polyfill the fetch function', () => {
+    expect(fetch.polyfill).to.equal(true)
+    expect(fetch.ponyfill).to.equal(undefined)
+  })
+}
+
+function addPonyfillSuite ({ fetch, defaultExport }) {
+  it('should ponyfill the fetch function', () => {
+    expect(fetch.polyfill).to.equal(undefined)
+    expect(fetch.ponyfill).to.equal(true)
+  })
+
+  it('should import the fetch function as the default', () => {
+    expect(defaultExport).to.equal(fetch)
+  })
+}
+
+module.exports = {
+  addModuleSuite,
+  addPolyfillSuite,
+  addPonyfillSuite
+}
 
 
 /***/ })
