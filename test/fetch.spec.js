@@ -143,7 +143,7 @@ function addFetchSuite () {
     it('should parse headers', () => {
       return fetch('http://localhost:8000/request').then(function (res) {
         expect(res.headers.get('Date')).to.equal('Sat, 23 Sep 2017 15:41:16 GMT-0300')
-        expect(res.headers.get('Content-Type')).to.equal('application/json')
+        expect(res.headers.get('Content-Type')).to.equal('application/json; charset=utf-8')
       })
     })
 
@@ -156,7 +156,7 @@ function addFetchSuite () {
         })
         .then(function (data) {
           expect(data.method).to.equal('GET')
-          expect(data.body).to.equal('')
+          expect(data.body).to.deep.equal({})
         })
     })
 
@@ -485,14 +485,12 @@ function addFetchSuite () {
     it('should default to status 200 OK', () => {
       const res = new Response()
       expect(res.status).to.equal(200)
-      expect(res.statusText).to.equal('OK')
       expect(res.ok).to.equal(true)
     })
 
     it('should default to status 200 OK when an explicit undefined status code is passed', () => {
       const res = new Response('', { status: undefined })
       expect(res.status).to.equal(200)
-      expect(res.statusText).to.equal('OK')
       expect(res.ok).to.equal(true)
     })
 
