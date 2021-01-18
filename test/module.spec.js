@@ -46,9 +46,13 @@ function addNativeSuite ({ fetch }) {
   })
 }
 
-module.exports = {
-  addModuleSuite,
-  addNativeSuite,
-  addPolyfillSuite,
-  addPonyfillSuite
+// Since this test suite needs to run on different environments,
+// we used a simplified UMD pattern here.
+if (typeof module === 'object' && module.exports) {
+  module.exports = {
+    addModuleSuite,
+    addNativeSuite,
+    addPolyfillSuite,
+    addPonyfillSuite
+  }
 }

@@ -1,4 +1,3 @@
-import '../setup.server'
 import '../../../polyfill'
 import { addModuleSuite, addPolyfillSuite } from '../../module.spec'
 

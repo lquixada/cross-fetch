@@ -9,13 +9,8 @@ function addFetchSuite () {
       expect(fetch).to.be.a('function')
     })
 
-    // Ensure that we're testing the polyfill version rather the native one
-    it('should be a polyfill', () => {
-      expect(fetch.polyfill).to.equal(true)
-    })
-
     it('should facilitate the making of requests', () => {
-      return fetch('https://fet.ch/succeed')
+      return fetch('http://localhost:8000/succeed')
         .then(function (res) {
           if (res.status >= 400) {
             throw new Error('Bad server response')
@@ -29,7 +24,7 @@ function addFetchSuite () {
     })
 
     it('should catch bad responses', () => {
-      return fetch('https://fet.ch/fail')
+      return fetch('http://localhost:8000/fail')
         .then(function (res) {
           if (res.status >= 400) {
             throw new Error('Bad server response')
@@ -43,7 +38,7 @@ function addFetchSuite () {
     })
 
     it('should resolve promise on 500 error', () => {
-      return fetch('https://fet.ch/error')
+      return fetch('http://localhost:8000/error')
         .then(function (res) {
           expect(res.status).to.equal(500)
           expect(res.ok).to.equal(false)
@@ -55,7 +50,7 @@ function addFetchSuite () {
     })
 
     it('should reject when Request constructor throws', () => {
-      return fetch('https://fet.ch/succeed', { method: 'GET', body: 'invalid' })
+      return fetch('http://localhost:8000/succeed', { method: 'GET', body: 'invalid' })
         .then(function () {
           expect.fail('Invalid Request init was accepted')
         })
@@ -65,7 +60,7 @@ function addFetchSuite () {
     })
 
     it('should send headers', () => {
-      return fetch('https://fet.ch/request', {
+      return fetch('http://localhost:8000/request', {
         headers: {
           Accept: 'application/json',
           'X-Test': '42'
@@ -81,7 +76,7 @@ function addFetchSuite () {
     })
 
     it('with Request as argument', () => {
-      const request = new Request('https://fet.ch/request', {
+      const request = new Request('http://localhost:8000/request', {
         headers: {
           Accept: 'application/json',
           'X-Test': '42'
@@ -99,7 +94,7 @@ function addFetchSuite () {
     })
 
     it('should reuse same Request multiple times', () => {
-      const request = new Request('https://fet.ch/request', {
+      const request = new Request('http://localhost:8000/request', {
         headers: {
           Accept: 'application/json',
           'X-Test': '42'
@@ -134,7 +129,7 @@ function addFetchSuite () {
     })
 
     it('should populate body', () => {
-      return fetch('https://fet.ch/succeed')
+      return fetch('http://localhost:8000/succeed')
         .then(function (res) {
           expect(res.status).to.equal(200)
           expect(res.ok).to.equal(true)
@@ -146,14 +141,14 @@ function addFetchSuite () {
     })
 
     it('should parse headers', () => {
-      return fetch('https://fet.ch/request').then(function (res) {
+      return fetch('http://localhost:8000/request').then(function (res) {
         expect(res.headers.get('Date')).to.equal('Sat, 23 Sep 2017 15:41:16 GMT-0300')
         expect(res.headers.get('Content-Type')).to.equal('application/json')
       })
     })
 
     it('should support HTTP GET', () => {
-      return fetch('https://fet.ch/request', {
+      return fetch('http://localhost:8000/request', {
         method: 'get'
       })
         .then(function (res) {
@@ -186,7 +181,7 @@ function addFetchSuite () {
     })
 
     it('should support HTTP POST', () => {
-      return fetch('https://fet.ch/request', {
+      return fetch('http://localhost:8000/request', {
         method: 'post',
         body: 'name=Hubot'
       })
@@ -200,7 +195,7 @@ function addFetchSuite () {
     })
 
     it('should support HTTP PUT', () => {
-      return fetch('https://fet.ch/request', {
+      return fetch('http://localhost:8000/request', {
         method: 'put',
         body: 'name=Hubot'
       })
@@ -214,7 +209,7 @@ function addFetchSuite () {
     })
 
     it('should support HTTP PATCH', () => {
-      return fetch('https://fet.ch/request', {
+      return fetch('http://localhost:8000/request', {
         method: 'PATCH',
         body: 'name=Hubot'
       })
@@ -228,7 +223,7 @@ function addFetchSuite () {
     })
 
     it('should support HTTP DELETE', () => {
-      return fetch('https://fet.ch/request', {
+      return fetch('http://localhost:8000/request', {
         method: 'delete'
       })
         .then(function (res) {
@@ -247,34 +242,34 @@ function addFetchSuite () {
     })
 
     it('should construct an url from string', () => {
-      const request = new Request('https://fet.ch/')
-      expect(request.url).to.equal('https://fet.ch/')
+      const request = new Request('http://localhost:8000/')
+      expect(request.url).to.equal('http://localhost:8000/')
     })
 
     it('should construct url from object', () => {
       const url = {
         toString: function () {
-          return 'https://fet.ch/'
+          return 'http://localhost:8000/'
         }
       }
       const request = new Request(url)
-      expect(request.url).to.equal('https://fet.ch/')
+      expect(request.url).to.equal('http://localhost:8000/')
     })
 
     it('should get GET as the default method', () => {
-      const request = new Request('https://fet.ch/')
+      const request = new Request('http://localhost:8000/')
       expect(request.method).to.equal('GET')
     })
 
     it('should set a method', () => {
-      const request = new Request('https://fet.ch/', {
+      const request = new Request('http://localhost:8000/', {
         method: 'post'
       })
       expect(request.method).to.equal('POST')
     })
 
     it('should set headers', () => {
-      const request = new Request('https://fet.ch/', {
+      const request = new Request('http://localhost:8000/', {
         headers: {
           accept: 'application/json',
           'Content-Type': 'text/plain'
@@ -285,7 +280,7 @@ function addFetchSuite () {
     })
 
     it('should set a body', () => {
-      const request = new Request('https://fet.ch/', {
+      const request = new Request('http://localhost:8000/', {
         method: 'post',
         body: 'Hello World!'
       })
@@ -295,7 +290,7 @@ function addFetchSuite () {
     })
 
     it.skip('construct with Request', () => {
-      const request1 = new Request('https://fet.ch/', {
+      const request1 = new Request('http://localhost:8000/', {
         method: 'post',
         body: 'Hello World!',
         headers: {
@@ -308,7 +303,7 @@ function addFetchSuite () {
       return request2.text().then(function (data) {
         expect(data).to.equal('Hello World!')
         expect(request2.method).to.equal('POST')
-        expect(request2.url).to.equal('https://fet.ch/')
+        expect(request2.url).to.equal('http://localhost:8000/')
         expect(request2.headers.get('accept')).to.equal('application/json')
         expect(request2.headers.get('content-type')).to.equal('text/plain')
 
@@ -324,7 +319,7 @@ function addFetchSuite () {
     })
 
     it('should construct a Request from another Request', () => {
-      const request1 = new Request('https://fet.ch/', {
+      const request1 = new Request('http://localhost:8000/', {
         method: 'post',
         body: 'Hello World!',
         headers: {
@@ -342,7 +337,7 @@ function addFetchSuite () {
     })
 
     it('should construct with Request with overriden headers', () => {
-      const request1 = new Request('https://fet.ch/', {
+      const request1 = new Request('http://localhost:8000/', {
         method: 'post',
         body: 'Hello World!',
         headers: {
@@ -360,7 +355,7 @@ function addFetchSuite () {
     })
 
     it('should construct with Request and override body', () => {
-      const request1 = new Request('https://fet.ch/', {
+      const request1 = new Request('http://localhost:8000/', {
         method: 'post',
         body: 'Hello World!',
         headers: {
@@ -379,7 +374,7 @@ function addFetchSuite () {
     })
 
     it('construct with used Request body', () => {
-      const request1 = new Request('https://fet.ch/', {
+      const request1 = new Request('http://localhost:8000/', {
         method: 'post',
         body: 'Hello World!'
       })
@@ -391,19 +386,19 @@ function addFetchSuite () {
     })
 
     it('should not have implicit Content-Type', () => {
-      const req = new Request('https://fet.ch/')
+      const req = new Request('http://localhost:8000/')
       expect(req.headers.get('content-type')).to.equal(null)
     })
 
     it('POST with blank body should not have implicit Content-Type', () => {
-      const req = new Request('https://fet.ch/', {
+      const req = new Request('http://localhost:8000/', {
         method: 'post'
       })
       expect(req.headers.get('content-type')).to.equal(null)
     })
 
     it('construct with string body sets Content-Type header', () => {
-      const req = new Request('https://fet.ch/', {
+      const req = new Request('http://localhost:8000/', {
         method: 'post',
         body: 'Hello World!'
       })
@@ -411,7 +406,7 @@ function addFetchSuite () {
     })
 
     it('construct with body and explicit header uses header', () => {
-      const req = new Request('https://fet.ch/', {
+      const req = new Request('http://localhost:8000/', {
         method: 'post',
         headers: { 'Content-Type': 'image/png' },
         body: 'Hello World!'
@@ -420,7 +415,7 @@ function addFetchSuite () {
     })
 
     it('construct with unsupported body type', () => {
-      const req = new Request('https://fet.ch/', {
+      const req = new Request('http://localhost:8000/', {
         method: 'post',
         body: {}
       })
@@ -432,7 +427,7 @@ function addFetchSuite () {
     })
 
     it('construct with null body', () => {
-      const req = new Request('https://fet.ch/', {
+      const req = new Request('http://localhost:8000/', {
         method: 'post'
       })
 
@@ -443,7 +438,7 @@ function addFetchSuite () {
     })
 
     it('should clone GET request', () => {
-      const req = new Request('https://fet.ch/', {
+      const req = new Request('http://localhost:8000/', {
         headers: { 'content-type': 'text/plain' }
       })
       const clone = req.clone()
@@ -455,7 +450,7 @@ function addFetchSuite () {
     })
 
     it('should clone POST request', () => {
-      const req = new Request('https://fet.ch/', {
+      const req = new Request('http://localhost:8000/', {
         method: 'post',
         headers: { 'content-type': 'text/plain' },
         body: 'Hello World!'
@@ -472,7 +467,7 @@ function addFetchSuite () {
     })
 
     it.skip('clone with used Request body', () => {
-      const req = new Request('https://fet.ch/', {
+      const req = new Request('http://localhost:8000/', {
         method: 'post',
         body: 'Hello World!'
       })

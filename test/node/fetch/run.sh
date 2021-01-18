@@ -1,2 +1,2 @@
 #!/bin/sh
-npx nyc mocha $(dirname "$0")/index.js
+./test/test.server npx nyc mocha $(dirname "$0")/index.js

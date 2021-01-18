@@ -1,5 +1,3 @@
-require('../setup.server')
-
 const defaultExport = require('../../..')
 const namedExports = require('../../..')
 const { addModuleSuite, addPonyfillSuite } = require('../../module.spec')

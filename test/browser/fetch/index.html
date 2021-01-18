@@ -17,14 +17,23 @@
   <script src="../../../node_modules/mocha/mocha.js"></script>
 
   <script src="../setup.env.js"></script>
-  <script src="../setup.server.js"></script>
-  <script src="../../../dist/cross-fetch.js"></script>
   <script src="../../fetch.spec.js"></script>
+  <script src="../../module.spec.js"></script>
+  <script src="../../../dist/cross-fetch.js"></script>
 
   <script>
-    describe('Browser: compliance check with Fetch API specs', () => {
-      addFetchSuite();
-    });
+    if (/globals=off/.test(location.search)) {
+      describe('Browser:Fetch:Custom', () => {
+        addFetchSuite();
+        addPolyfillSuite({ fetch });
+      });
+    } else {
+      describe('Browser:Fetch:Native', () => {
+        addFetchSuite();
+        addNativeSuite({ fetch });
+      });
+    }
+
     mocha.checkLeaks();
     mocha.run();
   </script>

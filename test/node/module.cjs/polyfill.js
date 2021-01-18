@@ -1,4 +1,3 @@
-require('../setup.server')
 require('../../../polyfill')
 
 const { addModuleSuite, addPolyfillSuite } = require('../../module.spec')
