@@ -4,32 +4,17 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const path = require('path')
 const app = express()
-const hostname = '127.0.0.1'
-const port = 8000
 
 app.use(express.static(path.join(__dirname, '..')))
 app.use(bodyParser.text())
 
-app.get('/succeed', (req, res) => {
-  res.status(200).send('hello world.')
-})
-
-app.get('/fail', (req, res) => {
-  res.status(404).send('Good bye world.')
-})
-
-app.get('/error', (req, res) => {
-  res.status(500).send('error world.')
-})
-
+app.get('/succeed', (req, res) => res.status(200).send('hello world.'))
+app.get('/fail', (req, res) => res.status(404).send('Good bye world.'))
+app.get('/error', (req, res) => res.status(500).send('error world.'))
 app.get('/request', processRequest)
-
 app.post('/request', processRequest)
-
 app.put('/request', processRequest)
-
 app.patch('/request', processRequest)
-
 app.delete('/request', processRequest)
 
 function processRequest(req, res) {
@@ -50,14 +35,19 @@ function processRequest(req, res) {
   })
 }
 
-function processUrl(argv) {
+function processFileUrl(argv) {
   const args = argv.slice(2)
-  const fileIndex = args.indexOf('-f') + 1
-  args[fileIndex] = args[fileIndex].replace(/^\.\//, `http://localhost:${port}/`)
+  const fileParamIndex = args.indexOf('-f')
+  if (fileParamIndex > 0) {
+    const fileIndex = fileParamIndex + 1
+    args[fileIndex] = args[fileIndex].replace(/^\.\//, `http://localhost:${port}/`)
+  }
   return args;
 }
 
-const args = processUrl(process.argv)
+const hostname = '127.0.0.1'
+const port = 8000
+const args = processFileUrl(process.argv)
 const command = args.join(' ')
 const server = app.listen(port, hostname, () => {
   exec(command, (error, stdout, stderr) => {
