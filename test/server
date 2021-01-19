@@ -2,10 +2,11 @@
 const { exec } = require('child_process')
 const express = require('express')
 const bodyParser = require('body-parser')
+const serveIndex = require('serve-index');
 const path = require('path')
 const app = express()
+const dir = path.join(__dirname, '..')
 
-app.use(express.static(path.join(__dirname, '..')))
 app.use(bodyParser.text())
 
 app.get('/succeed', (req, res) => res.status(200).send('hello world.'))
@@ -16,6 +17,9 @@ app.post('/request', processRequest)
 app.put('/request', processRequest)
 app.patch('/request', processRequest)
 app.delete('/request', processRequest)
+
+// This line needs to be at the end, otherwise it will block any method different than GET
+app.use(express.static(dir), serveIndex(dir, {'icons': true, view: 'details'}))
 
 function processRequest(req, res) {
   const headers = {}
@@ -50,11 +54,16 @@ const port = 8000
 const args = processFileUrl(process.argv)
 const command = args.join(' ')
 const server = app.listen(port, hostname, () => {
+  if (args.length === 0) {
+    console.log(`Test server listening at http://localhost:${port}`)
+    return;
+  }
+
   exec(command, (error, stdout, stderr) => {
     server.close()
 
     if (error) {
-      console.log('error.message', error.message)
+      console.error(error)
       process.exit(1)
     } else if (stderr) {
       console.log('stderr', stderr)

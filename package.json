@@ -74,6 +74,7 @@
     "rollup-plugin-copy": "3.3.0",
     "rollup-plugin-uglify": "6.0.4",
     "semver": "7.3.4",
+    "serve-index": "1.9.1",
     "sinon": "9.2.2",
     "standard": "16.0.3",
     "webpack": "5.11.1",
