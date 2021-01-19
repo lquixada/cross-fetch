@@ -50,9 +50,15 @@ function processRequest(req, res) {
   })
 }
 
-const args = process.argv.slice(2)
-const command = args.join(' ')
+function processUrl(argv) {
+  const args = argv.slice(2)
+  const fileIndex = args.indexOf('-f') + 1
+  args[fileIndex] = args[fileIndex].replace(/^\.\//, `http://localhost:${port}/`)
+  return args;
+}
 
+const args = processUrl(process.argv)
+const command = args.join(' ')
 const server = app.listen(port, hostname, () => {
   exec(command, (error, stdout, stderr) => {
     server.close()
