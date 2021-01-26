@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const { exec } = require('child_process')
+const { exec, spawn } = require('child_process')
 const express = require('express')
 const bodyParser = require('body-parser')
 const serveIndex = require('serve-index');
@@ -52,25 +52,21 @@ function processFileUrl(argv) {
 const hostname = '127.0.0.1'
 const port = 8000
 const args = processFileUrl(process.argv)
-const command = args.join(' ')
+
 const server = app.listen(port, hostname, () => {
   if (args.length === 0) {
     console.log(`Test server listening at http://localhost:${port}`)
     return;
   }
 
-  exec(command, (error, stdout, stderr) => {
-    server.close()
+  const command = args[0]
+  const params = args.slice(1)
+  const child = spawn(command, params);
 
-    if (error) {
-      console.error(error)
-      process.exit(1)
-    } else if (stderr) {
-      console.log('stderr', stderr)
-      process.exit(1)
-    } else {
-      console.log(stdout)
-      process.exit()
-    }
-  })
+  child.stdout.pipe(process.stdout)
+  child.stderr.pipe(process.stdout)
+  child.on('exit', function (code, signal) {
+    server.close();
+    process.exit(code);
+  });
 })
