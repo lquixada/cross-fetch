@@ -485,12 +485,14 @@ function addFetchSuite () {
     it('should default to status 200 OK', () => {
       const res = new Response()
       expect(res.status).to.equal(200)
+      // expect(res.statusText).to.equal('OK')
       expect(res.ok).to.equal(true)
     })
 
     it('should default to status 200 OK when an explicit undefined status code is passed', () => {
       const res = new Response('', { status: undefined })
       expect(res.status).to.equal(200)
+      // expect(res.statusText).to.equal('OK')
       expect(res.ok).to.equal(true)
     })
 
