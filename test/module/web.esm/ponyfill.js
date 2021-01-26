@@ -1,6 +1,6 @@
-import '../setup.env'
+import '../../setup.env'
 import defaultExport, * as namedExports from '../../..'
-import { addModuleSuite, addPonyfillSuite, addNativeSuite } from '../../module.spec'
+import { addModuleSuite, addPonyfillSuite, addNativeSuite } from '../module.spec'
 
 if (/globals=off/.test(location.search)) {
   describe('Browser:Ponyfill:Import:Webpack', () => {

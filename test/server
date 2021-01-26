@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const { exec, spawn } = require('child_process')
+const { spawn } = require('child_process')
 const express = require('express')
 const bodyParser = require('body-parser')
 const serveIndex = require('serve-index');

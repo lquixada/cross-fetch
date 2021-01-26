@@ -1,6 +1,6 @@
-import '../setup.env'
+import '../../setup.env'
 import '../../../polyfill'
-import { addModuleSuite, addPolyfillSuite, addNativeSuite } from '../../module.spec'
+import { addModuleSuite, addPolyfillSuite, addNativeSuite } from '../module.spec'
 
 if (/globals=off/.test(location.search)) {
   describe('Browser:Polyfill:Import:Webpack', () => {

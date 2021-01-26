@@ -1,6 +1,6 @@
-require('../setup.env')
+require('../../setup.env')
 require('../../../polyfill')
-const { addModuleSuite, addPolyfillSuite, addNativeSuite } = require('../../module.spec')
+const { addModuleSuite, addPolyfillSuite, addNativeSuite } = require('../module.spec')
 
 if (/globals=off/.test(location.search)) {
   describe('Browser:Polyfill:Require:Webpack', () => {

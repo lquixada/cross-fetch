@@ -27,27 +27,34 @@ lint:
 snyk:
 	npx snyk test
 
-test: test-node-fetch test-node-webpack-cjs test-node-webpack-esm test-browser-fetch test-browser-webpack-cjs test-browser-webpack-esm test-react-native
+test: test-fetch test-module
 
-test-browser-fetch: dist
-	./test/browser/fetch/run.sh
+test-fetch: test-fetch-browser test-fetch-whatwg test-fetch-node
 
-test-browser-webpack-cjs:
-	./test/browser/module.cjs/run.sh
+test-fetch-browser: dist
+	./test/fetch/browser/run.sh
 
-test-browser-webpack-esm:
-	./test/browser/module.esm/run.sh
+test-fetch-whatwg: dist
+	./test/fetch/whatwg/run.sh
 
-test-node-fetch: dist
-	./test/node/fetch/run.sh
+test-fetch-node: dist
+	./test/fetch/node/run.sh
 
-test-node-webpack-cjs:
-	./test/node/module.cjs/run.sh
+test-module: test-module-web-cjs test-module-web-esm test-module-node-cjs test-module-node-esm test-module-react-native
 
-test-node-webpack-esm:
-	./test/node/module.esm/run.sh
+test-module-web-cjs:
+	./test/module/web.cjs/run.sh
 
-test-react-native: dist
-	./test/react-native/run.sh
+test-module-web-esm:
+	./test/module/web.esm/run.sh
 
-.PHONY: all dist deploy lint test test-browser-fetch test-browser-webpack-cjs test-browser-webpack-esm test-node-fetch test-node-webpack-cjs test-node-webpack-esm
+test-module-node-cjs:
+	./test/module/node.cjs/run.sh
+
+test-module-node-esm:
+	./test/module/node.esm/run.sh
+
+test-module-react-native: dist
+	./test/module/react-native/run.sh
+
+.PHONY: all dist deploy lint test test-fetch test-fetch-browser test-fetch-whatwg test-fetch-node test-module test-module-web-cjs test-module-web-esm test-module-node-cjs test-module-node-esm test-module-react-native

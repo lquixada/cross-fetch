@@ -1,7 +1,7 @@
-require('../setup.env')
+require('../../setup.env')
 const defaultExport = require('../../..')
 const namedExports = require('../../..')
-const { addModuleSuite, addPonyfillSuite, addNativeSuite } = require('../../module.spec')
+const { addModuleSuite, addPonyfillSuite, addNativeSuite } = require('../module.spec')
 
 if (/globals=off/.test(location.search)) {
   describe('Browser:Ponyfill:Require:Webpack', () => {
