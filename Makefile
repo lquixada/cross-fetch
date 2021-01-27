@@ -42,16 +42,16 @@ test-fetch-node: dist
 
 test-module: test-module-web-cjs test-module-web-esm test-module-node-cjs test-module-node-esm test-module-react-native
 
-test-module-web-cjs:
+test-module-web-cjs: dist
 	./test/module/web.cjs/run.sh
 
-test-module-web-esm:
+test-module-web-esm: dist
 	./test/module/web.esm/run.sh
 
-test-module-node-cjs:
+test-module-node-cjs: dist
 	./test/module/node.cjs/run.sh
 
-test-module-node-esm:
+test-module-node-esm: dist
 	./test/module/node.esm/run.sh
 
 test-module-react-native: dist
