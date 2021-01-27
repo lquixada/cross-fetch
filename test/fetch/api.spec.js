@@ -466,7 +466,7 @@ function addFetchSuite () {
       })
     })
 
-    it.skip('clone with used Request body', () => {
+    it('clone with used Request body', () => {
       const req = new Request('http://localhost:8000/', {
         method: 'post',
         body: 'Hello World!'
