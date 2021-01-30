@@ -1,5 +1,7 @@
 .reports
 *.log
+test.ponyfill.js
+test.polyfill.js
 
 # OSX
 #
