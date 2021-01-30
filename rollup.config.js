@@ -1,7 +1,7 @@
 /* Rollup creates the browser version of the polyfill and ponyfill. */
 import path from 'path'
 import copy from 'rollup-plugin-copy'
-import { uglify } from 'rollup-plugin-uglify'
+import { terser } from 'rollup-plugin-terser'
 
 const input = path.join(__dirname, 'node_modules', 'whatwg-fetch', 'fetch.js')
 
@@ -122,7 +122,7 @@ export default [
       `)
     },
     plugins: [
-      uglify()
+      terser()
     ]
   }
 ]
