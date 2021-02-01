@@ -49,7 +49,7 @@ jobs:
       - checkout
       - attach_workspace:
           at: .
-      - run: make snyk
+      - run: make secure
   publish:
     <<: *defaults
     steps:

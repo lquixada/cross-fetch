@@ -16,7 +16,7 @@ deploy:
 lint:
 	npx standard
 
-snyk:
+secure:
 	npx snyk test
 
 test: test-fetch test-module
