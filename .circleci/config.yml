@@ -14,7 +14,7 @@ jobs:
             - v1-cross-fetch-{{ .Branch }}-
             - v1-cross-fetch-
       - run: npm install
-      - run: make dist
+      - run: make build
       - save_cache:
           key: v1-cross-fetch-{{ .Branch }}-{{ checksum "package-lock.json" }}
           paths:
