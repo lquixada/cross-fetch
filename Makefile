@@ -7,7 +7,7 @@ build: node_modules
 	npx rollup -c && /usr/bin/touch dist
 
 cov:
-	npx nyc report --reporter=text-lcov > coverage.lcov && npx codecov
+	npx nyc report --reporter=text-lcov > .reports/coverage.lcov && npx codecov
 
 # Example make deploy release=patch
 deploy:
