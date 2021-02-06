@@ -20,7 +20,7 @@ export default [
   {
     input,
     output: {
-      file: path.join(__dirname, 'dist', 'browser-ponyfill.js'),
+      file: path.join(__dirname, 'dist', 'browser-ponyfill.cjs'),
       format: 'iife',
       name: 'irrelevant',
       strict: false,
@@ -62,7 +62,7 @@ export default [
     plugins: [
       copy({
         targets: [
-          { src: 'src/*-ponyfill.js', dest: 'dist' }
+          { src: 'src/*-ponyfill.cjs', dest: 'dist' }
         ],
         verbose: true
       })
@@ -79,7 +79,7 @@ export default [
   {
     input,
     output: {
-      file: path.join(__dirname, 'dist', 'browser-polyfill.js'),
+      file: path.join(__dirname, 'dist', 'browser-polyfill.cjs'),
       format: 'iife',
       name: 'irrelevant',
       strict: false,
@@ -93,7 +93,7 @@ export default [
     plugins: [
       copy({
         targets: [
-          { src: 'src/*-polyfill.js', dest: 'dist' }
+          { src: 'src/*-polyfill.cjs', dest: 'dist' }
         ],
         verbose: true
       })

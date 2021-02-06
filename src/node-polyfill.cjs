@@ -1,4 +1,4 @@
-const fetchNode = require('./node-ponyfill')
+const fetchNode = require('./node-ponyfill.cjs')
 const fetch = fetchNode.fetch.bind({})
 
 fetch.polyfill = true
