@@ -5,7 +5,7 @@ describe('ReactNative', () => {
     const globalRequest = global.Request = function globalRequest () {}
     const globalResponse = global.Response = function globalResponse () {}
 
-    const { fetch, Request, Response, Headers } = require('../../../dist/react-native-ponyfill')
+    const { fetch, Request, Response, Headers } = require('../../../dist/react-native-ponyfill.cjs')
 
     expect(fetch).to.equal(globalFetch)
     expect(Headers).to.equal(globalHeaders)
@@ -24,7 +24,7 @@ describe('ReactNative', () => {
     const globalRequest = global.Request = function globalRequest () {}
     const globalResponse = global.Response = function globalResponse () {}
 
-    require('../../../dist/react-native-polyfill')
+    require('../../../dist/react-native-polyfill.cjs')
 
     expect(fetch).to.equal(globalFetch)
     expect(Headers).to.equal(globalHeaders)

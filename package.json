@@ -3,9 +3,9 @@
   "version": "3.0.6",
   "description": "Universal WHATWG Fetch API for Node, Browsers and React Native",
   "homepage": "https://github.com/lquixada/cross-fetch",
-  "main": "dist/node-ponyfill.js",
-  "browser": "dist/browser-ponyfill.js",
-  "react-native": "dist/react-native-ponyfill.js",
+  "main": "dist/node-ponyfill.cjs",
+  "browser": "dist/browser-ponyfill.cjs",
+  "react-native": "dist/react-native-ponyfill.cjs",
   "typings": "index.d.ts",
   "lint-staged": {
     "*.js": [
