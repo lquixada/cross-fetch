@@ -17,7 +17,9 @@ FileReader.prototype.readAsArrayBuffer = function (blob) {
     const content = atob(fr.result.substr('data:application/octet-stream;base64,'.length))
     const buffer = new ArrayBuffer(content.length)
     const view = new Uint8Array(buffer)
-    view.set(Array.from(content).map(c => c.charCodeAt(0)))
+    for (let i = 0; i < content.length; i++) {
+      view.fill(content[i].charCodeAt(0), i, i + 1)
+    }
     this._result = buffer
     this._setReadyState(this.DONE)
   }
