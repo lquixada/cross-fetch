@@ -84,7 +84,8 @@
   "files": [
     "dist",
     "polyfill",
-    "index.d.ts"
+    "index.d.ts",
+    "lib.fetch.d.ts"
   ],
   "keywords": [
     "fetch",
