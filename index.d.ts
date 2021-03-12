@@ -1,14 +1,27 @@
-/// <reference lib="dom" />
+import {
+  Headers,
+  Request,
+  RequestInfo,
+  RequestInit,
+  Response,
+} from "./lib.fetch"
 
-declare const _fetch: typeof fetch;
-declare const _Request: typeof Request;
-declare const _Response: typeof Response;
-declare const _Headers: typeof Headers;
 
 declare module "cross-fetch" {
-  export const fetch: typeof _fetch;
-  export const Request: typeof _Request;
-  export const Response: typeof _Response;
-  export const Headers: typeof _Headers;
+  export const fetch: (input: RequestInfo, init?: RequestInit) => Promise<Response>;
+  export const Request: {
+    prototype: Request;
+    new(input: RequestInfo, init?: RequestInit): Request;
+  };
+  export const Response: {
+    prototype: Response;
+    new(body?: BodyInit | null, init?: ResponseInit): Response;
+    error(): Response;
+    redirect(url: string, status?: number): Response;
+  };
+  export const Headers: {
+    prototype: Headers;
+    new(init?: HeadersInit): Headers;
+  };
   export default fetch;
 }
