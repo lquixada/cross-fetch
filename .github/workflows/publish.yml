@@ -1,5 +1,5 @@
 # Based on https://docs.github.com/en/actions/guides/publishing-nodejs-packages#publishing-packages-to-npm-and-github-packages
-name: Node.js Package
+name: Release
 on:
   release:
     types: [created]
