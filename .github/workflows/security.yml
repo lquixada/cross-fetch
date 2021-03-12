@@ -1,0 +1,17 @@
+name: Security
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  security:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+    - run: npm install
+    - run: make secure
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
