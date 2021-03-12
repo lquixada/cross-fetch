@@ -1,10 +1,10 @@
 cross-fetch<br>
-[![NPM Version](https://img.shields.io/npm/v/cross-fetch.svg?branch=master)](https://www.npmjs.com/package/cross-fetch)
+[![NPM Version](https://img.shields.io/npm/v/cross-fetch.svg?branch=main)](https://www.npmjs.com/package/cross-fetch)
 [![Downloads Per Week](https://img.shields.io/npm/dw/cross-fetch.svg?color=blue)](https://www.npmjs.com/package/cross-fetch)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 ![CI](https://github.com/lquixada/cross-fetch/workflows/CI/badge.svg)
 [![Build Status](https://circleci.com/gh/lquixada/cross-fetch.svg?style=shield)](https://circleci.com/gh/lquixada/cross-fetch)
-[![codecov](https://codecov.io/gh/lquixada/cross-fetch/branch/master/graph/badge.svg)](https://codecov.io/gh/lquixada/cross-fetch)
+[![codecov](https://codecov.io/gh/lquixada/cross-fetch/branch/main/graph/badge.svg)](https://codecov.io/gh/lquixada/cross-fetch)
 ================
 
 Universal WHATWG Fetch API for Node, Browsers and React Native. The scenario that cross-fetch really shines is when the same JavaScript codebase needs to run on different platforms.
@@ -159,7 +159,7 @@ Heavily inspired by the works of [matthew-andrews](https://github.com/matthew-an
 
 ## License
 
-cross-fetch is licensed under the [MIT license](https://github.com/lquixada/cross-fetch/blob/master/LICENSE) © [Leonardo Quixadá](https://twitter.com/lquixada/)
+cross-fetch is licensed under the [MIT license](https://github.com/lquixada/cross-fetch/blob/main/LICENSE) © [Leonardo Quixadá](https://twitter.com/lquixada/)
 
 
 ## Author
