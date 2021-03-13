@@ -1,3 +1,5 @@
+# The security job must be in a different workflow since the SNYK_TOKEN variable
+# cannot be passed to pull requests opened from forks. It would fail every time.
 name: Security
 
 on:
