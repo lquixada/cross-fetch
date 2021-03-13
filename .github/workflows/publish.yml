@@ -30,6 +30,9 @@ jobs:
       with:
         registry-url: 'https://npm.pkg.github.com'
         scope: '@lquixada'
+    - run: cat package.json
+    - run: sed -i 's/"cross-fetch"/"@lquixada\/cross-fetch"/g' package.json
+    - run: cat $NPM_CONFIG_USERCONFIG
     - run: npm publish
       env:
         NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
