@@ -3,7 +3,7 @@ name: Release
 
 on:
   release:
-    types: [edited]
+    types: [created]
 
 jobs:
   npm:
