@@ -3,7 +3,6 @@ cross-fetch<br>
 [![Downloads Per Week](https://img.shields.io/npm/dw/cross-fetch.svg?color=blue)](https://www.npmjs.com/package/cross-fetch)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 ![CI](https://github.com/lquixada/cross-fetch/workflows/CI/badge.svg)
-[![Build Status](https://circleci.com/gh/lquixada/cross-fetch.svg?style=shield)](https://circleci.com/gh/lquixada/cross-fetch)
 [![codecov](https://codecov.io/gh/lquixada/cross-fetch/branch/main/graph/badge.svg)](https://codecov.io/gh/lquixada/cross-fetch)
 ================
 
