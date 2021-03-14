@@ -2,8 +2,8 @@
   "name": "cross-fetch-on-node",
   "version": "0.0.1",
   "scripts": {
-    "prebundle": "webpack index.js -o bundle.js --target=node --mode=development",
-    "bundle": "node bundle",
+    "prebundle": "webpack ./index.js --output-filename bundle.js --target=node --mode=development",
+    "bundle": "node dist/bundle",
     "index": "node index"
   },
   "dependencies": {
