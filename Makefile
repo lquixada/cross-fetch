@@ -1,4 +1,4 @@
-all: test lint
+all: test lint typecheck
 
 node_modules: package.json
 	npm install && /usr/bin/touch node_modules
@@ -49,4 +49,7 @@ test-module-node-esm: build
 test-module-react-native: build
 	./test/module/react-native/run.sh
 
-.PHONY: all build deploy lint test test-fetch test-fetch-browser test-fetch-whatwg test-fetch-node test-module test-module-web-cjs test-module-web-esm test-module-node-cjs test-module-node-esm test-module-react-native
+typecheck:
+	npx tsc --lib ES6 index.d.ts
+
+.PHONY: all build deploy lint test test-fetch test-fetch-browser test-fetch-whatwg test-fetch-node test-module test-module-web-cjs test-module-web-esm test-module-node-cjs test-module-node-esm test-module-react-native typecheck
