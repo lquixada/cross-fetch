@@ -67,6 +67,86 @@ export interface Response extends Body {
     clone(): Response;
 }
 
+export interface ResponseInit {
+    headers?: HeadersInit;
+    status?: number;
+    statusText?: string;
+}
+
+/** A file-like object of immutable, raw data. Blobs represent data that isn't necessarily in a JavaScript-native format. The File interface is based on Blob, inheriting blob functionality and expanding it to support files on the user's system. */
+export interface Blob {
+    readonly size: number;
+    readonly type: string;
+    arrayBuffer(): Promise<ArrayBuffer>;
+    slice(start?: number, end?: number, contentType?: string): Blob;
+    stream(): ReadableStream;
+    text(): Promise<string>;
+}
+
+/** Provides a way to easily construct a set of key/value pairs representing form fields and their values, which can then be easily sent using the XMLHttpRequest.send() method. It uses the same format a form would use if the encoding type were set to "multipart/form-data". */
+export interface FormData {
+    append(name: string, value: string | Blob, fileName?: string): void;
+    delete(name: string): void;
+    get(name: string): FormDataEntryValue | null;
+    getAll(name: string): FormDataEntryValue[];
+    has(name: string): boolean;
+    set(name: string, value: string | Blob, fileName?: string): void;
+    forEach(callbackfn: (value: FormDataEntryValue, key: string, parent: FormData) => void, thisArg?: any): void;
+}
+
+export interface URLSearchParams {
+    /**
+     * Appends a specified key/value pair as a new search parameter.
+     */
+    append(name: string, value: string): void;
+    /**
+     * Deletes the given search parameter, and its associated value, from the list of all search parameters.
+     */
+    delete(name: string): void;
+    /**
+     * Returns the first value associated to the given search parameter.
+     */
+    get(name: string): string | null;
+    /**
+     * Returns all the values association with a given search parameter.
+     */
+    getAll(name: string): string[];
+    /**
+     * Returns a Boolean indicating if such a search parameter exists.
+     */
+    has(name: string): boolean;
+    /**
+     * Sets the value associated to a given search parameter to the given value. If there were several values, delete the others.
+     */
+    set(name: string, value: string): void;
+    sort(): void;
+    /**
+     * Returns a string containing a query string suitable for use in a URL. Does not include the question mark.
+     */
+    toString(): string;
+    forEach(callbackfn: (value: string, key: string, parent: URLSearchParams) => void, thisArg?: any): void;
+}
+
+/** This Streams API interface represents a readable stream of byte data. The Fetch API offers a concrete instance of a ReadableStream through the body property of a Response object. */
+export interface ReadableStream<R = any> {
+    readonly locked: boolean;
+    cancel(reason?: any): Promise<void>;
+    getReader(): ReadableStreamDefaultReader<R>;
+    pipeThrough<T>(transform: ReadableWritablePair<T, R>, options?: StreamPipeOptions): ReadableStream<T>;
+    pipeTo(dest: WritableStream<R>, options?: StreamPipeOptions): Promise<void>;
+    tee(): [ReadableStream<R>, ReadableStream<R>];
+}
+
+/** This Fetch API interface allows you to perform various actions on HTTP request and response headers. These actions include retrieving, setting, adding to, and removing. A Headers object has an associated header list, which is initially empty and consists of zero or more name and value pairs.  You can add to this using methods like append() (see Examples.) In all methods of this interface, header names are matched by case-insensitive byte sequence. */
+export interface Headers {
+    append(name: string, value: string): void;
+    delete(name: string): void;
+    get(name: string): string | null;
+    has(name: string): boolean;
+    set(name: string, value: string): void;
+    forEach(callbackfn: (value: string, key: string, parent: Headers) => void, thisArg?: any): void;
+}
+
 /** This Fetch API interface represents a resource request. */
 export interface Request extends Body {
     /**
@@ -155,78 +235,50 @@ export interface Body {
     text(): Promise<string>;
 }
 
-/** This Fetch API interface allows you to perform various actions on HTTP request and response headers. These actions include retrieving, setting, adding to, and removing. A Headers object has an associated header list, which is initially empty and consists of zero or more name and value pairs.  You can add to this using methods like append() (see Examples.) In all methods of this interface, header names are matched by case-insensitive byte sequence. */
-export interface Headers {
-    append(name: string, value: string): void;
-    delete(name: string): void;
-    get(name: string): string | null;
-    has(name: string): boolean;
-    set(name: string, value: string): void;
-    forEach(callbackfn: (value: string, key: string, parent: Headers) => void, thisArg?: any): void;
+export interface ReadableStreamDefaultReader<R = any> extends ReadableStreamGenericReader {
+    read(): Promise<ReadableStreamDefaultReadResult<R>>;
+    releaseLock(): void;
 }
 
-/** A file-like object of immutable, raw data. Blobs represent data that isn't necessarily in a JavaScript-native format. The File interface is based on Blob, inheriting blob functionality and expanding it to support files on the user's system. */
-export interface Blob {
-    readonly size: number;
-    readonly type: string;
-    arrayBuffer(): Promise<ArrayBuffer>;
-    slice(start?: number, end?: number, contentType?: string): Blob;
-    stream(): ReadableStream;
-    text(): Promise<string>;
+export interface ReadableWritablePair<R = any, W = any> {
+    readable: ReadableStream<R>;
+    /**
+     * Provides a convenient, chainable way of piping this readable stream through a transform stream (or any other { writable, readable } pair). It simply pipes the stream into the writable side of the supplied pair, and returns the readable side for further use.
+     *
+     * Piping a stream will lock it for the duration of the pipe, preventing any other consumer from acquiring a reader.
+     */
+    writable: WritableStream<W>;
 }
 
-/** Provides a way to easily construct a set of key/value pairs representing form fields and their values, which can then be easily sent using the XMLHttpRequest.send() method. It uses the same format a form would use if the encoding type were set to "multipart/form-data". */
-export interface FormData {
-    append(name: string, value: string | Blob, fileName?: string): void;
-    delete(name: string): void;
-    get(name: string): FormDataEntryValue | null;
-    getAll(name: string): FormDataEntryValue[];
-    has(name: string): boolean;
-    set(name: string, value: string | Blob, fileName?: string): void;
-    forEach(callbackfn: (value: FormDataEntryValue, key: string, parent: FormData) => void, thisArg?: any): void;
+export interface StreamPipeOptions {
+    preventAbort?: boolean;
+    preventCancel?: boolean;
+    /**
+     * Pipes this readable stream to a given writable stream destination. The way in which the piping process behaves under various error conditions can be customized with a number of passed options. It returns a promise that fulfills when the piping process completes successfully, or rejects if any errors were encountered.
+     *
+     * Piping a stream will lock it for the duration of the pipe, preventing any other consumer from acquiring a reader.
+     *
+     * Errors and closures of the source and destination streams propagate as follows:
+     *
+     * An error in this source readable stream will abort destination, unless preventAbort is truthy. The returned promise will be rejected with the source's error, or with any error that occurs during aborting the destination.
+     *
+     * An error in destination will cancel this source readable stream, unless preventCancel is truthy. The returned promise will be rejected with the destination's error, or with any error that occurs during canceling the source.
+     *
+     * When this source readable stream closes, destination will be closed, unless preventClose is truthy. The returned promise will be fulfilled once this process completes, unless an error is encountered while closing the destination, in which case it will be rejected with that error.
+     *
+     * If destination starts out closed or closing, this source readable stream will be canceled, unless preventCancel is true. The returned promise will be rejected with an error indicating piping to a closed stream failed, or with any error that occurs during canceling the source.
+     *
+     * The signal option can be set to an AbortSignal to allow aborting an ongoing pipe operation via the corresponding AbortController. In this case, this source readable stream will be canceled, and destination aborted, unless the respective options preventCancel or preventAbort are set.
+     */
+    preventClose?: boolean;
+    signal?: AbortSignal;
 }
 
-export interface URLSearchParams {
-    /**
-     * Appends a specified key/value pair as a new search parameter.
-     */
-    append(name: string, value: string): void;
-    /**
-     * Deletes the given search parameter, and its associated value, from the list of all search parameters.
-     */
-    delete(name: string): void;
-    /**
-     * Returns the first value associated to the given search parameter.
-     */
-    get(name: string): string | null;
-    /**
-     * Returns all the values association with a given search parameter.
-     */
-    getAll(name: string): string[];
-    /**
-     * Returns a Boolean indicating if such a search parameter exists.
-     */
-    has(name: string): boolean;
-    /**
-     * Sets the value associated to a given search parameter to the given value. If there were several values, delete the others.
-     */
-    set(name: string, value: string): void;
-    sort(): void;
-    /**
-     * Returns a string containing a query string suitable for use in a URL. Does not include the question mark.
-     */
-    toString(): string;
-    forEach(callbackfn: (value: string, key: string, parent: URLSearchParams) => void, thisArg?: any): void;
-}
-
-/** This Streams API interface represents a readable stream of byte data. The Fetch API offers a concrete instance of a ReadableStream through the body property of a Response object. */
-export interface ReadableStream<R = any> {
+/** This Streams API interface provides a standard abstraction for writing streaming data to a destination, known as a sink. This object comes with built-in backpressure and queuing. */
+export interface WritableStream<W = any> {
     readonly locked: boolean;
-    cancel(reason?: any): Promise<void>;
-    getReader(): ReadableStreamDefaultReader<R>;
-    pipeThrough<T>(transform: ReadableWritablePair<T, R>, options?: StreamPipeOptions): ReadableStream<T>;
-    pipeTo(dest: WritableStream<R>, options?: StreamPipeOptions): Promise<void>;
-    tee(): [ReadableStream<R>, ReadableStream<R>];
+    abort(reason?: any): Promise<void>;
+    getWriter(): WritableStreamDefaultWriter<W>;
 }
 
 /** EventTarget is a DOM interface implemented by objects that can receive events and may have listeners for them. */
@@ -337,60 +389,6 @@ export interface EventListenerOptions {
     capture?: boolean;
 }
 
-export interface ReadableStreamDefaultReader<R = any> extends ReadableStreamGenericReader {
-    read(): Promise<ReadableStreamDefaultReadResult<R>>;
-    releaseLock(): void;
-}
-
-export interface ReadableWritablePair<R = any, W = any> {
-    readable: ReadableStream<R>;
-    /**
-     * Provides a convenient, chainable way of piping this readable stream through a transform stream (or any other { writable, readable } pair). It simply pipes the stream into the writable side of the supplied pair, and returns the readable side for further use.
-     *
-     * Piping a stream will lock it for the duration of the pipe, preventing any other consumer from acquiring a reader.
-     */
-    writable: WritableStream<W>;
-}
-
-export interface StreamPipeOptions {
-    preventAbort?: boolean;
-    preventCancel?: boolean;
-    /**
-     * Pipes this readable stream to a given writable stream destination. The way in which the piping process behaves under various error conditions can be customized with a number of passed options. It returns a promise that fulfills when the piping process completes successfully, or rejects if any errors were encountered.
-     *
-     * Piping a stream will lock it for the duration of the pipe, preventing any other consumer from acquiring a reader.
-     *
-     * Errors and closures of the source and destination streams propagate as follows:
-     *
-     * An error in this source readable stream will abort destination, unless preventAbort is truthy. The returned promise will be rejected with the source's error, or with any error that occurs during aborting the destination.
-     *
-     * An error in destination will cancel this source readable stream, unless preventCancel is truthy. The returned promise will be rejected with the destination's error, or with any error that occurs during canceling the source.
-     *
-     * When this source readable stream closes, destination will be closed, unless preventClose is truthy. The returned promise will be fulfilled once this process completes, unless an error is encountered while closing the destination, in which case it will be rejected with that error.
-     *
-     * If destination starts out closed or closing, this source readable stream will be canceled, unless preventCancel is true. The returned promise will be rejected with an error indicating piping to a closed stream failed, or with any error that occurs during canceling the source.
-     *
-     * The signal option can be set to an AbortSignal to allow aborting an ongoing pipe operation via the corresponding AbortController. In this case, this source readable stream will be canceled, and destination aborted, unless the respective options preventCancel or preventAbort are set.
-     */
-    preventClose?: boolean;
-    signal?: AbortSignal;
-}
-
-/** This Streams API interface provides a standard abstraction for writing streaming data to a destination, known as a sink. This object comes with built-in backpressure and queuing. */
-export interface WritableStream<W = any> {
-    readonly locked: boolean;
-    abort(reason?: any): Promise<void>;
-    getWriter(): WritableStreamDefaultWriter<W>;
-}
-
-export interface EventListener {
-    (evt: Event): void;
-}
-
-export interface EventListenerObject {
-    handleEvent(evt: Event): void;
-}
-
 /** Provides information about files and allows JavaScript in a web page to access their content. */
 export interface File extends Blob {
     readonly lastModified: number;
@@ -413,6 +411,14 @@ export interface WritableStreamDefaultWriter<W = any> {
     write(chunk: W): Promise<void>;
 }
 
+export interface EventListener {
+    (evt: Event): void;
+}
+
+export interface EventListenerObject {
+    handleEvent(evt: Event): void;
+}
+
 export interface ReadableStreamDefaultReadValueResult<T> {
     done: false;
     value: T;
@@ -423,17 +429,17 @@ export interface ReadableStreamDefaultReadDoneResult {
     value?: undefined;
 }
 
-export type RequestInfo = Request | string;
 export type BodyInit = Blob | BufferSource | FormData | URLSearchParams | ReadableStream<Uint8Array> | string;
+export type HeadersInit = Headers | string[][] | Record<string, string>;
+export type RequestInfo = Request | string;
+export type BufferSource = ArrayBufferView | ArrayBuffer;
 export type RequestCache = "default" | "force-cache" | "no-cache" | "no-store" | "only-if-cached" | "reload";
 export type RequestCredentials = "include" | "omit" | "same-origin";
-export type HeadersInit = Headers | string[][] | Record<string, string>;
 export type RequestMode = "cors" | "navigate" | "no-cors" | "same-origin";
 export type RequestRedirect = "error" | "follow" | "manual";
 export type ReferrerPolicy = "" | "no-referrer" | "no-referrer-when-downgrade" | "origin" | "origin-when-cross-origin" | "same-origin" | "strict-origin" | "strict-origin-when-cross-origin" | "unsafe-url";
 export type ResponseType = "basic" | "cors" | "default" | "error" | "opaque" | "opaqueredirect";
-export type RequestDestination = "" | "audio" | "audioworklet" | "document" | "embed" | "font" | "image" | "manifest" | "object" | "paintworklet" | "report" | "script" | "sharedworker" | "style" | "track" | "video" | "worker" | "xslt";
-export type BufferSource = ArrayBufferView | ArrayBuffer;
-export declare type EventListenerOrEventListenerObject = EventListener | EventListenerObject;
 export type FormDataEntryValue = File | string;
+export type RequestDestination = "" | "audio" | "audioworklet" | "document" | "embed" | "font" | "image" | "manifest" | "object" | "paintworklet" | "report" | "script" | "sharedworker" | "style" | "track" | "video" | "worker" | "xslt";
+export declare type EventListenerOrEventListenerObject = EventListener | EventListenerObject;
 export type ReadableStreamDefaultReadResult<T> = ReadableStreamDefaultReadValueResult<T> | ReadableStreamDefaultReadDoneResult;
