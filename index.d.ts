@@ -1,6 +1,6 @@
-import {
+import type {
   BodyInit,
-  Headers,
+  Headers as BaseHeaders,
   HeadersInit,
   Request,
   RequestInfo,
@@ -8,6 +8,8 @@ import {
   Response,
   ResponseInit,
 } from "./lib.fetch"
+import type { Headers as IterHeaders } from "./lib.fetch.iterable";
+type Headers = BaseHeaders & IterHeaders;
 
 export const fetch: (input: RequestInfo, init?: RequestInit) => Promise<Response>;
 
