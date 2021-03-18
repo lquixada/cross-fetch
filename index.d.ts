@@ -1,9 +1,12 @@
 import {
+  BodyInit,
   Headers,
+  HeadersInit,
   Request,
   RequestInfo,
   RequestInit,
   Response,
+  ResponseInit,
 } from "./lib.fetch"
 
 export const fetch: (input: RequestInfo, init?: RequestInit) => Promise<Response>;
