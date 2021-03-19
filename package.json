@@ -14,6 +14,7 @@
   },
   "husky": {
     "hooks": {
+      "commit-msg": "commitlint --edit $1",
       "pre-commit": "make build && lint-staged",
       "pre-push": "make"
     }
@@ -46,6 +47,11 @@
   "nyc": {
     "temp-dir": ".reports/.coverage"
   },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/lquixada/cross-fetch.git"
@@ -59,6 +65,8 @@
     "node-fetch": "2.6.1"
   },
   "devDependencies": {
+    "@commitlint/cli": "12.0.1",
+    "@commitlint/config-conventional": "12.0.1",
     "body-parser": "1.19.0",
     "chai": "4.3.4",
     "codecov": "3.8.1",
