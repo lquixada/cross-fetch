@@ -9,12 +9,11 @@ build: node_modules
 cov:
 	npx nyc report --reporter=text-lcov > .reports/coverage.lcov && npx codecov
 
-# Example make deploy release=patch
-deploy:
-	npm version $(release) && git push --follow-tags
-
 lint:
 	npx standard
+
+release:
+	npx standard-version
 
 secure:
 	npx snyk test
