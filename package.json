@@ -9,13 +9,14 @@
   "typings": "index.d.ts",
   "lint-staged": {
     "*.js": [
+      "make build",
       "standard --fix"
     ]
   },
   "husky": {
     "hooks": {
       "commit-msg": "commitlint --edit $1",
-      "pre-commit": "make build && lint-staged",
+      "pre-commit": "lint-staged",
       "pre-push": "make"
     }
   },
