@@ -74,13 +74,29 @@ jobs:
     - uses: actions/setup-node@v2
     - run: make typecheck
 
+  # The security job can't run on pull requests opened from forks because
+  # Github doesn't pass down the SNYK_TOKEN environment variable.
+  security:
+    name: Check security
+    runs-on: ubuntu-latest
+    if: |
+      github.repository == 'lquixada/cross-fetch' &&
+      github.ref == 'refs/heads/main'
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v2
+    - run: npm install
+    - run: make secure
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
   npm:
     name: Publish to NPM registry
     if: |
       github.event.pull_request.head.repo.full_name == github.repository &&
       github.ref == 'refs/heads/main' &&
       contains(github.event.head_commit.message, 'chore(release)')
-    needs: [test, lint, commitlint, typecheck]
+    needs: [test, lint, commitlint, typecheck, security]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -99,7 +115,7 @@ jobs:
       github.event.pull_request.head.repo.full_name == github.repository &&
       github.ref == 'refs/heads/main' &&
       contains(github.event.head_commit.message, 'chore(release)')
-    needs: [test, lint, commitlint, typecheck]
+    needs: [test, lint, commitlint, typecheck, security]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
