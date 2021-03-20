@@ -53,3 +53,36 @@ jobs:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v2
     - run: make typecheck
+
+  npm:
+    if: contains(github.event.head_commit.message, 'chore(release)')
+    needs: [test, lint, commitlint, typecheck]
+    name: NPM Registry
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    # Setup .npmrc file to publish to npm
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '10.x'
+        registry-url: 'https://registry.npmjs.org'
+    - run: npm publish
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  github:
+    if: contains(github.event.head_commit.message, 'chore(release)')
+    needs: [test, lint, commitlint, typecheck]
+    name: Github Registry
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    # Setup .npmrc file to publish to GitHub Packages
+    - uses: actions/setup-node@v2
+      with:
+        registry-url: 'https://npm.pkg.github.com'
+    # The package name needs to be scoped in order to publish on Github Registry
+    - run: sed -i 's/"cross-fetch"/"@lquixada\/cross-fetch"/g' package.json
+    - run: npm publish
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
