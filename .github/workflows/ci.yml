@@ -49,10 +49,6 @@ jobs:
     needs: build
     steps:
     - uses: actions/checkout@v2
-    - uses: actions/cache@v2
-      with:
-        path: ~/.npm # this is cache where npm installs from before going out to the network
-        key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
     - uses: actions/setup-node@v2
     - run: make lint
 
@@ -77,10 +73,6 @@ jobs:
     needs: build
     steps:
     - uses: actions/checkout@v2
-    - uses: actions/cache@v2
-      with:
-        path: ~/.npm # this is cache where npm installs from before going out to the network
-        key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
     - uses: actions/setup-node@v2
     - run: make typecheck
 
