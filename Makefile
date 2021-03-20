@@ -6,6 +6,9 @@ node_modules: package.json
 build: node_modules
 	npx rollup -c && /usr/bin/touch dist
 
+commitlint:
+	npx commitlint --from origin/main --to HEAD --verbose
+
 cov:
 	npx nyc report --reporter=text-lcov > .reports/coverage.lcov && npx codecov
 

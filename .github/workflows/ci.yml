@@ -33,6 +33,19 @@ jobs:
     - uses: actions/setup-node@v1
     - run: make lint
 
+  commitlint:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        # Fetch all history for all tags and branches. The commitlint command
+        # needs the main branch available to work.
+        fetch-depth: 0
+    - uses: actions/setup-node@v1
+    - run: npm install
+    - run: make commitlint
+
   typecheck:
     runs-on: ubuntu-latest
 
