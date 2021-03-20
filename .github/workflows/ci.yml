@@ -62,10 +62,8 @@ jobs:
     needs: build
     steps:
     - uses: actions/checkout@v2
-      with:
-        # Fetch all history for all tags and branches. The commitlint command
-        # needs the main branch available to work.
-        fetch-depth: 0
+    # The commitlint command needs the main branch available to work.
+    - run: git fetch origin main
     - uses: actions/cache@v2
       with:
         path: ~/.npm # this is cache where npm installs from before going out to the network
