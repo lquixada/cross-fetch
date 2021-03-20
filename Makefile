@@ -6,7 +6,7 @@ node_modules: package.json
 build: node_modules
 	npx rollup -c && /usr/bin/touch dist
 
-commitlint:
+commitlint: build
 	npx commitlint --from origin/main --to HEAD --verbose
 
 cov:
