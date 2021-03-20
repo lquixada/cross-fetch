@@ -1,4 +1,4 @@
-all: test lint typecheck
+all: test lint typecheck commitlint secure
 
 node_modules: package.json
 	npm install && /usr/bin/touch node_modules
