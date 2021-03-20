@@ -76,7 +76,10 @@ jobs:
 
   npm:
     name: Publish to NPM registry
-    if: contains(github.event.head_commit.message, 'chore(release)')
+    if: |
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      github.ref == 'refs/heads/main' &&
+      contains(github.event.head_commit.message, 'chore(release)')
     needs: [test, lint, commitlint, typecheck]
     runs-on: ubuntu-latest
     steps:
@@ -92,7 +95,10 @@ jobs:
 
   github:
     name: Publish to Github registry
-    if: contains(github.event.head_commit.message, 'chore(release)')
+    if: |
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      github.ref == 'refs/heads/main' &&
+      contains(github.event.head_commit.message, 'chore(release)')
     needs: [test, lint, commitlint, typecheck]
     runs-on: ubuntu-latest
     steps:
