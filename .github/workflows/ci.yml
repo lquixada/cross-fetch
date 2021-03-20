@@ -8,6 +8,7 @@ on:
 
 jobs:
   build:
+    name: Build
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -22,6 +23,7 @@ jobs:
       run: npm install
 
   test:
+    name: Test specs
     runs-on: ubuntu-latest
     needs: build
     strategy:
@@ -38,6 +40,7 @@ jobs:
     - run: make test
 
   lint:
+    name: Lint code
     runs-on: ubuntu-latest
     needs: build
     steps:
@@ -46,6 +49,7 @@ jobs:
     - run: make lint
 
   commitlint:
+    name: Lint commits
     runs-on: ubuntu-latest
     needs: build
     steps:
@@ -56,12 +60,13 @@ jobs:
         fetch-depth: 0
     - uses: actions/cache@v2
       with:
-        path: ~/.npm
+        path: ~/.npm # this is cache where npm installs from before going out to the network
         key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
     - uses: actions/setup-node@v2
     - run: make commitlint
 
   typecheck:
+    name: Check types
     runs-on: ubuntu-latest
     needs: build
     steps:
@@ -70,9 +75,9 @@ jobs:
     - run: make typecheck
 
   npm:
+    name: Publish to NPM registry
     if: contains(github.event.head_commit.message, 'chore(release)')
     needs: [test, lint, commitlint, typecheck]
-    name: NPM Registry
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -86,9 +91,9 @@ jobs:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   github:
+    name: Publish to Github registry
     if: contains(github.event.head_commit.message, 'chore(release)')
     needs: [test, lint, commitlint, typecheck]
-    name: Github Registry
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
