@@ -28,7 +28,8 @@
       "/dist/",
       "bundle.js",
       "test.js",
-      "test.*.js"
+      "test.*.js",
+      "*.ts"
     ]
   },
   "mocha": {
