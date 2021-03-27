@@ -21,7 +21,7 @@ function addFetchSuite () {
 
           return res.text()
         })
-        .then(function (data: string) {
+        .then(function (data: string): void {
           expect(data).to.equal('hello world.')
         })
     })
@@ -35,7 +35,7 @@ function addFetchSuite () {
 
           return res.text()
         })
-        .catch(function (err: Error) {
+        .catch(function (err: Error): void {
           expect(err).to.be.an.instanceof(Error, 'Bad server response')
         })
     })
@@ -47,17 +47,17 @@ function addFetchSuite () {
           expect(res.ok).to.equal(false)
           return res.text()
         })
-        .then(function (data: string) {
+        .then(function (data: string): void {
           expect(data).to.equal('error world.')
         })
     })
 
     it('should reject when Request constructor throws', () => {
       return fetch('http://localhost:8000/succeed', { method: 'GET', body: 'invalid' })
-        .then(function () {
+        .then(function (): void {
           expect.fail('Invalid Request init was accepted')
         })
-        .catch(function (err: Error) {
+        .catch(function (err: Error): void {
           expect(err).to.be.an.instanceof(TypeError, 'Rejected with Error')
         })
     })
@@ -69,10 +69,10 @@ function addFetchSuite () {
           'X-Test': '42'
         }
       })
-        .then(function (res: Response) {
+        .then(function (res: Response): Promise<any> {
           return res.json()
         })
-        .then(function (data) {
+        .then(function (data: any): void {
           expect(data.headers.accept).to.equal('application/json')
           expect(data.headers['x-test']).to.equal('42')
         })
@@ -87,10 +87,10 @@ function addFetchSuite () {
       })
 
       return fetch(request)
-        .then(function (res) {
+        .then(function (res: Response): Promise<any> {
           return res.json()
         })
-        .then(function (data) {
+        .then(function (data: any): void {
           expect(data.headers.accept).to.equal('application/json')
           expect(data.headers['x-test']).to.equal('42')
         })
@@ -123,7 +123,7 @@ function addFetchSuite () {
             })
           )
         })
-        .then(function (data: any[]) {
+        .then(function (data: any[]): void {
           data.forEach(function (json: any) {
             expect(json.headers.accept).to.equal('application/json')
             expect(json.headers['x-test']).to.equal('42')
@@ -138,7 +138,7 @@ function addFetchSuite () {
           expect(res.ok).to.equal(true)
           return res.text()
         })
-        .then(function (data: string) {
+        .then(function (data: string): void {
           expect(data).to.equal('hello world.')
         })
     })
@@ -157,15 +157,14 @@ function addFetchSuite () {
         .then(function (res: Response): Promise<any> {
           return res.json()
         })
-        .then(function (data: any) {
+        .then(function (data: any): void {
           expect(data.method).to.equal('GET')
           expect(data.body).to.deep.equal({})
         })
     })
 
     it('should throw error on GET with body', () => {
-      expect(function () {
-        /* eslint-disable no-new */
+      expect(function (): void {
         new Request('', {
           method: 'get',
           body: 'invalid'
@@ -174,8 +173,7 @@ function addFetchSuite () {
     })
 
     it('should throw error on HEAD with body', () => {
-      expect(function () {
-        /* eslint-disable no-new */
+      expect(function (): void {
         new Request('', {
           method: 'head',
           body: 'invalid'
@@ -191,7 +189,7 @@ function addFetchSuite () {
         .then(function (res: Response): Promise<any> {
           return res.json()
         })
-        .then(function (data: any) {
+        .then(function (data: any): void {
           expect(data.method).to.equal('POST')
           expect(data.body).to.equal('name=Hubot')
         })
@@ -202,10 +200,10 @@ function addFetchSuite () {
         method: 'put',
         body: 'name=Hubot'
       })
-        .then(function (res) {
+        .then(function (res: Response): Promise<any> {
           return res.json()
         })
-        .then(function (data) {
+        .then(function (data: any): void {
           expect(data.method).to.equal('PUT')
           expect(data.body).to.equal('name=Hubot')
         })
@@ -216,10 +214,10 @@ function addFetchSuite () {
         method: 'PATCH',
         body: 'name=Hubot'
       })
-        .then(function (res) {
+        .then(function (res: Response): Promise<any> {
           return res.json()
         })
-        .then(function (data) {
+        .then(function (data: any): void {
           expect(data.method).to.equal('PATCH')
           expect(data.body).to.equal('name=Hubot')
         })
@@ -229,10 +227,10 @@ function addFetchSuite () {
       return fetch('http://localhost:8000/request', {
         method: 'delete'
       })
-        .then(function (res) {
+        .then(function (res: Response): Promise<any> {
           return res.json()
         })
-        .then(function (data) {
+        .then(function (data: any): void {
           expect(data.method).to.equal('DELETE')
           expect(data.body).to.equal('')
         })
@@ -251,7 +249,7 @@ function addFetchSuite () {
 
     it('should construct url from object', () => {
       const url = {
-        toString: function () {
+        toString: function (): string {
           return 'http://localhost:8000/'
         }
       }
@@ -287,7 +285,7 @@ function addFetchSuite () {
         method: 'post',
         body: 'Hello World!'
       })
-      return request.text().then(function (data) {
+      return request.text().then(function (data: string): void {
         expect(data).to.equal('Hello World!')
       })
     })
@@ -303,7 +301,7 @@ function addFetchSuite () {
       })
       const request2 = new Request(request1)
 
-      return request2.text().then(function (data) {
+      return request2.text().then(function (data: string): Promise<void> {
         expect(data).to.equal('Hello World!')
         expect(request2.method).to.equal('POST')
         expect(request2.url).to.equal('http://localhost:8000/')
@@ -311,10 +309,10 @@ function addFetchSuite () {
         expect(request2.headers.get('content-type')).to.equal('text/plain')
 
         return request1.text().then(
-          function () {
+          function (): void {
             expect.fail('original request body should have been consumed')
           },
-          function (err) {
+          function (err: TypeError): void {
             expect(err).to.be.an.instanceof(TypeError, 'expected TypeError for already read body')
           }
         )
@@ -334,7 +332,7 @@ function addFetchSuite () {
       expect(request2.method).to.equal('POST')
       expect(request2.headers.get('accept')).to.equal('application/json')
 
-      return request2.text().then(function (data) {
+      return request2.text().then(function (data: string): void {
         expect(data).to.equal('Hello World!')
       })
     })
@@ -370,7 +368,7 @@ function addFetchSuite () {
         headers: { 'Content-Type': 'application/json' }
       })
 
-      return request2.json().then(function (data) {
+      return request2.json().then(function (data: any): void {
         expect(data.wiggles).to.equal(5)
         expect(request2.headers.get('content-type')).to.equal('application/json')
       })
@@ -382,8 +380,7 @@ function addFetchSuite () {
         body: 'Hello World!'
       })
 
-      return request1.text().then(function () {
-        /* eslint-disable no-new */
+      return request1.text().then(function (): void {
         expect(function () { new Request(request1) }).to.throw()
       })
     })
@@ -424,7 +421,7 @@ function addFetchSuite () {
       })
 
       expect(req.headers.get('content-type')).to.equal('text/plain;charset=UTF-8')
-      return req.text().then(function (data) {
+      return req.text().then(function (data: string): void {
         expect(data, '[object Object]')
       })
     })
@@ -435,7 +432,7 @@ function addFetchSuite () {
       })
 
       expect(req.headers.get('content-type')).to.equal(null)
-      return req.text().then(function (data) {
+      return req.text().then(function (data: string): void {
         expect(data).to.equal('')
       })
     })
@@ -474,7 +471,7 @@ function addFetchSuite () {
         method: 'post',
         body: 'Hello World!'
       })
-      return req.text().then(function () {
+      return req.text().then(function (): void {
         expect(function () { req.clone() }).to.throw()
       })
     })
@@ -504,7 +501,7 @@ function addFetchSuite () {
         headers: { 'content-type': 'application/json' }
       })
       expect(response.headers).to.be.an.instanceof(Headers)
-      return response.json().then(function (data) {
+      return response.json().then(function (data: any): any {
         expect(data.foo).to.equal('bar')
         return data
       })
@@ -527,7 +524,7 @@ function addFetchSuite () {
       expect(clone.headers).to.not.equal(res.headers, 'headers were cloned')
       expect(clone.headers.get('content-type'), 'application/json')
 
-      return Promise.all([clone.json(), res.json()]).then(function (data) {
+      return Promise.all([clone.json(), res.json()]).then(function (data: [any, any]): void {
         expect(data[0]).to.deep.equal(data[1], 'json of cloned object is the same as original')
       })
     })
@@ -546,7 +543,7 @@ function addFetchSuite () {
       const response = new Response(null)
 
       expect(response.headers.get('content-type')).to.equal(null)
-      return response.text().then(function (data) {
+      return response.text().then(function (data: string): void {
         expect(data).to.equal('')
       })
     })
@@ -618,9 +615,9 @@ function addFetchSuite () {
 
     it('should throw TypeError on invalid character in field name', () => {
       /* eslint-disable no-new */
-      expect(function () { new Headers({ '<Accept>': 'application/json' }) }).to.throw()
-      expect(function () { new Headers({ 'Accept:': 'application/json' }) }).to.throw()
-      expect(function () {
+      expect(function (): void { new Headers({ '<Accept>': 'application/json' }) }).to.throw()
+      expect(function (): void { new Headers({ 'Accept:': 'application/json' }) }).to.throw()
+      expect(function (): void {
         const headers = new Headers()
         headers.set({ field: 'value' } as any, 'application/json')
       }).to.throw()
@@ -628,22 +625,22 @@ function addFetchSuite () {
 
     it('should not init an invalid header', () => {
       /* eslint-disable no-new */
-      expect(function () { new Headers({ Héy: 'ok' }) }).to.throw()
+      expect(function (): void { new Headers({ Héy: 'ok' }) }).to.throw()
     })
 
     it('should not set an invalid header', () => {
       const headers = new Headers()
-      expect(function () { headers.set('Héy', 'ok') }).to.throw()
+      expect(function (): void { headers.set('Héy', 'ok') }).to.throw()
     })
 
     it('should not append an invalid header', () => {
       const headers = new Headers()
-      expect(function () { headers.append('Héy', 'ok') }).to.throw()
+      expect(function (): void { headers.append('Héy', 'ok') }).to.throw()
     })
 
     it('should not get an invalid header', () => {
       const headers = new Headers()
-      expect(function () { headers.get('Héy') }).to.throw()
+      expect(function (): void { headers.get('Héy') }).to.throw()
     })
 
     it('should copy headers', () => {
@@ -714,7 +711,7 @@ function addFetchSuite () {
     it('should accept second thisArg argument for forEach', () => {
       const headers = new Headers({ Accept: 'application/json' })
       const thisArg = {}
-      headers.forEach(function (this: void) {
+      headers.forEach(function (this: void): void {
         expect(this).to.equal(thisArg)
       }, thisArg)
     })
