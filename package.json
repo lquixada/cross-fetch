@@ -29,6 +29,7 @@
       "bundle.js",
       "test.js",
       "test.*.js",
+      "api.spec.js",
       "*.ts"
     ]
   },
