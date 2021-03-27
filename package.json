@@ -6,7 +6,7 @@
   "main": "dist/node-ponyfill.js",
   "browser": "dist/browser-ponyfill.js",
   "react-native": "dist/react-native-ponyfill.js",
-  "typings": "index.d.ts",
+  "types": "index.d.ts",
   "lint-staged": {
     "*.js": [
       "make build",

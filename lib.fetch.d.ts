@@ -1,7 +1,7 @@
-export declare function fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;
+declare function fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;
 
 /** This Fetch API interface represents a resource request. */
-export interface Request extends Body {
+interface Request extends Body {
     /**
      * Returns the cache mode associated with request, which is a string indicating how the request will interact with the browser's cache when fetching.
      */
@@ -65,13 +65,13 @@ export interface Request extends Body {
     clone(): Request;
 }
 
-export declare var Request: {
+declare var Request: {
         prototype: Request;
         new(input: RequestInfo, init?: RequestInit): Request;
     };
 
 /** This Fetch API interface represents the response to a request. */
-export interface Response extends Body {
+interface Response extends Body {
     readonly headers: Headers;
     readonly ok: boolean;
     readonly redirected: boolean;
@@ -83,15 +83,15 @@ export interface Response extends Body {
     clone(): Response;
 }
 
-export declare var Response: {
+declare var Response: {
         prototype: Response;
         new(body?: BodyInit | null, init?: ResponseInit): Response;
         error(): Response;
         redirect(url: string, status?: number): Response;
     };
 
-/** This Fetch API interface allows you to perform various actions on HTTP request and response headers. These actions include retrieving, setting, adding to, and removing. A Headers object has an associated header list, which is initially empty and consists of zero or more name and value pairs.  You can add to this using methods like append() (see Examples.) In all methods of this interface, header names are matched by case-insensitive byte sequence. */
-export interface Headers {
+/** This Fetch API interface allows you to perform various actions on HTTP request and response headers. These actions include retrieving, setting, adding to, and removing. A Headers object has an associated header list, which is initially empty and consists of zero or more name and value pairs.  You can add to this using methods like append() (see Examples.) In all methods of this interface, header names are matched by case-insensitive byte sequence. */
+interface Headers {
     append(name: string, value: string): void;
     delete(name: string): void;
     get(name: string): string | null;
@@ -100,12 +100,12 @@ export interface Headers {
     forEach(callbackfn: (value: string, key: string, parent: Headers) => void, thisArg?: any): void;
 }
 
-export declare var Headers: {
+declare var Headers: {
         prototype: Headers;
         new(init?: HeadersInit): Headers;
     };
 
-export interface Headers {
+interface Headers {
     [Symbol.iterator](): IterableIterator<[string, string]>;
     /**
      * Returns an iterator allowing to go through all key/value pairs contained in this object.
@@ -121,9 +121,9 @@ export interface Headers {
     values(): IterableIterator<string>;
 }
 
-export type RequestInfo = Request | string;
+type RequestInfo = Request | string;
 
-export interface RequestInit {
+interface RequestInit {
     /**
      * A BodyInit object or null to set request's body.
      */
@@ -178,7 +178,7 @@ export interface RequestInit {
     window?: any;
 }
 
-export interface Body {
+interface Body {
     readonly body: ReadableStream<Uint8Array> | null;
     readonly bodyUsed: boolean;
     arrayBuffer(): Promise<ArrayBuffer>;
@@ -188,15 +188,15 @@ export interface Body {
     text(): Promise<string>;
 }
 
-export type RequestCache = "default" | "force-cache" | "no-cache" | "no-store" | "only-if-cached" | "reload";
-export type RequestCredentials = "include" | "omit" | "same-origin";
-export type RequestDestination = "" | "audio" | "audioworklet" | "document" | "embed" | "font" | "image" | "manifest" | "object" | "paintworklet" | "report" | "script" | "sharedworker" | "style" | "track" | "video" | "worker" | "xslt";
-export type RequestMode = "cors" | "navigate" | "no-cors" | "same-origin";
-export type RequestRedirect = "error" | "follow" | "manual";
-export type ReferrerPolicy = "" | "no-referrer" | "no-referrer-when-downgrade" | "origin" | "origin-when-cross-origin" | "same-origin" | "strict-origin" | "strict-origin-when-cross-origin" | "unsafe-url";
+type RequestCache = "default" | "force-cache" | "no-cache" | "no-store" | "only-if-cached" | "reload";
+type RequestCredentials = "include" | "omit" | "same-origin";
+type RequestDestination = "" | "audio" | "audioworklet" | "document" | "embed" | "font" | "image" | "manifest" | "object" | "paintworklet" | "report" | "script" | "sharedworker" | "style" | "track" | "video" | "worker" | "xslt";
+type RequestMode = "cors" | "navigate" | "no-cors" | "same-origin";
+type RequestRedirect = "error" | "follow" | "manual";
+type ReferrerPolicy = "" | "no-referrer" | "no-referrer-when-downgrade" | "origin" | "origin-when-cross-origin" | "same-origin" | "strict-origin" | "strict-origin-when-cross-origin" | "unsafe-url";
 
 /** A signal object that allows you to communicate with a DOM request (such as a Fetch) and abort it if required via an AbortController object. */
-export interface AbortSignal extends EventTarget {
+interface AbortSignal extends EventTarget {
     /**
      * Returns true if this AbortSignal's AbortController has signaled to abort, and false otherwise.
      */
@@ -208,19 +208,19 @@ export interface AbortSignal extends EventTarget {
     removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
-export type ResponseType = "basic" | "cors" | "default" | "error" | "opaque" | "opaqueredirect";
-export type BodyInit = Blob | BufferSource | FormData | URLSearchParams | ReadableStream<Uint8Array> | string;
+type ResponseType = "basic" | "cors" | "default" | "error" | "opaque" | "opaqueredirect";
+type BodyInit = Blob | BufferSource | FormData | URLSearchParams | ReadableStream<Uint8Array> | string;
 
-export interface ResponseInit {
+interface ResponseInit {
     headers?: HeadersInit;
     status?: number;
     statusText?: string;
 }
 
-export type HeadersInit = Headers | string[][] | Record<string, string>;
+type HeadersInit = Headers | string[][] | Record<string, string>;
 
 /** This Streams API interface represents a readable stream of byte data. The Fetch API offers a concrete instance of a ReadableStream through the body property of a Response object. */
-export interface ReadableStream<R = any> {
+interface ReadableStream<R = any> {
     readonly locked: boolean;
     cancel(reason?: any): Promise<void>;
     getReader(): ReadableStreamDefaultReader<R>;
@@ -230,7 +230,7 @@ export interface ReadableStream<R = any> {
 }
 
 /** A file-like object of immutable, raw data. Blobs represent data that isn't necessarily in a JavaScript-native format. The File interface is based on Blob, inheriting blob functionality and expanding it to support files on the user's system. */
-export interface Blob {
+interface Blob {
     readonly size: number;
     readonly type: string;
     arrayBuffer(): Promise<ArrayBuffer>;
@@ -240,7 +240,7 @@ export interface Blob {
 }
 
 /** Provides a way to easily construct a set of key/value pairs representing form fields and their values, which can then be easily sent using the XMLHttpRequest.send() method. It uses the same format a form would use if the encoding type were set to "multipart/form-data". */
-export interface FormData {
+interface FormData {
     append(name: string, value: string | Blob, fileName?: string): void;
     delete(name: string): void;
     get(name: string): FormDataEntryValue | null;
@@ -250,7 +250,7 @@ export interface FormData {
     forEach(callbackfn: (value: FormDataEntryValue, key: string, parent: FormData) => void, thisArg?: any): void;
 }
 
-export interface FormData {
+interface FormData {
     [Symbol.iterator](): IterableIterator<[string, FormDataEntryValue]>;
     /**
      * Returns an array of key, value pairs for every entry in the list.
@@ -267,7 +267,7 @@ export interface FormData {
 }
 
 /** EventTarget is a DOM interface implemented by objects that can receive events and may have listeners for them. */
-export interface EventTarget {
+interface EventTarget {
     /**
      * Appends an event listener for events whose type attribute value is type. The callback argument sets the callback that will be invoked when the event is dispatched.
      *
@@ -293,7 +293,7 @@ export interface EventTarget {
 }
 
 /** An event which takes place in the DOM. */
-export interface Event {
+interface Event {
     /**
      * Returns true or false depending on how event was initialized. True if event goes through its target's ancestors in reverse tree order, and false otherwise.
      */
@@ -361,24 +361,24 @@ export interface Event {
     stopPropagation(): void;
 }
 
-export interface AbortSignalEventMap {
+interface AbortSignalEventMap {
     "abort": Event;
 }
 
-export interface AddEventListenerOptions extends EventListenerOptions {
+interface AddEventListenerOptions extends EventListenerOptions {
     once?: boolean;
     passive?: boolean;
 }
 
-export declare type EventListenerOrEventListenerObject = EventListener | EventListenerObject;
+declare type EventListenerOrEventListenerObject = EventListener | EventListenerObject;
 
-export interface EventListenerOptions {
+interface EventListenerOptions {
     capture?: boolean;
 }
 
-export type BufferSource = ArrayBufferView | ArrayBuffer;
+type BufferSource = ArrayBufferView | ArrayBuffer;
 
-export interface URLSearchParams {
+interface URLSearchParams {
     /**
      * Appends a specified key/value pair as a new search parameter.
      */
@@ -411,7 +411,7 @@ export interface URLSearchParams {
     forEach(callbackfn: (value: string, key: string, parent: URLSearchParams) => void, thisArg?: any): void;
 }
 
-export interface URLSearchParams {
+interface URLSearchParams {
     [Symbol.iterator](): IterableIterator<[string, string]>;
     /**
      * Returns an array of key, value pairs for every entry in the search params.
@@ -427,12 +427,12 @@ export interface URLSearchParams {
     values(): IterableIterator<string>;
 }
 
-export interface ReadableStreamDefaultReader<R = any> extends ReadableStreamGenericReader {
+interface ReadableStreamDefaultReader<R = any> extends ReadableStreamGenericReader {
     read(): Promise<ReadableStreamDefaultReadResult<R>>;
     releaseLock(): void;
 }
 
-export interface ReadableWritablePair<R = any, W = any> {
+interface ReadableWritablePair<R = any, W = any> {
     readable: ReadableStream<R>;
     /**
      * Provides a convenient, chainable way of piping this readable stream through a transform stream (or any other { writable, readable } pair). It simply pipes the stream into the writable side of the supplied pair, and returns the readable side for further use.
@@ -442,7 +442,7 @@ export interface ReadableWritablePair<R = any, W = any> {
     writable: WritableStream<W>;
 }
 
-export interface StreamPipeOptions {
+interface StreamPipeOptions {
     preventAbort?: boolean;
     preventCancel?: boolean;
     /**
@@ -466,32 +466,32 @@ export interface StreamPipeOptions {
     signal?: AbortSignal;
 }
 
-/** This Streams API interface provides a standard abstraction for writing streaming data to a destination, known as a sink. This object comes with built-in backpressure and queuing. */
-export interface WritableStream<W = any> {
+/** This Streams API interface provides a standard abstraction for writing streaming data to a destination, known as a sink. This object comes with built-in backpressure and queuing. */
+interface WritableStream<W = any> {
     readonly locked: boolean;
     abort(reason?: any): Promise<void>;
     getWriter(): WritableStreamDefaultWriter<W>;
 }
 
-export type FormDataEntryValue = File | string;
+type FormDataEntryValue = File | string;
 
-export interface EventListener {
+interface EventListener {
     (evt: Event): void;
 }
 
-export interface EventListenerObject {
+interface EventListenerObject {
     handleEvent(evt: Event): void;
 }
 
-export interface ReadableStreamGenericReader {
+interface ReadableStreamGenericReader {
     readonly closed: Promise<undefined>;
     cancel(reason?: any): Promise<void>;
 }
 
-export type ReadableStreamDefaultReadResult<T> = ReadableStreamDefaultReadValueResult<T> | ReadableStreamDefaultReadDoneResult;
+type ReadableStreamDefaultReadResult<T> = ReadableStreamDefaultReadValueResult<T> | ReadableStreamDefaultReadDoneResult;
 
 /** This Streams API interface is the object returned by WritableStream.getWriter() and once created locks the < writer to the WritableStream ensuring that no other streams can write to the underlying sink. */
-export interface WritableStreamDefaultWriter<W = any> {
+interface WritableStreamDefaultWriter<W = any> {
     readonly closed: Promise<undefined>;
     readonly desiredSize: number | null;
     readonly ready: Promise<undefined>;
@@ -502,17 +502,17 @@ export interface WritableStreamDefaultWriter<W = any> {
 }
 
 /** Provides information about files and allows JavaScript in a web page to access their content. */
-export interface File extends Blob {
+interface File extends Blob {
     readonly lastModified: number;
     readonly name: string;
 }
 
-export interface ReadableStreamDefaultReadValueResult<T> {
+interface ReadableStreamDefaultReadValueResult<T> {
     done: false;
     value: T;
 }
 
-export interface ReadableStreamDefaultReadDoneResult {
+interface ReadableStreamDefaultReadDoneResult {
     done: true;
     value?: undefined;
 }

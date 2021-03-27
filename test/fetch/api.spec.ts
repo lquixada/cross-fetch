@@ -2,9 +2,8 @@
  * This file has all the tests needed to ensure cross-fetch is properly and equally
  * working in browser and node environment.
  */
-/// <reference path="../../index.d.ts" />
+/// <reference path="../../lib.fetch.d.ts" />
 
-declare var module: any;
 declare var expect: Chai.ExpectStatic;
 
 function addFetchSuite () {
@@ -145,7 +144,7 @@ function addFetchSuite () {
     })
 
     it('should parse headers', () => {
-      return fetch('http://localhost:8000/request').then(function (res) {
+      return fetch('http://localhost:8000/request').then(function (res: Response) {
         expect(res.headers.get('Date')).to.equal('Sat, 23 Sep 2017 15:41:16 GMT-0300')
         expect(res.headers.get('Content-Type')).to.equal('application/json; charset=utf-8')
       })

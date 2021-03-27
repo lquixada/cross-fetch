@@ -1,7 +1,15 @@
-import * as libFetch from "./lib.fetch";
+/// <reference path="./lib.fetch.d.ts" />
 
-export const fetch: typeof libFetch.fetch;
-export const Request: typeof libFetch.Request;
-export const Response: typeof libFetch.Response;
-export const Headers: typeof libFetch.Headers;
-export default fetch;
+type Xfetch = typeof fetch
+type XResponse = Response
+type XRequest = Request
+type XHeaders = Headers
+
+export {
+  Xfetch as fetch,
+  XResponse as Response,
+  XRequest as Request,
+  XHeaders as Headers,
+}
+
+export default Xfetch
