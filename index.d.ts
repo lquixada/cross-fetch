@@ -1,19 +1,19 @@
 /// <reference path="./lib.fetch.d.ts" />
 
-type Xfetch = typeof fetch
-type XResponse = Response
-type XRequest = Request
-type XRequestInfo = RequestInfo
-type XRequestInit = RequestInit
-type XHeaders = Headers
+type _fetch = typeof fetch
+type _Response = Response
+type _Request = Request
+type _RequestInfo = RequestInfo
+type _RequestInit = RequestInit
+type _Headers = Headers
 
 export {
-  Xfetch as fetch,
-  XResponse as Response,
-  XRequest as Request,
-  XRequestInfo as RequestInfo,
-  XRequestInit as RequestInit,
-  XHeaders as Headers,
+  _fetch as fetch,
+  _Response as Response,
+  _Request as Request,
+  _RequestInfo as RequestInfo,
+  _RequestInit as RequestInit,
+  _Headers as Headers,
 }
 
-export default Xfetch
+export default _fetch
