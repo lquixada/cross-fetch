@@ -3,8 +3,13 @@ all: test lint typecheck
 node_modules: package.json
 	npm install && /usr/bin/touch node_modules
 
-build: node_modules
+build: build-dist build-test
+
+build-dist: node_modules
 	npx rollup -c && /usr/bin/touch dist
+
+build-test: test/fetch/api.spec.js
+	npx tsc
 
 commitlint: node_modules
 	npx commitlint --from origin/main --to HEAD --verbose
