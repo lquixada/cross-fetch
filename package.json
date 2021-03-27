@@ -100,8 +100,7 @@
     "dist",
     "polyfill",
     "index.d.ts",
-    "lib.fetch.d.ts",
-    "lib.fetch.iterable.d.ts"
+    "lib.fetch.d.ts"
   ],
   "keywords": [
     "fetch",
