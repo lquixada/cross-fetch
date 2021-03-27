@@ -1,11 +1,11 @@
-/// <reference path="../../index.d.ts" />
 /**
  * This file has all the tests needed to ensure cross-fetch is properly and equally
  * working in browser and node environment.
  */
+/// <reference path="../../index.d.ts" />
 
-// TODO: chai types are not being loaded
-declare var expect: any;
+declare var module: any;
+declare var expect: Chai.ExpectStatic;
 
 function addFetchSuite () {
   describe('fetch', () => {
@@ -757,8 +757,6 @@ function addFetchSuite () {
     })
   })
 }
-
-declare var module: any;
 
 if (typeof module === 'object' && module.exports) {
   module.exports = addFetchSuite;
