@@ -127,6 +127,13 @@ jobs:
       with:
         node-version: '10.x'
         registry-url: 'https://registry.npmjs.org'
+    - name: Cache node_modules
+      id: cacheModules
+      uses: actions/cache@v2
+      with:
+        path: ~/.npm # this is cache where npm installs from before going out to the network
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
+    - run: npm install --prefer-offline
     - run: npm publish
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -145,6 +152,13 @@ jobs:
     - uses: actions/setup-node@v2
       with:
         registry-url: 'https://npm.pkg.github.com'
+    - name: Cache node_modules
+      id: cacheModules
+      uses: actions/cache@v2
+      with:
+        path: ~/.npm # this is cache where npm installs from before going out to the network
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
+    - run: npm install --prefer-offline
     # The package name needs to be scoped in order to publish on Github Registry
     - run: sed -i 's/"cross-fetch"/"@lquixada\/cross-fetch"/g' package.json
     - run: npm publish
