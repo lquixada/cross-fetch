@@ -3,6 +3,7 @@
     "moduleResolution": "node",
     "target": "es6",
     "module": "commonjs",
+    "noEmit": true,
     "allowSyntheticDefaultImports": true
   }
 }
