@@ -78,7 +78,7 @@ jobs:
   npm:
     name: Publish to NPM registry
     if: |
-      github.event.pull_request.head.repo.full_name == github.repository &&
+      github.repository == 'lquixada/cross-fetch' &&
       github.ref == 'refs/heads/main' &&
       contains(github.event.head_commit.message, 'chore(release)')
     needs: [test, lint, commitlint, typecheck, security]
@@ -97,7 +97,7 @@ jobs:
   github:
     name: Publish to Github registry
     if: |
-      github.event.pull_request.head.repo.full_name == github.repository &&
+      github.repository == 'lquixada/cross-fetch' &&
       github.ref == 'refs/heads/main' &&
       contains(github.event.head_commit.message, 'chore(release)')
     needs: [test, lint, commitlint, typecheck, security]
