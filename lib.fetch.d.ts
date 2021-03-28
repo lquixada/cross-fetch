@@ -1,3 +1,4 @@
+/// <reference no-default-lib="true"/>
 /// <reference lib="es2015.iterable" />
 
 declare function fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;

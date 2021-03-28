@@ -1,3 +1,4 @@
+/// <reference no-default-lib="true"/>
 /// <reference path="./lib.fetch.d.ts" />
 
 type _fetch = typeof fetch
