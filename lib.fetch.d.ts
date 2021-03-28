@@ -1,3 +1,5 @@
+/// <reference lib="es2015.iterable" />
+
 declare function fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;
 
 /** This Fetch API interface represents a resource request. */
