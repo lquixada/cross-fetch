@@ -57,7 +57,7 @@ jobs:
       with:
         path: ~/.npm # this is cache where npm installs from before going out to the network
         key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
-    - run: npm install
+    - run: npm install --prefer-offline
     - run: make lint
 
   commitlint:
@@ -72,7 +72,7 @@ jobs:
       with:
         path: ~/.npm # this is cache where npm installs from before going out to the network
         key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
-    - run: npm install
+    - run: npm install --prefer-offline
     - run: make commitlint
 
   typecheck:
@@ -87,7 +87,7 @@ jobs:
       with:
         path: ~/.npm # this is cache where npm installs from before going out to the network
         key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
-    - run: npm install
+    - run: npm install --prefer-offline
     - run: make typecheck
 
   # The security job can't run on pull requests opened from forks because
@@ -107,7 +107,7 @@ jobs:
       with:
         path: ~/.npm # this is cache where npm installs from before going out to the network
         key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
-    - run: npm install
+    - run: npm install --prefer-offline
     - run: make secure
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
