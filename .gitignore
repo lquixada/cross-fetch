@@ -1,4 +1,3 @@
-dist
 .reports
 *.log
 test.ponyfill.js
