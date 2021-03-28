@@ -4,6 +4,8 @@
     "target": "es6",
     "module": "commonjs",
     "noEmit": true,
-    "allowSyntheticDefaultImports": true
-  }
+    "allowSyntheticDefaultImports": true,
+    "strict": true
+  },
+  "files": ["index.ts"]
 }
