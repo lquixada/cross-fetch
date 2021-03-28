@@ -7,8 +7,26 @@ on:
     branches: [ main ]
 
 jobs:
+  install:
+    name: Install
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Cache node_modules
+      id: cacheModules
+      uses: actions/cache@v2
+      with:
+        path: ~/.npm # this is cache where npm installs from before going out to the network
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
+
+    - name: Install dependencies
+      if: steps.cacheModules.outputs.cache-hit != 'true'
+      run: npm install
+
   test:
     name: Test specs
+    needs: [install]
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -29,14 +47,22 @@ jobs:
 
   lint:
     name: Lint code
+    needs: [install]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: actions/setup-node@v2
+    - name: Cache node_modules
+      id: cacheModules
+      uses: actions/cache@v2
+      with:
+        path: ~/.npm # this is cache where npm installs from before going out to the network
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
+    - run: npm install
     - run: make lint
 
   commitlint:
     name: Lint commits
+    needs: [install]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -46,16 +72,21 @@ jobs:
       with:
         path: ~/.npm # this is cache where npm installs from before going out to the network
         key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
-    - uses: actions/setup-node@v2
-    - run: npm install @commitlint/config-conventional # the only dependency to run commitlint
+    - run: npm install
     - run: make commitlint
 
   typecheck:
     name: Check types
+    needs: [install]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: actions/setup-node@v2
+    - name: Cache node_modules
+      id: cacheModules
+      uses: actions/cache@v2
+      with:
+        path: ~/.npm # this is cache where npm installs from before going out to the network
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
     - run: npm install
     - run: make typecheck
 
@@ -63,13 +94,19 @@ jobs:
   # Github doesn't pass down the SNYK_TOKEN environment variable.
   security:
     name: Check security
+    needs: [install]
     runs-on: ubuntu-latest
     if: |
       github.repository == 'lquixada/cross-fetch' &&
       github.ref == 'refs/heads/main'
     steps:
     - uses: actions/checkout@v2
-    - uses: actions/setup-node@v2
+    - name: Cache node_modules
+      id: cacheModules
+      uses: actions/cache@v2
+      with:
+        path: ~/.npm # this is cache where npm installs from before going out to the network
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
     - run: npm install
     - run: make secure
       env:
