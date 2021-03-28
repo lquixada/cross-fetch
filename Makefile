@@ -57,6 +57,6 @@ test-module-react-native: build
 	./test/module/react-native/run.sh
 
 typecheck:
-	npx tsc --lib ES6 index.d.ts
+	npx tsc --lib ES6 --noEmit index.d.ts ./test/fetch/api.spec.ts
 
 .PHONY: all build deploy lint test test-fetch test-fetch-browser test-fetch-whatwg test-fetch-node test-module test-module-web-cjs test-module-web-esm test-module-node-cjs test-module-node-esm test-module-react-native typecheck
