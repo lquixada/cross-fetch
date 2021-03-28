@@ -1,17 +1,14 @@
 all: test lint typecheck
 
-node_modules: package.json
-	npm install && /usr/bin/touch node_modules
-
 build: build-dist build-test
 
-build-dist: node_modules
+build-dist:
 	npx rollup -c && /usr/bin/touch dist
 
 build-test: test/fetch/api.spec.js
 	npx tsc
 
-commitlint: node_modules
+commitlint:
 	npx commitlint --from origin/main --to HEAD --verbose
 
 cov:
@@ -19,6 +16,9 @@ cov:
 
 lint:
 	npx standard
+
+post-install:
+	npx husky install && npx rollup -c
 
 release:
 	npx standard-version
