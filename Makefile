@@ -23,6 +23,9 @@ lint:
 release:
 	npx standard-version
 
+release-alpha:
+	npx standard-version --prerelease alpha
+
 secure:
 	npx snyk test
 
