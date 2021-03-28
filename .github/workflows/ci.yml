@@ -43,6 +43,12 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
+    - name: Cache node_modules
+      uses: actions/cache@v2
+      with:
+        path: ~/.npm # this is cache where npm installs from before going out to the network
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
+    - run: npm install --prefer-offline
     - run: make test
 
   lint:
@@ -51,9 +57,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Cache node_modules
-      id: cacheModules
-      uses: actions/cache@v2
+    - uses: actions/cache@v2
       with:
         path: ~/.npm # this is cache where npm installs from before going out to the network
         key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
@@ -81,9 +85,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Cache node_modules
-      id: cacheModules
-      uses: actions/cache@v2
+    - uses: actions/cache@v2
       with:
         path: ~/.npm # this is cache where npm installs from before going out to the network
         key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
@@ -101,9 +103,7 @@ jobs:
       github.ref == 'refs/heads/main'
     steps:
     - uses: actions/checkout@v2
-    - name: Cache node_modules
-      id: cacheModules
-      uses: actions/cache@v2
+    - uses: actions/cache@v2
       with:
         path: ~/.npm # this is cache where npm installs from before going out to the network
         key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
@@ -127,9 +127,7 @@ jobs:
       with:
         node-version: '10.x'
         registry-url: 'https://registry.npmjs.org'
-    - name: Cache node_modules
-      id: cacheModules
-      uses: actions/cache@v2
+    - uses: actions/cache@v2
       with:
         path: ~/.npm # this is cache where npm installs from before going out to the network
         key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
@@ -152,9 +150,7 @@ jobs:
     - uses: actions/setup-node@v2
       with:
         registry-url: 'https://npm.pkg.github.com'
-    - name: Cache node_modules
-      id: cacheModules
-      uses: actions/cache@v2
+    - uses: actions/cache@v2
       with:
         path: ~/.npm # this is cache where npm installs from before going out to the network
         key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
