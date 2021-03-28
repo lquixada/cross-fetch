@@ -7,6 +7,9 @@
   "browser": "dist/browser-ponyfill.js",
   "react-native": "dist/react-native-ponyfill.js",
   "types": "index.d.ts",
+  "scripts": {
+    "prepare": "husky install"
+  },
   "lint-staged": {
     "*.js": [
       "make build",
@@ -124,8 +127,5 @@
     "whatwg",
     "xhr",
     "ajax"
-  ],
-  "scripts": {
-    "prepare": "husky install"
-  }
+  ]
 }
