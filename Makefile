@@ -3,7 +3,7 @@ all: test lint typecheck
 build: build-dist build-test
 
 build-dist:
-	npx rollup -c && /usr/bin/touch dist
+	npx rollup -c
 
 build-test: test/fetch/api.spec.js
 	npx tsc
@@ -17,8 +17,8 @@ cov:
 lint:
 	npx standard
 
-post-install:
-	npx husky install && npx rollup -c
+post-install: build-dist
+	npx husky install
 
 release:
 	npx standard-version
