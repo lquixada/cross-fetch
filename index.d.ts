@@ -1,35 +1,14 @@
-/// <reference no-default-lib="true"/>
-/// <reference path="./lib.fetch.d.ts" />
+/// <reference lib="dom" />
 
-declare function _fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;
+declare const _fetch: typeof fetch;
+declare const _Request: typeof Request;
+declare const _Response: typeof Response;
+declare const _Headers: typeof Headers;
 
-declare var _Request: {
-  prototype: Request;
-  new(input: RequestInfo, init?: RequestInit): Request;
-};
-
-declare var _Response: {
-  prototype: Response;
-  new(body?: BodyInit | null, init?: ResponseInit): Response;
-  error(): Response;
-  redirect(url: string, status?: number): Response;
-};
-
-declare var _Headers: {
-  prototype: Headers;
-  new(init?: HeadersInit): Headers;
-};
-
-type _RequestInfo = RequestInfo
-type _RequestInit = RequestInit
-
-export {
-  _fetch as fetch,
-  _Response as Response,
-  _Request as Request,
-  _RequestInfo as RequestInfo,
-  _RequestInit as RequestInit,
-  _Headers as Headers,
+declare module "cross-fetch" {
+  export const fetch: typeof _fetch;
+  export const Request: typeof _Request;
+  export const Response: typeof _Response;
+  export const Headers: typeof _Headers;
+  export default fetch;
 }
-
-export default _fetch

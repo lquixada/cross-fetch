@@ -107,8 +107,7 @@
   "files": [
     "dist",
     "polyfill",
-    "index.d.ts",
-    "lib.fetch.d.ts"
+    "index.d.ts"
   ],
   "keywords": [
     "fetch",

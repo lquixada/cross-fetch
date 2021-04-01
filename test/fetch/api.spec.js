@@ -3,7 +3,8 @@
  * This file has all the tests needed to ensure cross-fetch is properly and equally
  * working in browser and node environment.
  */
-/// <reference path="../../lib.fetch.d.ts" />
+/// <reference lib="dom" />
+/// <reference lib="dom.iterable" />
 function addFetchSuite() {
     describe('fetch', () => {
         it('should be defined', () => {
