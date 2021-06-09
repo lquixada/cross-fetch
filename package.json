@@ -6,6 +6,18 @@
   "main": "dist/node-ponyfill.js",
   "browser": "dist/browser-ponyfill.js",
   "react-native": "dist/react-native-ponyfill.js",
+  "exports": {
+    ".": {
+      "node": "./dist/node-ponyfill.js",
+      "browser": "./dist/browser-ponyfill.js",
+      "default": "./dist/node-ponyfill.js"
+    },
+    "./polyfill": {
+      "node": "./dist/node-polyfill.js",
+      "browser": "./dist/browser-polyfill.js",
+      "default": "./dist/node-polyfill.js"
+    }
+  },
   "types": "index.d.ts",
   "scripts": {
     "prepare": "husky install"
