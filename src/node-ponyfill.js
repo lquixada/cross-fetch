@@ -10,7 +10,7 @@ const fetch = function (url, options) {
   return realFetch.call(this, url, options)
 }
 
-fetch.ponyfill = true
+fetch.polyfill = true
 
 module.exports = exports = fetch
 exports.fetch = fetch
