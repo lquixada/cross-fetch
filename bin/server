@@ -1,8 +1,9 @@
 #!/usr/bin/env node
+const yargs = require('yargs/yargs')
 const { spawn } = require('child_process')
 const express = require('express')
 const bodyParser = require('body-parser')
-const serveIndex = require('serve-index');
+const serveIndex = require('serve-index')
 const path = require('path')
 const app = express()
 const dir = path.join(__dirname, '..')
@@ -19,9 +20,9 @@ app.patch('/request', processRequest)
 app.delete('/request', processRequest)
 
 // This line needs to be at the end, otherwise it will block any method different than GET
-app.use(express.static(dir), serveIndex(dir, {'icons': true, view: 'details'}))
+app.use(express.static(dir), serveIndex(dir, { icons: true, view: 'details' }))
 
-function processRequest(req, res) {
+function processRequest (req, res) {
   const headers = {}
   const isDelete = req.method === 'DELETE'
 
@@ -39,39 +40,40 @@ function processRequest(req, res) {
   })
 }
 
-function processFileUrl(argv) {
-  const args = argv.slice(2)
+function processFileUrl (args) {
   const fileParamIndex = args.indexOf('-f')
+
   if (fileParamIndex > 0) {
     const fileIndex = fileParamIndex + 1
     args[fileIndex] = args[fileIndex].replace(/^\.\//, `http://localhost:${port}/`)
   }
+
   return args
 }
 
 const hostname = '127.0.0.1'
 const port = 8000
-const args = processFileUrl(process.argv)
+const { argv } = yargs(process.argv.slice(2))
 
 const server = app.listen(port, hostname, () => {
-  if (args.length === 0) {
-    console.log(`Test server listening at http://localhost:${port}`)
-    return
+  console.log(`Test server listening at http://localhost:${port}`)
+
+  if (argv.exec) {
+    const args = processFileUrl(argv.exec.split(' '))
+    const command = args[0]
+    const params = args.slice(1)
+    const child = spawn(command, params, {
+      env: {
+        ...process.env,
+        FORCE_COLOR: true // ensure mocha outputs colors on node test
+      }
+    })
+
+    child.stdout.pipe(process.stdout)
+    child.stderr.pipe(process.stdout)
+    child.on('exit', code => {
+      server.close()
+      process.exit(code)
+    })
   }
-
-  const command = args[0]
-  const params = args.slice(1)
-  const child = spawn(command, params, {
-    env: {
-      ...process.env,
-      FORCE_COLOR: true // ensure mocha outputs colors on node test
-    }
-  })
-
-  child.stdout.pipe(process.stdout)
-  child.stderr.pipe(process.stdout)
-  child.on('exit', code => {
-    server.close()
-    process.exit(code)
-  })
 })
