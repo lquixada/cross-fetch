@@ -11,6 +11,9 @@ build-dist:
 build-test: test/fetch/api.spec.js
 	npx tsc
 
+browser:
+	./bin/server --exec "npx open-cli http://localhost:8000/test/fetch/browser/"
+
 commitlint: node_modules
 	npx commitlint --from origin/main --to HEAD --verbose
 
