@@ -71,9 +71,12 @@ const server = app.listen(port, hostname, () => {
 
     child.stdout.pipe(process.stdout)
     child.stderr.pipe(process.stdout)
-    child.on('exit', code => {
-      server.close()
-      process.exit(code)
-    })
+
+    if (argv.closeOnExec) {
+      child.on('exit', code => {
+        server.close()
+        process.exit(code)
+      })
+    }
   }
 })
