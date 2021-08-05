@@ -25,29 +25,36 @@ export default [
       name: 'irrelevant',
       strict: false,
       banner: outdent(`
-        var global = typeof self !== 'undefined' ? self : this;
-        var __self__ = (function () {
+        // Save the global object in a variable
+        var __global__ =
+          (typeof globalThis !== 'undefined' && globalThis) ||
+          (typeof self !== 'undefined' && self) ||
+          (typeof global !== 'undefined' && global);
+
+        // Create an object that extends from __global__ without the fetch function
+        var __globalThis__ = (function () {
           function F() {
             this.fetch = false;
-            this.DOMException = global.DOMException
+            this.DOMException = __global__.DOMException
           }
-          F.prototype = global;
+          F.prototype = __global__; // Needed for feature detection on whatwg-fetch's code
           return new F();
         })();
 
-        (function(self) {
+        // Wraps whatwg-fetch with a function scope to hijack the global object
+        // "globalThis" that's going to be patched
+        (function(globalThis) {
       `),
       footer: outdent(`
-        })(__self__);
+        })(__globalThis__);
 
-        __self__.fetch.ponyfill = true;
+        // This is a ponyfill, so...
+        __globalThis__.fetch.ponyfill = true;
+        delete __globalThis__.fetch.polyfill;
 
-        // Remove "polyfill" property added by whatwg-fetch
-        delete __self__.fetch.polyfill;
-
-        // Choose between native implementation (global) or custom implementation (__self__)
-        // var ctx = global.fetch ? global : __self__;
-        var ctx = __self__; // this line disable service worker support temporarily
+        // Choose between native implementation (__global__) or custom implementation (__globalThis__)
+        // var ctx = __global__.fetch ? __global__ : __globalThis__;
+        var ctx = __globalThis__ // this line disable service worker support temporarily
 
         exports = ctx.fetch // To enable: import fetch from 'cross-fetch'
         exports.default = ctx.fetch // For TypeScript consumers without esModuleInterop.
