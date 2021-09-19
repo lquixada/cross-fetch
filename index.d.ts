@@ -1,4 +1,5 @@
 /// <reference lib="dom" />
+/// <reference lib="dom.iterable" />
 
 declare const _fetch: typeof fetch;
 declare const _Request: typeof Request;
