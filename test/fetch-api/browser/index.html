@@ -18,13 +18,13 @@
 
   <script src="../../setup.env.js"></script>
   <script src="../api.spec.js"></script>
-  <script src="../../module/module.spec.js"></script>
+  <script src="../../module-system/module.spec.js"></script>
   <script src="../../../dist/cross-fetch.js"></script>
 
   <script>
-    describe('Browser:Fetch:Whatwg', () => {
+    describe('Browser:Fetch:Native', () => {
       addFetchSuite();
-      addPolyfillSuite({ fetch });
+      addNativeSuite({ fetch });
     });
 
     mocha.checkLeaks();
