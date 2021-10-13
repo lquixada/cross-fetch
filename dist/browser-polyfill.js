@@ -528,5 +528,5 @@ var irrelevant = (function (exports) {
 
   return exports;
 
-}({}));
+})({});
 })(typeof self !== 'undefined' ? self : this);
