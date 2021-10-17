@@ -2,7 +2,7 @@
   "name": "cross-fetch-on-browser",
   "version": "0.0.1",
   "scripts": {
-    "prebrowser": "webpack index.js -o bundle.js --target=web --mode=development",
+    "prebrowser": "webpack ./index.js --output-filename bundle.js --target=web --mode=development",
     "browser": "node puppeteer"
   },
   "dependencies": {

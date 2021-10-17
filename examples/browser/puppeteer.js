@@ -14,7 +14,7 @@ function describe (jsHandle) {
   })
 
   await page.addScriptTag({
-    path: './bundle.js'
+    path: './dist/bundle.js'
   })
 
   // browser.close()
