@@ -1,7 +1,6 @@
 .reports
 *.log
 dist
-**/dist
 test.ponyfill.js
 test.polyfill.js
 
