@@ -21,6 +21,9 @@ compile: test/fetch-api/api.spec.ts
 cov:
 	npx nyc report --reporter=text-lcov > .reports/coverage.lcov && npx codecov
 
+dist:
+	npx rollup -c
+
 lint:
 	npx standard
 
@@ -62,6 +65,9 @@ test-module-node-esm: build
 
 test-module-react-native: build
 	./test/module-system/react-native/run.sh
+
+ts-specs: test/fetch-api/api.spec.js
+	npx tsc
 
 typecheck:
 	npx tsc --lib ES6 --noEmit index.d.ts ./test/fetch-api/api.spec.ts
