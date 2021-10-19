@@ -9,7 +9,7 @@
   "types": "index.d.ts",
   "scripts": {
     "prepare": "husky install",
-    "prepublishOnly": "rimraf dist && make build"
+    "prepublishOnly": "rimraf dist && make dist"
   },
   "lint-staged": {
     "*.js": [

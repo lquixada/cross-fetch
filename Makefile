@@ -3,13 +3,7 @@ all: test lint typecheck
 node_modules: package.json
 	npm install && /usr/bin/touch node_modules
 
-build: build-dist build-test
-
-build-dist:
-	npx rollup -c
-
-build-test: test/fetch-api/api.spec.js
-	npx tsc
+build: dist ts-specs
 
 browser:
 	./bin/server --exec "npx open-cli http://localhost:8000/test/fetch-api/browser/"
@@ -19,6 +13,9 @@ commitlint: node_modules
 
 cov:
 	npx nyc report --reporter=text-lcov > .reports/coverage.lcov && npx codecov
+
+dist:
+	npx rollup -c
 
 lint:
 	npx standard
@@ -61,6 +58,9 @@ test-module-node-esm: build
 
 test-module-react-native: build
 	./test/module-system/react-native/run.sh
+
+ts-specs: test/fetch-api/api.spec.js
+	npx tsc
 
 typecheck:
 	npx tsc --lib ES6 --noEmit index.d.ts ./test/fetch-api/api.spec.ts
