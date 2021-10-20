@@ -2,14 +2,13 @@
   "name": "cross-fetch-on-browser",
   "version": "0.0.1",
   "scripts": {
-    "prebrowser": "webpack ./index.js --output-filename bundle.js --target=web --mode=development",
-    "browser": "node puppeteer"
+    "prestart": "webpack ./index.js --output-filename bundle.js --target=web --mode=development",
+    "start": "node puppeteer"
   },
   "dependencies": {
-    "cross-fetch": "github:lquixada/cross-fetch"
+    "cross-fetch": "*"
   },
   "devDependencies": {
-    "puppeteer": "1.19.0",
-    "webpack": "4.38.0"
+    "puppeteer": "10.4.0"
   }
 }
