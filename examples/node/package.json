@@ -2,14 +2,10 @@
   "name": "cross-fetch-on-node",
   "version": "0.0.1",
   "scripts": {
-    "prebundle": "webpack ./index.js --output-filename bundle.js --target=node --mode=development",
-    "bundle": "node dist/bundle",
-    "index": "node index"
+    "prestart": "webpack ./index.js --output-filename bundle.js --target=node --mode=development",
+    "start": "node dist/bundle"
   },
   "dependencies": {
-    "cross-fetch": "github:lquixada/cross-fetch"
-  },
-  "devDependencies": {
-    "webpack": "4.38.0"
+    "cross-fetch": "*"
   }
 }
