@@ -8,12 +8,12 @@
   "react-native": "dist/react-native-ponyfill.js",
   "exports": {
     ".": {
-      "node": "./dist/node-ponyfill.js",
+      "require": "./dist/node-ponyfill.js",
       "browser": "./dist/browser-ponyfill.js",
       "default": "./dist/node-ponyfill.js"
     },
     "./polyfill": {
-      "node": "./dist/node-polyfill.js",
+      "require": "./dist/node-ponyfill.js",
       "browser": "./dist/browser-polyfill.js",
       "default": "./dist/node-polyfill.js"
     }
