@@ -10,12 +10,14 @@
     ".": {
       "require": "./dist/node-ponyfill.js",
       "browser": "./dist/browser-ponyfill.js",
-      "default": "./dist/node-ponyfill.js"
+      "default": "./dist/node-ponyfill.js",
+      "react-native": "./dist/react-native-ponyfill.js"
     },
     "./polyfill": {
       "require": "./dist/node-ponyfill.js",
       "browser": "./dist/browser-polyfill.js",
-      "default": "./dist/node-polyfill.js"
+      "default": "./dist/node-polyfill.js",
+      "react-native": "./dist/react-native-polyfill.js"
     }
   },
   "types": "index.d.ts",
