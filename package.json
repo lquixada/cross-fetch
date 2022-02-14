@@ -18,7 +18,8 @@
       "browser": "./dist/browser-polyfill.js",
       "default": "./dist/node-polyfill.js",
       "react-native": "./dist/react-native-polyfill.js"
-    }
+    },
+    "./package.json": "./package.json"
   },
   "types": "index.d.ts",
   "scripts": {
