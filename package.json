@@ -62,7 +62,7 @@
   },
   "dependencies": {
     "node-fetch": "^2.6.7",
-    "whatwg-fetch": "2.0.4"
+    "whatwg-fetch": "^2.0.4"
   },
   "devDependencies": {
     "chai": "4.2.0",
