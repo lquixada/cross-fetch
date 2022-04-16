@@ -11,6 +11,7 @@ jobs:
     # Setup .npmrc file to publish to npm
     - uses: actions/setup-node@v2
       with:
+        node-version: '10'
         registry-url: 'https://registry.npmjs.org'
     - uses: actions/cache@v2
       with:
@@ -29,6 +30,7 @@ jobs:
     # Setup .npmrc file to publish to GitHub Packages
     - uses: actions/setup-node@v2
       with:
+        node-version: '10'
         registry-url: 'https://npm.pkg.github.com'
     - uses: actions/cache@v2
       with:
