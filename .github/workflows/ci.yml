@@ -4,16 +4,20 @@ on:
   push:
     branches: [ main ]
     tags:
-    - '*'
-    # - v[0-9]+.[0-9]+.[0-9]+
+    - v[0-9]+.[0-9]+.[0-9]+
 
 jobs:
-  tagtest:
-    name: Tag Detection
+  # tagtest:
+  #   name: Tag Detection
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - uses: hmarr/debug-action@v2
+  debug:
     runs-on: ubuntu-latest
-    if: startsWith(github.event.ref, 'refs/tags/')
     steps:
-    - uses: hmarr/debug-action@v2
+    - uses: actions/checkout@v2
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v3
 
   install:
     name: Install
@@ -104,6 +108,6 @@ jobs:
 
   release:
     name: Release
-    if: contains(github.event.head_commit.message, 'chore(release)')
+    if: startsWith(github.event.ref, 'refs/tags/')
     needs: [test, lint, typecheck, security]
     uses: ./.github/workflows/release.yml
