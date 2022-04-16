@@ -1,4 +1,4 @@
-name: PR
+name: Pull Request
 
 on:
   pull_request_target:
