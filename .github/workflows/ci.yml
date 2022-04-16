@@ -81,9 +81,6 @@ jobs:
     name: Check security
     needs: [install]
     runs-on: ubuntu-latest
-    if: |
-      github.repository == 'lquixada/cross-fetch' &&
-      github.ref == 'refs/heads/main'
     steps:
     - uses: actions/checkout@v2
     - uses: actions/cache@v2
@@ -97,10 +94,7 @@ jobs:
 
   npm:
     name: Publish to NPM registry
-    if: |
-      github.repository == 'lquixada/cross-fetch' &&
-      github.ref == 'refs/heads/main' &&
-      contains(github.event.head_commit.message, 'chore(release)')
+    if: contains(github.event.head_commit.message, 'chore(release)')
     needs: [test, lint, typecheck, security]
     runs-on: ubuntu-latest
     steps:
@@ -121,10 +115,7 @@ jobs:
 
   github:
     name: Publish to Github registry
-    if: |
-      github.repository == 'lquixada/cross-fetch' &&
-      github.ref == 'refs/heads/main' &&
-      contains(github.event.head_commit.message, 'chore(release)')
+    if: contains(github.event.head_commit.message, 'chore(release)')
     needs: [test, lint, typecheck, security]
     runs-on: ubuntu-latest
     steps:
