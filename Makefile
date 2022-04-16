@@ -3,19 +3,17 @@ all: test lint typecheck
 node_modules: package.json
 	npm install && /usr/bin/touch node_modules
 
-build: build-dist build-test
-
-build-dist:
+build:
 	npx rollup -c
-
-build-test: test/fetch-api/api.spec.js
-	npx tsc
 
 browser:
 	./bin/server --exec "npx open-cli http://localhost:8000/test/fetch-api/browser/"
 
 commitlint: node_modules
 	npx commitlint --from origin/main --to HEAD --verbose
+
+compile: test/fetch-api/api.spec.ts
+	npx tsc
 
 cov:
 	npx nyc report --reporter=text-lcov > .reports/coverage.lcov && npx codecov
@@ -32,7 +30,7 @@ release-alpha:
 secure:
 	npx snyk test
 
-test: test-fetch test-module
+test: compile test-fetch test-module
 
 test-fetch: test-fetch-browser test-fetch-whatwg test-fetch-node
 
