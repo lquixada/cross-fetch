@@ -9,11 +9,11 @@ on:
 
 jobs:
   tagtest:
-    name: Tag Test
-    if: github.event_name == 'tag'
+    name: Tag Detection
     runs-on: ubuntu-latest
+    if: startsWith(github.event.ref, 'refs/tags/')
     steps:
-    - run: echo executed!
+    - uses: hmarr/debug-action@v2
 
   install:
     name: Install
