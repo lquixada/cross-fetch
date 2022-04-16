@@ -9,6 +9,9 @@ build:
 browser:
 	./bin/server --exec "npx open-cli http://localhost:8000/test/fetch-api/browser/"
 
+commit:
+	npx cz
+
 commitlint: node_modules
 	npx commitlint --from origin/main --to HEAD --verbose
 
