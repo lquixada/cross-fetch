@@ -62,21 +62,6 @@ jobs:
     - run: npm install --prefer-offline
     - run: make lint
 
-  commitlint:
-    name: Lint commits
-    needs: [install]
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    # The commitlint command needs the main branch available to work.
-    - run: git fetch origin main
-    - uses: actions/cache@v2
-      with:
-        path: ~/.npm # this is cache where npm installs from before going out to the network
-        key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
-    - run: npm install --prefer-offline
-    - run: make commitlint
-
   typecheck:
     name: Check types
     needs: [install]
@@ -116,7 +101,7 @@ jobs:
       github.repository == 'lquixada/cross-fetch' &&
       github.ref == 'refs/heads/main' &&
       contains(github.event.head_commit.message, 'chore(release)')
-    needs: [test, lint, commitlint, typecheck, security]
+    needs: [test, lint, typecheck, security]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -140,7 +125,7 @@ jobs:
       github.repository == 'lquixada/cross-fetch' &&
       github.ref == 'refs/heads/main' &&
       contains(github.event.head_commit.message, 'chore(release)')
-    needs: [test, lint, commitlint, typecheck, security]
+    needs: [test, lint, typecheck, security]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
