@@ -3,8 +3,18 @@ name: Main Branch
 on:
   push:
     branches: [ main ]
+    tags:
+    - '*'
+    # - v[0-9]+.[0-9]+.[0-9]+
 
 jobs:
+  tagtest:
+    name: Tag Test
+    if: github.event_name == 'tag'
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo executed!
+
   install:
     name: Install
     runs-on: ubuntu-latest
