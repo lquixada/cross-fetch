@@ -28,8 +28,10 @@ export default [
         var global = typeof self !== 'undefined' ? self : this;
         var __self__ = (function () {
           function F() {
-            this.fetch = false;
-            this.DOMException = global.DOMException
+            Object.defineProperties(this, {
+              fetch: { value: false, configurable: true, writable: true },
+              DOMException: { value: global.DOMException, configurable: true, writable: true },
+            });
           }
           F.prototype = global;
           return new F();
@@ -39,11 +41,11 @@ export default [
       `),
       footer: outdent(`
         })(__self__);
-
-        __self__.fetch.ponyfill = true;
-
-        // Remove "polyfill" property added by whatwg-fetch
-        delete __self__.fetch.polyfill;
+        try {
+          __self__.fetch.ponyfill = true;
+          // Remove "polyfill" property added by whatwg-fetch
+          delete __self__.fetch.polyfill;
+        } catch (_) {}
 
         // Choose between native implementation (global) or custom implementation (__self__)
         // var ctx = global.fetch ? global : __self__;
