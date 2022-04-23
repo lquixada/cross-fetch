@@ -12,14 +12,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-
     - name: Cache node_modules
       id: cacheModules
       uses: actions/cache@v2
       with:
         path: ~/.npm # this is cache where npm installs from before going out to the network
         key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
-
     - name: Install dependencies
       if: steps.cacheModules.outputs.cache-hit != 'true'
       run: npm install
@@ -43,11 +41,6 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
-    - name: Cache node_modules
-      uses: actions/cache@v2
-      with:
-        path: ~/.npm # this is cache where npm installs from before going out to the network
-        key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
     - run: npm install --prefer-offline
     - run: make test
 
