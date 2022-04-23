@@ -7,13 +7,13 @@ jobs:
     name: Publish to NPM registry
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     # Setup .npmrc file to publish to npm
-    - uses: actions/setup-node@v2
+    - uses: actions/setup-node@v3
       with:
         node-version: '10'
         registry-url: 'https://registry.npmjs.org'
-    - uses: actions/cache@v2
+    - uses: actions/cache@v3
       with:
         path: ~/.npm # this is cache where npm installs from before going out to the network
         key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
@@ -26,13 +26,13 @@ jobs:
     name: Publish to Github registry
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     # Setup .npmrc file to publish to GitHub Packages
-    - uses: actions/setup-node@v2
+    - uses: actions/setup-node@v3
       with:
         node-version: '10'
         registry-url: 'https://npm.pkg.github.com'
-    - uses: actions/cache@v2
+    - uses: actions/cache@v3
       with:
         path: ~/.npm # this is cache where npm installs from before going out to the network
         key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
