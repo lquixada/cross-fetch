@@ -168,3 +168,4 @@ cross-fetch is licensed under the [MIT license](https://github.com/lquixada/cros
 |:---:|
 |[@lquixada](http://www.github.com/lquixada)|
 this is a test
+this is a test
