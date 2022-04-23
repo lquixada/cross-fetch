@@ -22,53 +22,10 @@ jobs:
       if: steps.cacheModules.outputs.cache-hit != 'true'
       run: npm install
 
-  test:
-    name: Test specs
+  checks:
+    name: Checks
     needs: [install]
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        node-version: [10.x, 12.x, 14.x, 16.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-    steps:
-    - uses: actions/checkout@v3
-    - uses: actions/cache@v3
-      with:
-        path: ~/.npm # this is cache where npm installs from before going out to the network
-        key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-    - run: npm install --prefer-offline
-    - run: make test
-
-  lint:
-    name: Lint code
-    needs: [install]
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    - uses: actions/cache@v3
-      with:
-        path: ~/.npm # this is cache where npm installs from before going out to the network
-        key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
-    - run: npm install --prefer-offline
-    - run: make lint
-
-  typecheck:
-    name: Check types
-    needs: [install]
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    - uses: actions/cache@v3
-      with:
-        path: ~/.npm # this is cache where npm installs from before going out to the network
-        key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
-    - run: npm install --prefer-offline
-    - run: make typecheck
+    uses: ./.github/workflows/checks.yml
 
   # The security job can't run on pull requests opened from forks because
   # Github doesn't pass down the SNYK_TOKEN environment variable.
@@ -90,5 +47,5 @@ jobs:
   release:
     name: Release
     if: startsWith(github.event.ref, 'refs/tags/')
-    needs: [test, lint, typecheck, security]
+    needs: [checks, security]
     uses: ./.github/workflows/release.yml
