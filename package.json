@@ -14,7 +14,7 @@
       "react-native": "./dist/react-native-ponyfill.js"
     },
     "./polyfill": {
-      "require": "./dist/node-ponyfill.js",
+      "require": "./dist/node-polyfill.js",
       "browser": "./dist/browser-polyfill.js",
       "default": "./dist/node-polyfill.js",
       "react-native": "./dist/react-native-polyfill.js"
