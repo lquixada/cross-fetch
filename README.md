@@ -75,7 +75,7 @@ With [promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Referenc
 import fetch from 'cross-fetch';
 // Or just: import 'cross-fetch/polyfill';
 
-fetch('//api.github.com/users/lquixada')
+fetch('https://api.github.com/users/lquixada')
   .then(res => {
     if (res.status >= 400) {
       throw new Error("Bad response from server");
@@ -98,7 +98,7 @@ import fetch from 'cross-fetch';
 
 (async () => {
   try {
-    const res = await fetch('//api.github.com/users/lquixada');
+    const res = await fetch('https://api.github.com/users/lquixada');
     
     if (res.status >= 400) {
       throw new Error("Bad response from server");
