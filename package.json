@@ -71,6 +71,7 @@
   "devDependencies": {
     "@commitlint/cli": "17.6.1",
     "@commitlint/config-conventional": "17.6.1",
+    "@rollup/plugin-terser": "0.4.1",
     "@types/chai": "4.3.4",
     "@types/mocha": "10.0.1",
     "@types/node": "18.15.13",
@@ -90,7 +91,6 @@
     "rimraf": "5.0.0",
     "rollup": "3.20.7",
     "rollup-plugin-copy": "3.4.0",
-    "rollup-plugin-terser": "7.0.2",
     "semver": "7.5.0",
     "serve-index": "1.9.1",
     "standard": "17.0.0",
