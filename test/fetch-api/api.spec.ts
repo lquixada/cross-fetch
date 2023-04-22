@@ -563,7 +563,7 @@ function addFetchSuite () {
     })
 
     it('should set headers using array', () => {
-      const array = [['Content-Type', 'application/json'], ['Accept', 'application/json']]
+      const array:HeadersInit = [['Content-Type', 'application/json'], ['Accept', 'application/json']]
       const headers = new Headers(array)
       expect(headers.get('Content-Type')).to.equal('application/json')
       expect(headers.get('Accept')).to.equal('application/json')

@@ -4,7 +4,7 @@ node_modules: package.json
 	npm install && /usr/bin/touch node_modules
 
 build:
-	npx rollup -c
+	npx rollup -c --bundleConfigAsCjs
 
 browser:
 	./bin/server --exec "npx open-cli http://localhost:8000/test/fetch-api/browser/"
