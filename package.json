@@ -43,8 +43,8 @@
   },
   "mocha": {
     "require": [
-      "chai/register-expect",
-      "chai/register-assert"
+      "chai/register-expect.js",
+      "chai/register-assert.js"
     ],
     "check-leaks": true
   },
@@ -72,7 +72,7 @@
     "@commitlint/cli": "12.0.1",
     "@commitlint/config-conventional": "12.0.1",
     "@types/chai": "4.3.4",
-    "@types/mocha": "8.2.2",
+    "@types/mocha": "10.0.1",
     "@types/node": "14.14.37",
     "body-parser": "1.20.2",
     "chai": "4.3.7",
@@ -82,8 +82,8 @@
     "express": "4.18.2",
     "husky": "6.0.0",
     "lint-staged": "10.5.4",
-    "mocha": "8.3.2",
-    "mocha-headless-chrome": "3.1.0",
+    "mocha": "10.2.0",
+    "mocha-headless-chrome": "4.0.0",
     "nock": "13.3.0",
     "nyc": "15.1.0",
     "open-cli": "6.0.1",
