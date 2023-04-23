@@ -1,9 +1,10 @@
-require('../../../dist/node-polyfill')
 
-const addFetchSuite = require('../api.spec')
-const { addPolyfillSuite } = require('../../module-system/module.spec')
+if (global.fetch) {
+  const addFetchSuite = require('../api.spec')
 
-describe('Node:Fetch', () => {
-  addFetchSuite()
-  addPolyfillSuite({ fetch })
-})
+  describe('Node:Fetch:Native', () => {
+    addFetchSuite()
+  })
+} else {
+  console.log('Skipping tests as this Node version does not have a native fetch.')
+}
