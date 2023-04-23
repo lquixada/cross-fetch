@@ -46,6 +46,7 @@ test: compile test-fetch test-module
 test-fetch: \
 	test-fetch-browser-native \
 	test-fetch-browser-whatwg \
+	test-fetch-node-native \
 	test-fetch-node-fetch
 
 test-fetch-browser-native: build
@@ -58,10 +59,15 @@ test-fetch-browser-whatwg: build
 	@echo "=> make $@"
 	@./test/fetch-api/whatwg/run.sh
 
-test-fetch-node-fetch: build
+test-fetch-node-native: build
 	@echo ""
 	@echo "=> make $@"
 	@./test/fetch-api/node/run.sh
+
+test-fetch-node-fetch: build
+	@echo ""
+	@echo "=> make $@"
+	@./test/fetch-api/node-fetch/run.sh
 
 test-module: \
 	test-module-web-cjs \
@@ -100,4 +106,4 @@ typecheck:
 	@echo "=> make $@"
 	@npx tsc --lib ES6 --noEmit index.d.ts ./test/fetch-api/api.spec.ts
 
-.PHONY: all build deploy lint test test-fetch test-fetch-browser-native test-fetch-browser-whatwg test-fetch-node-fetch test-module test-module-web-cjs test-module-web-esm test-module-node-cjs test-module-node-esm test-module-react-native typecheck
+.PHONY: all build deploy lint test test-fetch test-fetch-browser-native test-fetch-browser-whatwg test-fetch-node-native test-fetch-node-fetch test-module test-module-web-cjs test-module-web-esm test-module-node-cjs test-module-node-esm test-module-react-native typecheck

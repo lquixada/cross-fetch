@@ -1,4 +1,4 @@
-import '../../setup.env'
+import '../../setup/browser.env'
 import defaultExport, * as namedExports from '../../..'
 import { addModuleSuite, addPonyfillSuite, addNativeSuite } from '../module.spec'
 
