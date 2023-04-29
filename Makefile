@@ -1,6 +1,3 @@
-##
-# Work flow
-
 .PHONY: all
 all: test lint typecheck
 
