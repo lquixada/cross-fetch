@@ -1,4 +1,3 @@
-require('../../setup/browser.env')
 const defaultExport = require('../../..')
 const namedExports = require('../../..')
 const { addModuleSuite, addPonyfillSuite, addNativeSuite } = require('../module.spec')

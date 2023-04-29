@@ -1,4 +1,3 @@
-require('../../setup/browser.env')
 require('../../../polyfill')
 const { addModuleSuite, addPolyfillSuite, addNativeSuite } = require('../module.spec')
 
