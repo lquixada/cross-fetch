@@ -1,8 +1,8 @@
 .reports
 *.log
 dist
-test.ponyfill.js
-test.polyfill.js
+ponyfill.bundle.js
+polyfill.bundle.js
 
 # OSX
 #

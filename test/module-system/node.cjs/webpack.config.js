@@ -6,7 +6,7 @@ module.exports = ['polyfill', 'ponyfill'].map(method => ({
   entry: [path.join(__dirname, '..', '..', 'setup', 'node.env.js'), path.join(__dirname, `${method}.js`)],
   output: {
     path: __dirname,
-    filename: `test.${method}.js`
+    filename: `${method}.bundle.js`
   },
   stats: 'none'
 }))

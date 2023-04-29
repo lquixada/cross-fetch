@@ -34,10 +34,10 @@
     ],
     "ignore": [
       "/dist/",
+      "api.spec.js",
       "bundle.js",
       "test.js",
-      "test.*.js",
-      "api.spec.js",
+      "*.bundle.js",
       "*.ts"
     ]
   },
