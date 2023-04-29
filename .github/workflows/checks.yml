@@ -3,8 +3,8 @@ name: Checks
 on: [workflow_call]
 
 jobs:
-  test:
-    name: Test specs
+  test-node:
+    name: Node Test Specs
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -22,7 +22,23 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm install --prefer-offline
-    - run: make test
+    - run: make test-node
+
+  test-browser:
+    name: Browser Test Specs
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/cache@v3
+      with:
+        path: ~/.npm # this is cache where npm installs from before going out to the network
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: npm install --prefer-offline
+    - run: make test-browser
 
   lint:
     name: Code Lint

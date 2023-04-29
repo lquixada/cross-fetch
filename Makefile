@@ -41,13 +41,26 @@ secure:
 	@echo "=> make $@"
 	@npx snyk test
 
-test: compile test-fetch test-module
+##
+# Test groups
 
-test-fetch: \
+test: compile test-browser test-node
+
+test-browser: \
 	test-fetch-browser-native \
 	test-fetch-browser-whatwg \
+	test-module-web-cjs \
+	test-module-web-esm \
+	test-module-react-native
+
+test-node: \
 	test-fetch-node-native \
-	test-fetch-node-fetch
+	test-fetch-node-fetch \
+	test-module-node-cjs \
+	test-module-node-esm
+
+##
+# Test units
 
 test-fetch-browser-native: build
 	@echo ""
@@ -68,13 +81,6 @@ test-fetch-node-fetch: build
 	@echo ""
 	@echo "=> make $@"
 	@./test/fetch-api/node-fetch/run.sh
-
-test-module: \
-	test-module-web-cjs \
-	test-module-web-esm \
-	test-module-node-cjs \
-	test-module-node-esm \
-	test-module-react-native
 
 test-module-web-cjs: build
 	@echo ""
@@ -106,4 +112,4 @@ typecheck:
 	@echo "=> make $@"
 	@npx tsc --lib ES6 --noEmit index.d.ts ./test/fetch-api/api.spec.ts
 
-.PHONY: all build deploy lint test test-fetch test-fetch-browser-native test-fetch-browser-whatwg test-fetch-node-native test-fetch-node-fetch test-module test-module-web-cjs test-module-web-esm test-module-node-cjs test-module-node-esm test-module-react-native typecheck
+.PHONY: all build deploy lint test test-fetch test-browser test-node test-fetch-browser-native test-fetch-browser-whatwg  test-fetch-node-native test-fetch-node-fetch test-module test-module-web-cjs test-module-web-esm test-module-node-cjs test-module-node-esm test-module-react-native typecheck
