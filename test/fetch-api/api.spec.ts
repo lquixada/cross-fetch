@@ -14,7 +14,7 @@ function addFetchSuite () {
     })
 
     it('should facilitate the making of requests', () => {
-      return fetch('http://localhost:8000/succeed')
+      return fetch('http://127.0.0.1:8000/succeed')
         .then(function (res: Response): Promise<string> {
           if (res.status >= 400) {
             throw new Error('Bad server response')
@@ -28,7 +28,7 @@ function addFetchSuite () {
     })
 
     it('should catch bad responses', () => {
-      return fetch('http://localhost:8000/fail')
+      return fetch('http://127.0.0.1:8000/fail')
         .then(function (res: Response): Promise<string> {
           if (res.status >= 400) {
             throw new Error('Bad server response')
@@ -42,7 +42,7 @@ function addFetchSuite () {
     })
 
     it('should resolve promise on 500 error', () => {
-      return fetch('http://localhost:8000/error')
+      return fetch('http://127.0.0.1:8000/error')
         .then(function (res: Response): Promise<string> {
           expect(res.status).to.equal(500)
           expect(res.ok).to.equal(false)
@@ -54,7 +54,7 @@ function addFetchSuite () {
     })
 
     it('should reject when Request constructor throws', () => {
-      return fetch('http://localhost:8000/succeed', { method: 'GET', body: 'invalid' })
+      return fetch('http://127.0.0.1:8000/succeed', { method: 'GET', body: 'invalid' })
         .then(function (): void {
           expect.fail('Invalid Request init was accepted')
         })
@@ -64,7 +64,7 @@ function addFetchSuite () {
     })
 
     it('should send headers', () => {
-      return fetch('http://localhost:8000/request', {
+      return fetch('http://127.0.0.1:8000/request', {
         headers: {
           Accept: 'application/json',
           'X-Test': '42'
@@ -80,7 +80,7 @@ function addFetchSuite () {
     })
 
     it('with Request as argument', () => {
-      const request = new Request('http://localhost:8000/request', {
+      const request = new Request('http://127.0.0.1:8000/request', {
         headers: {
           Accept: 'application/json',
           'X-Test': '42'
@@ -98,7 +98,7 @@ function addFetchSuite () {
     })
 
     it('should reuse same Request multiple times', () => {
-      const request = new Request('http://localhost:8000/request', {
+      const request = new Request('http://127.0.0.1:8000/request', {
         headers: {
           Accept: 'application/json',
           'X-Test': '42'
@@ -133,7 +133,7 @@ function addFetchSuite () {
     })
 
     it('should populate body', () => {
-      return fetch('http://localhost:8000/succeed')
+      return fetch('http://127.0.0.1:8000/succeed')
         .then(function (res: Response): Promise<string> {
           expect(res.status).to.equal(200)
           expect(res.ok).to.equal(true)
@@ -145,14 +145,14 @@ function addFetchSuite () {
     })
 
     it('should parse headers', () => {
-      return fetch('http://localhost:8000/request').then(function (res: Response) {
+      return fetch('http://127.0.0.1:8000/request').then(function (res: Response) {
         expect(res.headers.get('Date')).to.equal('Sat, 23 Sep 2017 15:41:16 GMT-0300')
         expect(res.headers.get('Content-Type')).to.equal('application/json; charset=utf-8')
       })
     })
 
     it('should support HTTP GET', () => {
-      return fetch('http://localhost:8000/request', {
+      return fetch('http://127.0.0.1:8000/request', {
         method: 'get'
       })
         .then(function (res: Response): Promise<any> {
@@ -183,7 +183,7 @@ function addFetchSuite () {
     })
 
     it('should support HTTP POST', () => {
-      return fetch('http://localhost:8000/request', {
+      return fetch('http://127.0.0.1:8000/request', {
         method: 'post',
         body: 'name=Hubot'
       })
@@ -197,7 +197,7 @@ function addFetchSuite () {
     })
 
     it('should support HTTP PUT', () => {
-      return fetch('http://localhost:8000/request', {
+      return fetch('http://127.0.0.1:8000/request', {
         method: 'put',
         body: 'name=Hubot'
       })
@@ -211,7 +211,7 @@ function addFetchSuite () {
     })
 
     it('should support HTTP PATCH', () => {
-      return fetch('http://localhost:8000/request', {
+      return fetch('http://127.0.0.1:8000/request', {
         method: 'PATCH',
         body: 'name=Hubot'
       })
@@ -225,7 +225,7 @@ function addFetchSuite () {
     })
 
     it('should support HTTP DELETE', () => {
-      return fetch('http://localhost:8000/request', {
+      return fetch('http://127.0.0.1:8000/request', {
         method: 'delete'
       })
         .then(function (res: Response): Promise<any> {
@@ -244,34 +244,34 @@ function addFetchSuite () {
     })
 
     it('should construct an url from string', () => {
-      const request = new Request('http://localhost:8000/')
-      expect(request.url).to.equal('http://localhost:8000/')
+      const request = new Request('http://127.0.0.1:8000/')
+      expect(request.url).to.equal('http://127.0.0.1:8000/')
     })
 
     it('should construct url from object', () => {
       const url = {
         toString: function (): string {
-          return 'http://localhost:8000/'
+          return 'http://127.0.0.1:8000/'
         }
       }
       const request = new Request(url as any)
-      expect(request.url).to.equal('http://localhost:8000/')
+      expect(request.url).to.equal('http://127.0.0.1:8000/')
     })
 
     it('should get GET as the default method', () => {
-      const request = new Request('http://localhost:8000/')
+      const request = new Request('http://127.0.0.1:8000/')
       expect(request.method).to.equal('GET')
     })
 
     it('should set a method', () => {
-      const request = new Request('http://localhost:8000/', {
+      const request = new Request('http://127.0.0.1:8000/', {
         method: 'post'
       })
       expect(request.method).to.equal('POST')
     })
 
     it('should set headers', () => {
-      const request = new Request('http://localhost:8000/', {
+      const request = new Request('http://127.0.0.1:8000/', {
         headers: {
           accept: 'application/json',
           'Content-Type': 'text/plain'
@@ -282,7 +282,7 @@ function addFetchSuite () {
     })
 
     it('should set a body', () => {
-      const request = new Request('http://localhost:8000/', {
+      const request = new Request('http://127.0.0.1:8000/', {
         method: 'post',
         body: 'Hello World!'
       })
@@ -292,7 +292,7 @@ function addFetchSuite () {
     })
 
     it.skip('construct with Request', () => {
-      const request1 = new Request('http://localhost:8000/', {
+      const request1 = new Request('http://127.0.0.1:8000/', {
         method: 'post',
         body: 'Hello World!',
         headers: {
@@ -305,7 +305,7 @@ function addFetchSuite () {
       return request2.text().then(function (data: string): Promise<void> {
         expect(data).to.equal('Hello World!')
         expect(request2.method).to.equal('POST')
-        expect(request2.url).to.equal('http://localhost:8000/')
+        expect(request2.url).to.equal('http://127.0.0.1:8000/')
         expect(request2.headers.get('accept')).to.equal('application/json')
         expect(request2.headers.get('content-type')).to.equal('text/plain')
 
@@ -321,7 +321,7 @@ function addFetchSuite () {
     })
 
     it('should construct a Request from another Request', () => {
-      const request1 = new Request('http://localhost:8000/', {
+      const request1 = new Request('http://127.0.0.1:8000/', {
         method: 'post',
         body: 'Hello World!',
         headers: {
@@ -339,7 +339,7 @@ function addFetchSuite () {
     })
 
     it('should construct with Request with overriden headers', () => {
-      const request1 = new Request('http://localhost:8000/', {
+      const request1 = new Request('http://127.0.0.1:8000/', {
         method: 'post',
         body: 'Hello World!',
         headers: {
@@ -357,7 +357,7 @@ function addFetchSuite () {
     })
 
     it('should construct with Request and override body', () => {
-      const request1 = new Request('http://localhost:8000/', {
+      const request1 = new Request('http://127.0.0.1:8000/', {
         method: 'post',
         body: 'Hello World!',
         headers: {
@@ -376,7 +376,7 @@ function addFetchSuite () {
     })
 
     it('construct with used Request body', () => {
-      const request1 = new Request('http://localhost:8000/', {
+      const request1 = new Request('http://127.0.0.1:8000/', {
         method: 'post',
         body: 'Hello World!'
       })
@@ -387,19 +387,19 @@ function addFetchSuite () {
     })
 
     it('should not have implicit Content-Type', () => {
-      const req = new Request('http://localhost:8000/')
+      const req = new Request('http://127.0.0.1:8000/')
       expect(req.headers.get('content-type')).to.equal(null)
     })
 
     it('POST with blank body should not have implicit Content-Type', () => {
-      const req = new Request('http://localhost:8000/', {
+      const req = new Request('http://127.0.0.1:8000/', {
         method: 'post'
       })
       expect(req.headers.get('content-type')).to.equal(null)
     })
 
     it('construct with string body sets Content-Type header', () => {
-      const req = new Request('http://localhost:8000/', {
+      const req = new Request('http://127.0.0.1:8000/', {
         method: 'post',
         body: 'Hello World!'
       })
@@ -407,7 +407,7 @@ function addFetchSuite () {
     })
 
     it('construct with body and explicit header uses header', () => {
-      const req = new Request('http://localhost:8000/', {
+      const req = new Request('http://127.0.0.1:8000/', {
         method: 'post',
         headers: { 'Content-Type': 'image/png' },
         body: 'Hello World!'
@@ -416,7 +416,7 @@ function addFetchSuite () {
     })
 
     it('construct with unsupported body type', () => {
-      const req = new Request('http://localhost:8000/', {
+      const req = new Request('http://127.0.0.1:8000/', {
         method: 'post',
         body: {} as any
       })
@@ -428,7 +428,7 @@ function addFetchSuite () {
     })
 
     it('construct with null body', () => {
-      const req = new Request('http://localhost:8000/', {
+      const req = new Request('http://127.0.0.1:8000/', {
         method: 'post'
       })
 
@@ -439,7 +439,7 @@ function addFetchSuite () {
     })
 
     it('should clone GET request', () => {
-      const req = new Request('http://localhost:8000/', {
+      const req = new Request('http://127.0.0.1:8000/', {
         headers: { 'content-type': 'text/plain' }
       })
       const clone = req.clone()
@@ -451,7 +451,7 @@ function addFetchSuite () {
     })
 
     it('should clone POST request', () => {
-      const req = new Request('http://localhost:8000/', {
+      const req = new Request('http://127.0.0.1:8000/', {
         method: 'post',
         headers: { 'content-type': 'text/plain' },
         body: 'Hello World!'
@@ -468,7 +468,7 @@ function addFetchSuite () {
     })
 
     it('clone with used Request body', () => {
-      const req = new Request('http://localhost:8000/', {
+      const req = new Request('http://127.0.0.1:8000/', {
         method: 'post',
         body: 'Hello World!'
       })

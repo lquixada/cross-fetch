@@ -22,6 +22,11 @@ app.delete('/request', processRequest)
 // This line needs to be at the end, otherwise it will block any method different than GET
 app.use(express.static(dir), serveIndex(dir, { icons: true, view: 'details' }))
 
+const ip = '127.0.0.1'
+const port = 8000
+const url = `http://${ip}:${port}/`
+const { argv } = yargs(process.argv.slice(2))
+
 function processRequest (req, res) {
   const headers = {}
   const isDelete = req.method === 'DELETE'
@@ -45,18 +50,14 @@ function processFileUrl (args) {
 
   if (fileParamIndex > 0) {
     const fileIndex = fileParamIndex + 1
-    args[fileIndex] = args[fileIndex].replace(/^\.\//, `http://localhost:${port}/`)
+    args[fileIndex] = args[fileIndex].replace(/^\.\//, url)
   }
 
   return args
 }
 
-const hostname = '127.0.0.1'
-const port = 8000
-const { argv } = yargs(process.argv.slice(2))
-
-const server = app.listen(port, hostname, () => {
-  console.log(`Test server listening at http://localhost:${port}`)
+const server = app.listen(port, ip, () => {
+  console.log(`Test server listening at ${url}`)
 
   if (argv.exec) {
     const args = processFileUrl(argv.exec.split(' '))

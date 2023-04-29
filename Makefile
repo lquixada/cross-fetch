@@ -3,7 +3,7 @@ all: test lint typecheck
 
 .PHONY: browser
 browser:
-	@./bin/server --exec "npx open-cli http://localhost:8000/test/fetch-api/browser/"
+	@./bin/server --exec "npx open-cli http://127.0.0.1:8000/test/fetch-api/browser/"
 
 .PHONY: commit
 commit:
