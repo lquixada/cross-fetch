@@ -27,8 +27,7 @@ release-alpha:
 node_modules: package.json
 	npm install && /usr/bin/touch node_modules
 
-.PHONY: build
-build:
+dist:
 	@echo ""
 	@echo "=> make $@"
 	@npx rollup -c --bundleConfigAsCjs
@@ -96,55 +95,55 @@ test-node: \
 # Test units
 
 .PHONY: test-fetch-browser-native
-test-fetch-browser-native: build
+test-fetch-browser-native: dist
 	@echo ""
 	@echo "=> make $@"
 	@./test/fetch-api/browser/run.sh
 
 .PHONY: test-fetch-browser-whatw
-test-fetch-browser-whatwg: build
+test-fetch-browser-whatwg: dist
 	@echo ""
 	@echo "=> make $@"
 	@./test/fetch-api/whatwg/run.sh
 
 .PHONY: test-fetch-node-native
-test-fetch-node-native: build
+test-fetch-node-native: dist
 	@echo ""
 	@echo "=> make $@"
 	@./test/fetch-api/node/run.sh
 
 .PHONY: test-fetch-node-fetch
-test-fetch-node-fetch: build
+test-fetch-node-fetch: dist
 	@echo ""
 	@echo "=> make $@"
 	@./test/fetch-api/node-fetch/run.sh
 
 .PHONY: test-module-web-cjs
-test-module-web-cjs: build
+test-module-web-cjs: dist
 	@echo ""
 	@echo "=> make $@"
 	@./test/module-system/web.cjs/run.sh
 
 .PHONY: test-module-web-esm
-test-module-web-esm: build
+test-module-web-esm: dist
 	@echo ""
 	@echo "=> make $@"
 	@./test/module-system/web.esm/run.sh
 
 .PHONY: test-module-node-cjs
-test-module-node-cjs: build
+test-module-node-cjs: dist
 	@echo ""
 	@echo "=> make $@"
 	@./test/module-system/node.cjs/run.sh
 
 .PHONY: test-module-node-esm
-test-module-node-esm: build
+test-module-node-esm: dist
 	@echo ""
 	@echo "=> make $@"
 	@./test/module-system/node.esm/run.sh
 
 .PHONY: test-module-react-native
-test-module-react-native: build
+test-module-react-native: dist
 	@echo ""
 	@echo "=> make $@"
 	@./test/module-system/react-native/run.sh

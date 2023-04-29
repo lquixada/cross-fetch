@@ -10,7 +10,7 @@
   "scripts": {
     "commit": "cz",
     "prepare": "husky install",
-    "prepublishOnly": "rimraf dist && make build"
+    "prepublishOnly": "rimraf dist && make dist"
   },
   "lint-staged": {
     "*.js": [
