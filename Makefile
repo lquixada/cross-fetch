@@ -32,8 +32,7 @@ dist:
 	@echo "=> make $@"
 	@npx rollup -c --bundleConfigAsCjs
 
-.PHONY: ts-compile
-ts-compile: test/fetch-api/api.spec.ts
+test/fetch-api/api.spec.js: test/fetch-api/api.spec.ts
 	@echo ""
 	@echo "=> make $@"
 	@npx tsc
@@ -73,7 +72,7 @@ typecheck:
 # Test groups
 
 .PHONY: test
-test: ts-compile test-browser test-node
+test: test-browser test-node
 
 .PHONY: test-browser
 test-browser: \
@@ -95,25 +94,25 @@ test-node: \
 # Test units
 
 .PHONY: test-fetch-browser-native
-test-fetch-browser-native: dist ts-compile
+test-fetch-browser-native: dist test/fetch-api/api.spec.js
 	@echo ""
 	@echo "=> make $@"
 	@./test/fetch-api/browser/run.sh
 
 .PHONY: test-fetch-browser-whatw
-test-fetch-browser-whatwg: dist ts-compile
+test-fetch-browser-whatwg: dist test/fetch-api/api.spec.js
 	@echo ""
 	@echo "=> make $@"
 	@./test/fetch-api/whatwg/run.sh
 
 .PHONY: test-fetch-node-native
-test-fetch-node-native: dist ts-compile
+test-fetch-node-native: dist test/fetch-api/api.spec.js
 	@echo ""
 	@echo "=> make $@"
 	@./test/fetch-api/node/run.sh
 
 .PHONY: test-fetch-node-fetch
-test-fetch-node-fetch: dist ts-compile
+test-fetch-node-fetch: dist test/fetch-api/api.spec.js
 	@echo ""
 	@echo "=> make $@"
 	@./test/fetch-api/node-fetch/run.sh
