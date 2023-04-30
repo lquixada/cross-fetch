@@ -24,10 +24,10 @@ release-alpha:
 node_modules: package.json
 	npm install && /usr/bin/touch node_modules
 
-dist:
+dist: package.json rollup.config.js $(wildcard src/*.js) node_modules
 	@echo ""
 	@echo "=> make $@"
-	@npx rollup -c --bundleConfigAsCjs
+	@npx rollup -c --bundleConfigAsCjs && /usr/bin/touch dist
 
 test/fetch-api/api.spec.js: test/fetch-api/api.spec.ts
 	@echo ""
