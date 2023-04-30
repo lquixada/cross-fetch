@@ -8,7 +8,7 @@ console.log = (...args) => logChannel.postMessage(args)
 
 importScripts('../../../node_modules/mocha/mocha.js')
 importScripts('../../../node_modules/chai/chai.js')
-importScripts('./sw-reporter.js')
+importScripts('./sw.reporter.js')
 
 importScripts('../api.spec.js')
 importScripts('../../module-system/module.spec.js')
