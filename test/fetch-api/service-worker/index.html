@@ -8,6 +8,11 @@
 <body>
   Please check console!
   <script>
+  const registration = navigator.serviceWorker.register('/test/fetch-api/service-worker/sw.bundle.js', {
+    scope: '/test/fetch-api/service-worker/'
+  })
+    .catch(err => console.error(`Registration failed with ${error}`));
+
   const logChannel = new BroadcastChannel('sw-logger');
   logChannel.addEventListener('message', event => {
     console.log(...event.data);
@@ -16,12 +21,12 @@
   const resChannel = new BroadcastChannel('sw-result');
   resChannel.addEventListener('message', event => {
     window.__mochaResult__ = JSON.parse(event.data);
-  });
 
-  navigator.serviceWorker.register('/test/fetch-api/service-worker/sw.bundle.js', {
-    scope: '/test/fetch-api/service-worker/'
-  })
-    .catch(err => console.error(`Registration failed with ${error}`));
+    // Avoids manually unregister to see output in the console
+    registration
+      .then(reg => reg.unregister())
+      .catch(err => console.error(`Unregistration failed with ${error}`));
+  });
   </script>
 </body>
 
