@@ -1,8 +1,7 @@
 .reports
 *.log
 dist
-ponyfill.bundle.js
-polyfill.bundle.js
+*.bundle.js
 
 # OSX
 #

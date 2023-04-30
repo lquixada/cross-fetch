@@ -24,13 +24,15 @@
   },
   "standard": {
     "env": [
+      "browser",
       "mocha",
-      "browser"
+      "serviceworker"
     ],
     "globals": [
       "expect",
       "assert",
-      "chai"
+      "chai",
+      "Mocha"
     ],
     "ignore": [
       "/dist/",
