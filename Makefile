@@ -96,7 +96,7 @@ test-fetch-browser-native: dist test/fetch-api/api.spec.js
 	@echo "=> make $@"
 	@./test/fetch-api/browser/run.sh
 
-.PHONY: test-fetch-browser-whatw
+.PHONY: test-fetch-browser-whatwg
 test-fetch-browser-whatwg: dist test/fetch-api/api.spec.js
 	@echo ""
 	@echo "=> make $@"
