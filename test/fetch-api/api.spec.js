@@ -13,7 +13,6 @@ function addFetchSuite() {
         it('should facilitate the making of requests', () => {
             return fetch('http://127.0.0.1:8000/succeed')
                 .then(function (res) {
-                console.log(2);
                 if (res.status >= 400) {
                     throw new Error('Bad server response');
                 }
