@@ -1,3 +1,2 @@
 #!/bin/sh
-browser="./node_modules/.bin/mocha-headless-chrome"
-./bin/server --exec "$browser -f $(dirname $0)/index.html?globals=on" --closeOnExec
+./bin/server --exec "npx mocha-headless-chrome -f $(dirname $0)/index.html?globals=on" --closeOnExec
