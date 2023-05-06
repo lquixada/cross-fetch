@@ -5,6 +5,10 @@ all: test lint typecheck
 browser:
 	@./bin/server --exec "npx open-cli http://127.0.0.1:8000/test/fetch-api/browser/"
 
+.PHONY: clean
+clean:
+	@rm -Rf node_modules dist
+
 .PHONY: commit
 commit:
 	npx cz
