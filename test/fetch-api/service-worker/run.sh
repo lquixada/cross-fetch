@@ -1,5 +1,6 @@
 #!/bin/sh
-browser="./node_modules/.bin/mocha-headless-chrome"
+
+. test/setup/server.sh
 
 npx webpack --config $(dirname "$0")/webpack.config.js &&
-./bin/server --exec "$browser -f $(dirname $0)/index.html" --closeOnExec
+npx mocha-headless-chrome -f http://127.0.0.1:8000/$(dirname $0)/index.html
