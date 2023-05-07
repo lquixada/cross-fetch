@@ -113,9 +113,6 @@ import fetch from 'cross-fetch';
 })();
 ```
 
-> ⚠️ **Warning**: If you're in an environment that doesn't support Promises such as Internet Explorer, you must install an ES6 Promise compatible polyfill. [es6-promise](https://github.com/jakearchibald/es6-promise) is suggested.
-
-
 ## Demo & API
 
 You can find a comprehensive doc at [Github's fetch](https://github.github.io/fetch/) page. If you want to play with cross-fetch, check our [**JSFiddle playground**](https://jsfiddle.net/lquixada/3ypqgacp/).
