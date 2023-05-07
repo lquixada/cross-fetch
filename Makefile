@@ -19,7 +19,7 @@ release-alpha:
 
 .PHONY: server
 server:
-	@./bin/server --exec "echo Fetch api test suites: http://127.0.0.1:8000/test/fetch-api/"
+	@./bin/server --silent --exec "echo Fetch api test suites: http://127.0.0.1:8000/test/fetch-api/"
 
 ##
 # Builds

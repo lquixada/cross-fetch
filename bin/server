@@ -57,7 +57,9 @@ function processFileUrl (args) {
 }
 
 const server = app.listen(port, ip, () => {
-  console.log(`Test server listening at ${url}`)
+  if (!argv.silent) {
+    console.log(`Test server listening at ${url}`)
+  }
 
   if (argv.exec) {
     const args = processFileUrl(argv.exec.split(' '))
