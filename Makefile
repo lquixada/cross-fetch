@@ -1,9 +1,3 @@
-define debug_list
-* Browser: http://127.0.0.1:8000/test/fetch-api/browser/
-* Service Worker: http://127.0.0.1:8000/test/fetch-api/service-worker/
-endef
-export debug_list
-
 .PHONY: all
 all: test lint typecheck
 
@@ -15,10 +9,6 @@ clean:
 commit:
 	npx cz
 
-.PHONY: debug
-debug:
-	@./bin/server --exec "echo $$debug_list"
-
 .PHONY: release
 release:
 	npx standard-version
@@ -27,6 +17,9 @@ release:
 release-alpha:
 	npx standard-version --prerelease alpha
 
+.PHONY: server
+server:
+	@./bin/server --exec "echo Fetch api test suites: http://127.0.0.1:8000/test/fetch-api/"
 
 ##
 # Builds

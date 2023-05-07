@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <link href="../../../node_modules/mocha/mocha.css" rel="stylesheet" />
+  <style>
+    .links li:before {
+      content: "•";
+      font-size: 10px;
+      padding: 0 10px;
+    }
+
+    .links a {
+      color: #89cff0;
+      font-size: 16px;
+      font-weight: 200;
+      text-decoration: none;
+    }
+
+    .links a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="mocha">
+    <h1>Fetch API Test Suites</h1>
+
+    <div class="suite">
+      <h1>Implementations</h1>
+
+      <ul class="links">
+        <li><a href="./browser/">browser</a></li>
+        <li><a href="./whatwg/">whatwg-fetch lib</a></li>
+        <li><a href="./service-worker/">service worker</a></li>
+      </ul>
+    </div>
+  </div>
+</body>
+
+</html>
