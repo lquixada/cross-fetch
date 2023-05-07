@@ -21,7 +21,7 @@ globalThis.Headers = Headers
 
 mocha.setup({
   ui: 'bdd',
-  reporter: null // SWReporter,
+  reporter: SWReporter
 })
 
 describe('Browser:Fetch:ServiceWorker', () => {
@@ -29,5 +29,4 @@ describe('Browser:Fetch:ServiceWorker', () => {
   addNativeSuite({ fetch })
 })
 
-addReporterEventListeners(mocha.run())
-// mocha.run()
+mocha.run()

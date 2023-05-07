@@ -3,66 +3,6 @@
  * See: https://github.com/direct-adv-interfaces/mocha-headless-chrome/blob/273d9b8bc7445ea1196b10ad0eaf0a8bce6cbd5f/lib/runner.js#L68
  */
 
-// eslint-disable-next-line no-unused-vars
-const addReporterEventListeners = (runResults) => {
-  const all = []
-  const passes = []
-  const failures = []
-  const pending = []
-
-  const error = (err) => {
-    if (!err) return {}
-
-    const res = {}
-    Object.getOwnPropertyNames(err).forEach((key) => (res[key] = err[key]))
-    return res
-  }
-
-  const clean = (test) => ({
-    title: test.title,
-    fullTitle: test.fullTitle(),
-    duration: test.duration,
-    err: error(test.err)
-  })
-
-  const getResult = (stats) => ({
-    result: {
-      stats: {
-        tests: all.length,
-        passes: passes.length,
-        pending: pending.length,
-        failures: failures.length,
-        start: stats.start.toISOString(),
-        end: stats.end.toISOString(),
-        duration: stats.duration
-      },
-      tests: all.map(clean),
-      pending: pending.map(clean),
-      failures: failures.map(clean),
-      passes: passes.map(clean)
-    }
-  })
-
-  runResults
-    .on('pass', (test) => {
-      passes.push(test)
-      all.push(test)
-    })
-    .on('fail', (test) => {
-      failures.push(test)
-      all.push(test)
-    })
-    .on('pending', (test) => {
-      pending.push(test)
-      all.push(test)
-    })
-    .on('end', () => {
-      const result = getResult(runResults.stats)
-      const channel = new BroadcastChannel('sw-result')
-      channel.postMessage(JSON.stringify(result))
-    })
-}
-
 const { Spec } = Mocha.reporters
 const {
   EVENT_RUN_END,
