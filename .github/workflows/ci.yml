@@ -2,7 +2,9 @@ name: Main Branch
 
 on:
   push:
-    branches: [ main ]
+    branches:
+    - main
+    - v[0-9]+.x
     tags:
     - v[0-9]+.[0-9]+.[0-9]+
 
