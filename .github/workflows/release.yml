@@ -25,6 +25,12 @@ jobs:
   github:
     name: Publish to Github registry
     runs-on: ubuntu-latest
+
+    # Gives GITHUB_TOKEN permission to publish packages
+    # More info: https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions
+    permissions:
+      packages: write
+
     steps:
     - uses: actions/checkout@v3
     # Setup .npmrc file to publish to GitHub Packages
