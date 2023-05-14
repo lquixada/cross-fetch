@@ -42,9 +42,3 @@ jobs:
     - run: make secure
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-
-  release:
-    name: Release
-    if: startsWith(github.event.ref, 'refs/tags/')
-    needs: [checks, security]
-    uses: ./.github/workflows/release.yml
