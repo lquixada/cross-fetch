@@ -1,3 +1,5 @@
+name: Checks
+
 on: [workflow_call]
 
 jobs:
