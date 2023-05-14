@@ -1,12 +1,9 @@
-name: Main Branch
+name: v3.x branch
 
 on:
   push:
     branches:
-    - main
-    - v[0-9]+.x
-    tags:
-    - v[0-9]+.[0-9]+.[0-9]+
+    - v3.x
 
 jobs:
   install:
