@@ -19,13 +19,19 @@ Universal WHATWG Fetch API for Node, Browsers and React Native. The scenario tha
 
 ## Table of Contents
 
--   [Install](#install)
--   [Usage](#usage)
--   [Demo & API](#demo--api)
--   [FAQ](#faq)
--   [Thanks](#thanks)
--   [License](#license)
--   [Author](#author)
+- [](#)
+  - [Table of Contents](#table-of-contents)
+  - [Install](#install)
+  - [Usage](#usage)
+  - [Demo \& API](#demo--api)
+  - [FAQ](#faq)
+      - [Yet another fetch library?](#yet-another-fetch-library)
+      - [Why polyfill might not be a good idea?](#why-polyfill-might-not-be-a-good-idea)
+      - [How does cross-fetch work?](#how-does-cross-fetch-work)
+  - [Who's Using It?](#whos-using-it)
+  - [Thanks](#thanks)
+  - [License](#license)
+  - [Author](#author)
 
 * * *
 
@@ -126,16 +132,9 @@ You can find a comprehensive doc at [Github's fetch](https://github.github.io/fe
 
 I did a lot of research in order to find a fetch library that could be simple, cross-platform and provide polyfill as an option. There's a plethora of libs out there but none could match those requirements.
 
-
-#### Why not isomorphic-fetch?
-
-My preferred library used to be [isomorphic-fetch](https://github.com/matthew-andrews/isomorphic-fetch) but it has this [bug](https://github.com/matthew-andrews/isomorphic-fetch/issues/125) that prevents it from running in a react native environment. It seems unlikely to be fixed since there haven't been any new commits to it since 2016. That means dependencies are outdated as well. 
-
-
 #### Why polyfill might not be a good idea?
 
 In a word? Risk. If the spec changes in the future, it might be problematic to debug. Read more about it on [sindresorhus's ponyfill](https://github.com/sindresorhus/ponyfill#how-are-ponyfills-better-than-polyfills) page. It's up to you if you're fine with it or not.
-
 
 #### How does cross-fetch work?
 
