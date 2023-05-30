@@ -425,14 +425,20 @@ function addFetchSuite() {
         it('should default to status 200 OK', () => {
             const res = new Response();
             expect(res.status).to.equal(200);
-            // expect(res.statusText).to.equal('OK')
             expect(res.ok).to.equal(true);
         });
         it('should default to status 200 OK when an explicit undefined status code is passed', () => {
             const res = new Response('', { status: undefined });
             expect(res.status).to.equal(200);
-            // expect(res.statusText).to.equal('OK')
             expect(res.ok).to.equal(true);
+        });
+        /**
+         * Implementation conflict!
+         */
+        it.skip('should have statusText as empty', () => {
+            const res = new Response();
+            expect(res.statusText).to.equal(''); // Pass on browser native, node native, node-fetch 3+, whatwg-fetch 3.1+
+            expect(res.statusText).to.equal('OK'); // Pass on node-fetch 2.6.9, whatwg-fetch 3.0 (thus, react native)
         });
         it('should create Headers object from raw headers', () => {
             const response = new Response('{"foo":"bar"}', {
@@ -530,18 +536,19 @@ function addFetchSuite() {
             const headers = new Headers({ Custom: undefined });
             expect(headers.get('Custom')).to.equal('undefined');
         });
-        // Breaking change: This tests fails on Node 18+
+        /**
+         * Implementation conflict!
+         */
         it.skip('should throw TypeError on invalid character in field name', () => {
-            /* eslint-disable no-new */
-            expect(function () { new Headers({ '<Accept>': 'application/json' }); }).to.throw();
-            expect(function () { new Headers({ 'Accept:': 'application/json' }); }).to.throw();
             expect(function () {
                 const headers = new Headers();
                 headers.set({ field: 'value' }, 'application/json');
             }).to.throw();
+            // The expects below don't pass on Node 18+ but pass in the others implementations
+            expect(function () { new Headers({ '<Accept>': 'application/json' }); }).to.throw();
+            expect(function () { new Headers({ 'Accept:': 'application/json' }); }).to.throw();
         });
         it('should not init an invalid header', () => {
-            /* eslint-disable no-new */
             expect(function () { new Headers({ Héy: 'ok' }); }).to.throw();
         });
         it('should not set an invalid header', () => {

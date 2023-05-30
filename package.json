@@ -24,13 +24,15 @@
   },
   "standard": {
     "env": [
+      "browser",
       "mocha",
-      "browser"
+      "serviceworker"
     ],
     "globals": [
       "expect",
       "assert",
-      "chai"
+      "chai",
+      "Mocha"
     ],
     "ignore": [
       "/dist/",
@@ -87,7 +89,6 @@
     "mocha-headless-chrome": "4.0.0",
     "nock": "13.3.0",
     "nyc": "15.1.0",
-    "open-cli": "7.2.0",
     "rimraf": "5.0.0",
     "rollup": "3.20.7",
     "rollup-plugin-copy": "3.4.0",

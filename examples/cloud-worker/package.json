@@ -1,5 +1,5 @@
 {
-  "name": "cloud-worker",
+  "name": "cloud-worker-fix",
   "version": "0.0.0",
   "devDependencies": {
     "wrangler": "2.19.0"

@@ -1,3 +1,3 @@
-name = "cloud-worker"
+name = "cloud-worker-fix"
 main = "src/index.js"
 compatibility_date = "2023-05-06"

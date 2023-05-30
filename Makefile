@@ -1,10 +1,6 @@
 .PHONY: all
 all: test lint typecheck
 
-.PHONY: browser
-browser:
-	@./bin/server --exec "npx open-cli http://127.0.0.1:8000/test/fetch-api/browser/"
-
 .PHONY: clean
 clean:
 	@rm -Rf node_modules dist
@@ -21,6 +17,9 @@ release:
 release-alpha:
 	npx standard-version --prerelease alpha
 
+.PHONY: server
+server:
+	@./bin/server --silent --exec "echo Fetch api test suites: http://127.0.0.1:8000/test/fetch-api/"
 
 ##
 # Builds
@@ -79,6 +78,7 @@ test: | test-browser test-node
 test-browser: |\
 	test-fetch-browser-native \
 	test-fetch-browser-whatwg \
+  test-fetch-browser-service-worker \
 	test-module-web-cjs \
 	test-module-web-esm \
 	test-module-react-native
@@ -105,6 +105,12 @@ test-fetch-browser-whatwg: | dist test/fetch-api/api.spec.js
 	@echo ""
 	@echo "=> make $@"
 	@./test/fetch-api/whatwg/run.sh
+
+.PHONY: test-fetch-browser-service-worker
+test-fetch-browser-service-worker: dist test/fetch-api/api.spec.js
+	@echo ""
+	@echo "=> make $@"
+	@./test/fetch-api/service-worker/run.sh
 
 .PHONY: test-fetch-node-native
 test-fetch-node-native: | dist test/fetch-api/api.spec.js
