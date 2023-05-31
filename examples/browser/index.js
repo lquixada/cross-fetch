@@ -1,4 +1,4 @@
-const fetch = require('cross-fetch')
+import fetch from 'cross-fetch'
 
 fetch('https://api.github.com/users/lquixada')
   .then(res => {
