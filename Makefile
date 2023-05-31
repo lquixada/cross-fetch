@@ -1,65 +1,155 @@
+.PHONY: all
 all: test lint typecheck
+
+.PHONY: clean
+clean:
+	@rm -Rf node_modules dist
+
+.PHONY: commit
+commit:
+	npx cz
+
+.PHONY: release
+release:
+	npx standard-version
+
+.PHONY: release-alpha
+release-alpha:
+	npx standard-version --prerelease alpha
+
+.PHONY: server
+server:
+	@./bin/server --silent --exec "echo Fetch api test suites: http://127.0.0.1:8000/test/fetch-api/"
+
+##
+# Builds
 
 node_modules: package.json
 	npm install && /usr/bin/touch node_modules
 
-build: build-dist build-test
+dist: package.json rollup.config.js $(wildcard src/*.js) node_modules
+	@echo ""
+	@echo "=> make $@"
+	@npx rollup -c --bundleConfigAsCjs && /usr/bin/touch dist
 
-build-dist:
-	npx rollup -c
+test/fetch-api/api.spec.js: test/fetch-api/api.spec.ts
+	@echo ""
+	@echo "=> make $@"
+	@npx tsc
 
-build-test: test/fetch/api.spec.js
-	npx tsc
 
+##
+# Checks
+
+.PHONY: commitlint
 commitlint: node_modules
 	npx commitlint --from origin/main --to HEAD --verbose
 
+.PHONY: cov
 cov:
 	npx nyc report --reporter=text-lcov > .reports/coverage.lcov && npx codecov
 
+.PHONY: lint
 lint:
-	npx standard
+	@echo ""
+	@echo "=> make $@"
+	@npx standard
 
-release:
-	npx standard-version
-
-release-alpha:
-	npx standard-version --prerelease alpha
-
+.PHONY: secure
 secure:
-	npx snyk test
+	@echo ""
+	@echo "=> make $@"
+	@npx snyk test
 
-test: test-fetch test-module
-
-test-fetch: test-fetch-browser test-fetch-whatwg test-fetch-node
-
-test-fetch-browser: build
-	./test/fetch/browser/run.sh
-
-test-fetch-whatwg: build
-	./test/fetch/whatwg/run.sh
-
-test-fetch-node: build
-	./test/fetch/node/run.sh
-
-test-module: test-module-web-cjs test-module-web-esm test-module-node-cjs test-module-node-esm test-module-react-native
-
-test-module-web-cjs: build
-	./test/module/web.cjs/run.sh
-
-test-module-web-esm: build
-	./test/module/web.esm/run.sh
-
-test-module-node-cjs: build
-	./test/module/node.cjs/run.sh
-
-test-module-node-esm: build
-	./test/module/node.esm/run.sh
-
-test-module-react-native: build
-	./test/module/react-native/run.sh
-
+.PHONY: typecheck
 typecheck:
-	npx tsc --lib ES6 --noEmit index.d.ts ./test/fetch/api.spec.ts
+	@echo ""
+	@echo "=> make $@"
+	@npx tsc --lib ES6 --noEmit index.d.ts ./test/fetch-api/api.spec.ts
 
-.PHONY: all build deploy lint test test-fetch test-fetch-browser test-fetch-whatwg test-fetch-node test-module test-module-web-cjs test-module-web-esm test-module-node-cjs test-module-node-esm test-module-react-native typecheck
+
+##
+# Test groups
+
+.PHONY: test
+test: | test-browser test-node
+
+.PHONY: test-browser
+test-browser: |\
+	test-fetch-browser-native \
+	test-fetch-browser-whatwg \
+  test-fetch-browser-service-worker \
+	test-module-web-cjs \
+	test-module-web-esm \
+	test-module-react-native
+
+.PHONY: test-node
+test-node: |\
+	test-fetch-node-native \
+	test-fetch-node-fetch \
+	test-module-node-cjs \
+	test-module-node-esm
+
+
+##
+# Test units
+
+.PHONY: test-fetch-browser-native
+test-fetch-browser-native: | dist test/fetch-api/api.spec.js
+	@echo ""
+	@echo "=> make $@"
+	@./test/fetch-api/browser/run.sh
+
+.PHONY: test-fetch-browser-whatwg
+test-fetch-browser-whatwg: | dist test/fetch-api/api.spec.js
+	@echo ""
+	@echo "=> make $@"
+	@./test/fetch-api/whatwg/run.sh
+
+.PHONY: test-fetch-browser-service-worker
+test-fetch-browser-service-worker: dist test/fetch-api/api.spec.js
+	@echo ""
+	@echo "=> make $@"
+	@./test/fetch-api/service-worker/run.sh
+
+.PHONY: test-fetch-node-native
+test-fetch-node-native: | dist test/fetch-api/api.spec.js
+	@echo ""
+	@echo "=> make $@"
+	@./test/fetch-api/node/run.sh
+
+.PHONY: test-fetch-node-fetch
+test-fetch-node-fetch: | dist test/fetch-api/api.spec.js
+	@echo ""
+	@echo "=> make $@"
+	@./test/fetch-api/node-fetch/run.sh
+
+.PHONY: test-module-web-cjs
+test-module-web-cjs: | dist
+	@echo ""
+	@echo "=> make $@"
+	@./test/module-system/web.cjs/run.sh
+
+.PHONY: test-module-web-esm
+test-module-web-esm: | dist
+	@echo ""
+	@echo "=> make $@"
+	@./test/module-system/web.esm/run.sh
+
+.PHONY: test-module-node-cjs
+test-module-node-cjs: | dist
+	@echo ""
+	@echo "=> make $@"
+	@./test/module-system/node.cjs/run.sh
+
+.PHONY: test-module-node-esm
+test-module-node-esm: | dist
+	@echo ""
+	@echo "=> make $@"
+	@./test/module-system/node.esm/run.sh
+
+.PHONY: test-module-react-native
+test-module-react-native: | dist
+	@echo ""
+	@echo "=> make $@"
+	@./test/module-system/react-native/run.sh

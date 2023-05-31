@@ -9,12 +9,12 @@ function describe (jsHandle) {
   const page = await browser.newPage()
 
   page.on('console', async msg => {
-    const args = await Promise.all(msg.args().map(arg => describe(arg)))
+    const args = await Promise.all(msg.args().map(describe))
     console.log(args)
   })
 
   await page.addScriptTag({
-    path: './bundle.js'
+    path: './dist/bundle.js'
   })
 
   // browser.close()

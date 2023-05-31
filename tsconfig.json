@@ -70,6 +70,6 @@
   },
   "files": [
     "./index.d.ts",
-    "./test/fetch/api.spec.ts"
+    "test/fetch-api/api.spec.ts"
   ]
 }

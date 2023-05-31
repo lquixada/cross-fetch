@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link href="../../../node_modules/mocha/mocha.css" rel="stylesheet" />
+</head>
+
+<body>
+  <div id="mocha"></div>
+
+  <script src="../../../node_modules/chai/chai.js"></script>
+  <script src="../../../node_modules/mocha/mocha.js"></script>
+
+  <script src="../../setup/browser.env.js"></script>
+  <script src="../../module-system/module.spec.js"></script>
+  <script src="./ponyfill.bundle.js"></script>
+
+  <script>
+  if (/globals=off/.test(location.search)) {
+    describe('Browser:Ponyfill:Import:Webpack', () => {
+      addModuleSuite(namedExports)
+      addPonyfillSuite({ ...namedExports, defaultExport })
+    })
+  } else {
+    describe('Browser:Native:Import:Webpack', () => {
+      addModuleSuite(namedExports)
+      addNativeSuite({ fetch })
+    })
+  }
+
+  mocha.checkLeaks()
+  mocha.run()
+  </script>
+</body>
+</html>
