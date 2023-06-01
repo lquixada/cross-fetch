@@ -1,4 +1,4 @@
-name: pull requests
+name: v3.x pull requests
 
 on:
   pull_request_target:
@@ -7,7 +7,7 @@ on:
       - edited
       - synchronize
     branches:
-      - main
+      - 'releases/v3.x'
 
 jobs:
   prlint:
