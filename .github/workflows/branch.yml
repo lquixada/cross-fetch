@@ -1,11 +1,9 @@
-name: Main Branch
+name: v3.x branch
 
 on:
   push:
     branches:
-    - v3.x
-    tags:
-    - v[0-9]+.[0-9]+.[0-9]+
+      - v3.x
 
 jobs:
   install:
@@ -44,9 +42,3 @@ jobs:
     - run: make secure
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-
-  release:
-    name: Release
-    if: startsWith(github.event.ref, 'refs/tags/')
-    needs: [checks, security]
-    uses: ./.github/workflows/release.yml

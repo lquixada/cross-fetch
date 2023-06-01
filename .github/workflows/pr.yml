@@ -1,4 +1,4 @@
-name: Pull Request
+name: v3.x pull requests
 
 on:
   pull_request_target:
@@ -6,6 +6,8 @@ on:
       - opened
       - edited
       - synchronize
+    branches:
+      - v3.x
 
 jobs:
   prlint:
