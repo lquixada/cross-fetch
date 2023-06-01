@@ -1,4 +1,4 @@
-name: 4.x pull requests
+name: v4.x pull requests
 
 on:
   pull_request_target:
