@@ -7,7 +7,6 @@ on:
     - edited
     - synchronize
     branches:
-    - main
     - v4.x
 
 jobs:

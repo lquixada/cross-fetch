@@ -1,9 +1,8 @@
-name: v4.x/main branch
+name: v4.x branch
 
 on:
   push:
     branches:
-    - main
     - v4.x
 
 jobs:
