@@ -1,9 +1,10 @@
-name: v3.x branch
+name: main branch
 
 on:
   push:
     branches:
-      - 'releases/v3.x'
+    - main
+    - v4.x
 
 jobs:
   install:
@@ -24,7 +25,7 @@ jobs:
   checks:
     name: Check
     needs: [install]
-    uses: ./.github/workflows/v4.x/checks.yml
+    uses: ./.github/workflows/checks.yml
 
   # The security job can't run on pull requests opened from forks because
   # Github doesn't pass down the SNYK_TOKEN environment variable.

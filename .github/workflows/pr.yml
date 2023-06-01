@@ -3,11 +3,12 @@ name: pull requests
 on:
   pull_request_target:
     types:
-      - opened
-      - edited
-      - synchronize
+    - opened
+    - edited
+    - synchronize
     branches:
-      - main
+    - main
+    - v4.x
 
 jobs:
   prlint:
