@@ -1,4 +1,4 @@
-name: main branch
+name: v4.x/main branch
 
 on:
   push:
