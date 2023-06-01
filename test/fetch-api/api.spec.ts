@@ -10,6 +10,7 @@ declare var expect: Chai.ExpectStatic;
 function addFetchSuite () {
   describe('fetch', () => {
     it('should be defined', () => {
+      console.log('test')
       expect(fetch).to.be.a('function')
     })
 
