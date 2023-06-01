@@ -1,4 +1,4 @@
-name: v3.x release
+name: v3.x releases
 
 on:
   push:

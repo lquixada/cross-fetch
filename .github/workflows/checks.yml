@@ -1,4 +1,4 @@
-name: checks
+name: v3.x checks
 
 on: [workflow_call]
 
