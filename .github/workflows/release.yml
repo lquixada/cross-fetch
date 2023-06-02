@@ -60,7 +60,7 @@ jobs:
         path: ~/.npm # this is cache where npm installs from before going out to the network
         key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
     - run: npm install --prefer-offline
-    - run: npm publish --tag latest
+    - run: npm publish --tag latest-v4.x
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
@@ -82,6 +82,6 @@ jobs:
     - run: npm install --prefer-offline
     # The package name needs to be scoped in order to publish on Github Registry
     - run: sed -i 's/"cross-fetch"/"@lquixada\/cross-fetch"/g' package.json
-    - run: npm publish --tag latest
+    - run: npm publish --tag latest-v4.x
       env:
         NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
