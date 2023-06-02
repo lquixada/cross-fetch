@@ -1,0 +1,17 @@
+#!/usr/bin/env node
+const semver = require('semver')
+
+const args = process.argv.slice(2)
+
+if (!args[0] || !args[1]) {
+  console.log(`Invalid version(s): ${args[0]} or ${args[1]}`)
+  process.exit(1)
+}
+
+if (semver.major(args[0]) === semver.major(args[1])) {
+  console.log(`Same major? yes (${args[0]} and ${args[1]})`)
+  // process.exit(0) // disable for testing
+} else {
+  console.log(`Same major? no (${args[0]} and ${args[1]})`)
+  // process.exit(1) // disable for testing
+}

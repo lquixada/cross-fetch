@@ -17,6 +17,10 @@ release:
 release-alpha:
 	npx standard-version --prerelease alpha
 
+.PHONY: same-major
+same-major:
+	@./bin/same-major $(npm view cross-fetch@latest version) ${GITHUB_REF_NAME}
+
 .PHONY: server
 server:
 	@./bin/server --silent --exec "echo Fetch api test suites: http://127.0.0.1:8000/test/fetch-api/"

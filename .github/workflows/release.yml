@@ -64,7 +64,7 @@ jobs:
 
     # Temporary for debugging purposes
     - uses: hmarr/debug-action@v2
-    - run: echo '${{ github.ref_name }}'
+    - run: make same-major
 
     - run: npm publish --tag latest-v4.x
       env:
