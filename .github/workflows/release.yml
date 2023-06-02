@@ -61,11 +61,7 @@ jobs:
         path: ~/.npm # this is cache where npm installs from before going out to the network
         key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
     - run: npm install --prefer-offline
-
-    # Temporary for debugging purposes
-    - uses: hmarr/debug-action@v2
     - run: make same-major
-
     - run: npm publish --tag latest-v4.x
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
