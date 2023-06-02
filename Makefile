@@ -19,7 +19,11 @@ release-alpha:
 
 .PHONY: same-major
 same-major:
-	@./bin/same-major $(npm view cross-fetch@latest version) ${GITHUB_REF_NAME}
+	env | sort
+	echo $GITHUB_REF_NAME
+	echo ${GITHUB_REF_NAME}
+	npm view cross-fetch@latest version
+#	@./bin/same-major $(npm view cross-fetch@latest version) ${GITHUB_REF_NAME}
 
 .PHONY: server
 server:
