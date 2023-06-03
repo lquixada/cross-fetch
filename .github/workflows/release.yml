@@ -17,7 +17,7 @@ jobs:
       id: cacheModules
       uses: actions/cache@v3
       with:
-        path: ~/.npm # this is cache where npm installs from before going out to the network
+        path: ~/.npm # cache where "npm install" uses before going out to the network
         key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
     - name: Install dependencies
       if: steps.cacheModules.outputs.cache-hit != 'true'
@@ -38,7 +38,7 @@ jobs:
     - uses: actions/checkout@v3
     - uses: actions/cache@v3
       with:
-        path: ~/.npm # this is cache where npm installs from before going out to the network
+        path: ~/.npm # cache where "npm install" uses before going out to the network
         key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
     - run: npm install --prefer-offline
     - run: make secure
