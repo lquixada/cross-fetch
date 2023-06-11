@@ -6,10 +6,8 @@ on:
     - 'v3.[0-9]+.[0-9]+'
     - 'v3.[0-9]+.[0-9]+-alpha.[0-9]+'
     - 'v3.[0-9]+.[0-9]+-beta.[0-9]+'
-    # The "test" prerelease version is an attempt to validate changes on the
-    # release workflow without impacting the main tags (latest and latest-v*)
-    # For example, if an issue happens in the release jobs, we can debug it
-    # by releasing as many v3.2.0-test.X versions as we need.
+    # The "test" prerelease version exist solely to validate changes on the
+    # release workflow. This is intended to be published
     - 'v3.[0-9]+.[0-9]+-test.[0-9]+'
 
 jobs:
@@ -43,7 +41,8 @@ jobs:
     - uses: actions/checkout@v3
     - uses: actions/cache@v3
       with:
-        path: ~/.npm # this is cache where npm installs from before going out to the network
+        # This is cache where npm installs from before going out to the network
+        path: ~/.npm
         key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
     - run: npm install --prefer-offline
     - run: make secure
@@ -63,14 +62,16 @@ jobs:
         registry-url: 'https://registry.npmjs.org'
     - uses: actions/cache@v3
       with:
-        path: ~/.npm # this is cache where npm installs from before going out to the network
+        # This is cache where npm installs from before going out to the network
+        path: ~/.npm
         key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
     - run: npm install --prefer-offline
     - run: npm publish --tag latest-v3.x
       if: ${{ !contains(github.ref_name, '-test.') }}
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-    - run: npm publish --tag test-v3.x
+    # If "test" prerelease is present, pretend to publish package.
+    - run: npm publish --tag latest-v3.x --dry-run
       if: ${{ contains(github.ref_name, '-test.') }}
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
