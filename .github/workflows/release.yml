@@ -6,6 +6,11 @@ on:
     - 'v4.[0-9]+.[0-9]+'
     - 'v4.[0-9]+.[0-9]+-alpha.[0-9]+'
     - 'v4.[0-9]+.[0-9]+-beta.[0-9]+'
+    # The "test" prerelease version is an attempt to validate changes on the
+    # release workflow without impacting the main tags (latest and latest-v*)
+    # For example, if an issue happens in the release jobs, we can debug it
+    # by releasing as many v4.2.0-test.X versions as we need.
+    - 'v4.[0-9]+.[0-9]+-test.[0-9]+'
 
 jobs:
   install:
@@ -61,8 +66,12 @@ jobs:
         path: ~/.npm # this is cache where npm installs from before going out to the network
         key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
     - run: npm install --prefer-offline
-    - run: make same-major
     - run: npm publish --tag latest-v4.x
+      if: ${{ !contains( github.ref_name, '-test.' ) }}
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+    - run: npm publish --tag test-v4.x
+      if: ${{ contains( github.ref_name, '-test.' ) }}
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
