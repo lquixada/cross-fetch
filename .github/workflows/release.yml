@@ -64,12 +64,12 @@ jobs:
         path: ~/.npm # this is cache where npm installs from before going out to the network
         key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
     - run: npm install --prefer-offline
-    - run: npm publish --tag latest-v4.x
-      if: ${{ !contains(github.ref_name, '-test.') }}
+    - if: ${{ !contains(github.ref_name, '-test.') }}
+      run: npm publish --tag latest-v4.x
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
     # If "test" prerelease is present, pretend to publish package.
-    - run: npm publish --tag latest-v4.x --dry-run
-      if: ${{ contains(github.ref_name, '-test.') }}
+    - if: ${{ contains(github.ref_name, '-test.') }}
+      run: npm publish --tag latest-v4.x --dry-run
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
