@@ -10,6 +10,12 @@ on:
       - v3.x
 
 jobs:
+  debug:
+    name: Debug
+    runs-on: ubuntu-latest
+    steps:
+    - uses: hmarr/debug-action@v2
+
   prlint:
     name: Validate PR title
     runs-on: ubuntu-latest
