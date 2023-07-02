@@ -21,6 +21,12 @@ jobs:
       if: steps.cacheModules.outputs.cache-hit != 'true'
       run: npm install
 
+  debug:
+    name: Debug
+    runs-on: ubuntu-latest
+    steps:
+    - uses: hmarr/debug-action@v2
+
   checks:
     name: Check
     needs: [install]
