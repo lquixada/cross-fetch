@@ -40,6 +40,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - run: ls
+    - uses: actions/checkout@v3
+    - run: ls
     - uses: actions/cache@v3
       with:
         path: ~/.npm # this is cache where npm installs from before going out to the network
