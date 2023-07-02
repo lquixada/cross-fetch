@@ -55,23 +55,16 @@ jobs:
     needs: [checks, security]
     steps:
     - uses: actions/checkout@v3
-    # Setup .npmrc file to publish to npm
     - uses: actions/setup-node@v3
       with:
         node-version: '10'
+        # Setup .npmrc file to publish to npm
         registry-url: 'https://registry.npmjs.org'
     - uses: actions/cache@v3
       with:
-        # This is cache where npm installs from before going out to the network
-        path: ~/.npm
+        path: ~/.npm # this is cache where npm installs from before going out to the network
         key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
     - run: npm install --prefer-offline
-    - if: ${{ !contains(github.ref_name, '-test.') }}
-      run: npm publish --tag latest-v3.x
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-    # If "test" prerelease is present, pretend to publish package.
-    - if: ${{ contains(github.ref_name, '-test.') }}
-      run: npm publish --tag latest-v3.x --dry-run
+    - run: ./release
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
