@@ -1,19 +1,19 @@
 #!/bin/bash -xv
 
- # Removes "v" prefix
-version=${GITHUB_REF_NAME:1}
-
-# Major of the version being handled by the current workflow
-workflow_major=$(echo $version | cut -d. -f1)
-
+# Get the git tag that triggered the workflow build
+workflow_version=${GITHUB_REF_NAME:1} # Removed the "v" prefix
+# Get version major being handled by the current workflow
+workflow_major=$(echo $workflow_version | cut -d. -f1)
 workflow_track="latest-v${workflow_major}.x"
 
-# Major of the version published under the current "latest" npm tag
-latest_major=$(npm view cross-fetch@latest version | cut -d. -f1)
+# Get latest version on npm registry
+latest_version=$(npm view cross-fetch@latest version)
+# Get version major published under the current "latest" npm tag
+latest_major=$(echo $latest_version | cut -d. -f1)
 
 
-# If it's test prerelease, we just want to test the release workflow (dry run it!)
-if [[ "$version" == *"-test."* ]]; then
+# If it's a test prerelease, we just want to test the release workflow (dry run it!)
+if [[ "$workflow_version" == *"-test."* ]]; then
   npm publish --tag $workflow_track --dry-run && \
   exit 0
 fi
@@ -21,9 +21,9 @@ fi
 npm publish --tag $workflow_track
 
 if [[ "$workflow_major" == "$latest_major" ]]; then
-  npm dist-tag add cross-fetch@$version latest
+  npm dist-tag add cross-fetch@$workflow_version latest
 fi
 
 if [[ "$workflow_major" == "$(($latest_major + 1))" ]]; then
-  npm dist-tag add cross-fetch@$version next
+  npm dist-tag add cross-fetch@$workflow_version next
 fi
