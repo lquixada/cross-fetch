@@ -4,9 +4,9 @@
 version=${GITHUB_REF_NAME:1}
 
 # Major of the version being handled by the current workflow
-workflow_major=$(version | cut -d. -f1)
+workflow_major=$(echo $version | cut -d. -f1)
 
-workflow_track=latest-v${workflow_major}.x
+workflow_track="latest-v${workflow_major}.x"
 
 # Major of the version published under the current "latest" npm tag
 latest_major=$(npm view cross-fetch@latest version | cut -d. -f1)
