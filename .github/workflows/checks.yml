@@ -52,26 +52,10 @@ jobs:
     - run: npm install --prefer-offline
     - run: make lint
 
-  major:
-    runs-on: ubuntu-latest
-    outputs:
-      latest: ${{ steps.npm-major.outputs.version }}
-    steps:
-      - id: npm-major
-        run: echo version=$(npm view cross-fetch@latest version | cut -d. -f1) >> "$GITHUB_OUTPUT"
-
   typecheck:
     name: Types
     runs-on: ubuntu-latest
-    needs: [major]
     steps:
-    - run: echo "$LATEST"
-      env:
-        LATEST: ${{needs.major.outputs.latest}}
-    - if: needs.major.outputs.latest == 3
-      run: echo 3
-    - if: needs.major.outputs.latest != 3
-      run: echo not 3
     - uses: actions/checkout@v3
     - uses: actions/cache@v3
       with:
