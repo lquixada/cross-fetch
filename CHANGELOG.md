@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.1.8](https://github.com/lquixada/cross-fetch/compare/v3.1.7...v3.1.8) (2023-07-02)
+
+
+### Bug Fixes
+
+* restored caret on node-fetch version ([6669927](https://github.com/lquixada/cross-fetch/commit/666992742ef7cbc9a405189f05e0bea4ebbe11fa))
+
 ### [3.1.7](https://github.com/lquixada/cross-fetch/compare/v3.1.7-test.1...v3.1.7) (2023-07-01)
 
 ### [3.1.6](https://github.com/lquixada/cross-fetch/compare/v3.1.5...v3.1.6) (2023-05-14)
