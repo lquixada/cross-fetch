@@ -5,8 +5,8 @@ version=${GITHUB_REF_NAME:1} # Removes "v" prefix
 # If it's test prerelease, we just want to test the release workflow (dry run it!)
 if [[ "$version" == *"-test."* ]]
 then
-  npm publish cross-fetch@$version --tag latest-v4.x --dry-run
+  npm publish cross-fetch --tag latest-v4.x --dry-run
 else
-  npm publish cross-fetch@$version --tag latest-v4.x
+  npm publish cross-fetch --tag latest-v4.x
   npm dist-tag add cross-fetch@$version next
 fi
