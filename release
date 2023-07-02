@@ -1,4 +1,4 @@
-#!/usr/bin/env sh -x
+#!/bin/bash -xv
 
 version=${GITHUB_REF_NAME:1} # Removes "v" prefix
 
