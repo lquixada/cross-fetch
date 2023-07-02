@@ -18,12 +18,12 @@ if [[ "$version" == *"-test."* ]]; then
   exit 0
 fi
 
-echo npm publish --tag $workflow_track
+npm publish --tag $workflow_track
 
 if [[ "$workflow_major" == "$latest_major" ]]; then
-  echo npm dist-tag add cross-fetch@$version latest
+  npm dist-tag add cross-fetch@$version latest
 fi
 
 if [[ "$workflow_major" == "$(($latest_major + 1))" ]]; then
-  echo npm dist-tag add cross-fetch@$version next
+  npm dist-tag add cross-fetch@$version next
 fi
