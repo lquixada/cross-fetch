@@ -3,7 +3,7 @@
 # Get the git tag that triggered the workflow build
 workflow_version=${GITHUB_REF_NAME:1} # Removed the "v" prefix
 # Get version major being handled by the current workflow
-workflow_major=$(echo $version | cut -d. -f1)
+workflow_major=$(echo $workflow_version | cut -d. -f1)
 workflow_track="latest-v${workflow_major}.x"
 
 # Get latest version on npm registry
