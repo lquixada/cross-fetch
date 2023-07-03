@@ -20,19 +20,18 @@ Universal WHATWG Fetch API for Node, Browsers, Workers and React Native. The sce
 
 ## Table of Contents
 
-- [](#)
-  - [Table of Contents](#table-of-contents)
-  - [Install](#install)
-  - [Usage](#usage)
-  - [Demo \& API](#demo--api)
-  - [FAQ](#faq)
-      - [Yet another fetch library?](#yet-another-fetch-library)
-      - [Why polyfill might not be a good idea?](#why-polyfill-might-not-be-a-good-idea)
-      - [How does cross-fetch work?](#how-does-cross-fetch-work)
-  - [Who's Using It?](#whos-using-it)
-  - [Thanks](#thanks)
-  - [License](#license)
-  - [Author](#author)
+- [Table of Contents](#table-of-contents)
+- [Install](#install)
+- [Usage](#usage)
+- [Demo \& API](#demo--api)
+- [FAQ](#faq)
+    - [Yet another fetch library?](#yet-another-fetch-library)
+    - [Why polyfill might not be a good idea?](#why-polyfill-might-not-be-a-good-idea)
+    - [How does cross-fetch work?](#how-does-cross-fetch-work)
+- [Who's Using It?](#whos-using-it)
+- [Thanks](#thanks)
+- [License](#license)
+- [Author](#author)
 
 * * *
 
@@ -42,7 +41,7 @@ Universal WHATWG Fetch API for Node, Browsers, Workers and React Native. The sce
 npm install --save cross-fetch
 ```
 
-As a [ponyfill](https://github.com/sindresorhus/ponyfill):
+As a [ponyfill](https://github.com/sindresorhus/ponyfill) (imports locally):
 
 ```javascript
 // Using ES6 modules with Babel or TypeScript
@@ -52,7 +51,7 @@ import fetch from 'cross-fetch';
 const fetch = require('cross-fetch');
 ```
 
-As a polyfill:
+As a polyfill (installs globally):
 
 ```javascript
 // Using ES6 modules
