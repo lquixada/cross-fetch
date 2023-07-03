@@ -12,7 +12,7 @@ latest_version=$(npm view cross-fetch@latest version)
 latest_major=$(echo $latest_version | cut -d. -f1)
 
 
-# If it's a test prerelease, we just want to test the release workflow (dry run it!)
+# If this has been triggered by a "vX.x-test" branch, we just want to test the release workflow (dry run it!)
 if [[ "$workflow_version" == *"-test"* ]]; then
   npm publish --tag $workflow_track --dry-run && \
   exit 0
