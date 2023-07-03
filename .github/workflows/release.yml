@@ -72,6 +72,6 @@ jobs:
         path: ~/.npm # this is cache where npm installs from before going out to the network
         key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
     - run: npm install --prefer-offline
-    - run: ./release
+    - run: ./bin/release
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
