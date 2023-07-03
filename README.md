@@ -6,13 +6,14 @@ cross-fetch<br>
 [![codecov](https://codecov.io/gh/lquixada/cross-fetch/branch/main/graph/badge.svg)](https://codecov.io/gh/lquixada/cross-fetch)
 ================
 
-Universal WHATWG Fetch API for Node, Browsers and React Native. The scenario that cross-fetch really shines is when the same JavaScript codebase needs to run on different platforms.
+Universal WHATWG Fetch API for Node, Browsers, Workers and React Native. The scenario that cross-fetch really shines is when the same JavaScript codebase needs to run on different platforms.
 
 - **Platform agnostic**: browsers, Node or React Native
 - **Optional polyfill**: it's up to you if something is going to be added to the global object or not
 - **Simple interface**: no instantiation, no configuration and no extra dependency
 - **WHATWG compliant**: it works the same way wherever your code runs
 - **TypeScript support**: better development experience with types.
+- **Worker support**: works on different types of workers such as Service Workers and CloudFlare Workers
 
 
 * * *
