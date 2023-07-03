@@ -68,7 +68,7 @@
     "url": "https://github.com/lquixada/cross-fetch/issues"
   },
   "dependencies": {
-    "node-fetch": "2.6.12"
+    "node-fetch": "^2.6.12"
   },
   "devDependencies": {
     "@commitlint/cli": "17.6.1",
