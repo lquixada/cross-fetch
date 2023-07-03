@@ -13,7 +13,7 @@ latest_major=$(echo $latest_version | cut -d. -f1)
 
 
 # If it's a test prerelease, we just want to test the release workflow (dry run it!)
-if [[ "$workflow_version" == *"-test."* ]]; then
+if [[ "$workflow_version" == *"-test"* ]]; then
   npm publish --tag $workflow_track --dry-run && \
   exit 0
 fi
