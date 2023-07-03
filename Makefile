@@ -10,7 +10,7 @@ commit:
 	npx cz
 
 .PHONY: publish
-release:
+publish:
 	@./bin/publish
 
 .PHONY: release
