@@ -2,13 +2,14 @@ name: v3.x releases
 
 on:
   push:
+    branches:
+    # Pushes to the branch below will test the release workflow without
+    # publishing version on npm or generating new git tags
+    - v3.x-test
     tags:
     - 'v3.[0-9]+.[0-9]+'
     - 'v3.[0-9]+.[0-9]+-alpha.[0-9]+'
     - 'v3.[0-9]+.[0-9]+-beta.[0-9]+'
-    # The "test" prerelease version exist solely to validate changes on the
-    # release workflow. This is intended to be published
-    - 'v3.[0-9]+.[0-9]+-test.[0-9]+'
 
 jobs:
   debug:
