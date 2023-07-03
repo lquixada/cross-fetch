@@ -13,12 +13,12 @@ commit:
 publish:
 	@./bin/publish
 
-.PHONY: release
-release:
+.PHONY: version
+version:
 	npx standard-version
 
-.PHONY: release-alpha
-release-alpha:
+.PHONY: version-alpha
+version-alpha:
 	npx standard-version --prerelease alpha
 
 .PHONY: server
