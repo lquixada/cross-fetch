@@ -1,4 +1,3 @@
-
 if (global.fetch) {
   const addFetchSuite = require('../api.spec')
 
