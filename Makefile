@@ -9,6 +9,10 @@ clean:
 commit:
 	npx cz
 
+.PHONY: publish
+release:
+	@./bin/publish
+
 .PHONY: release
 release:
 	npx standard-version
