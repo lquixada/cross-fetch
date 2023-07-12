@@ -4,9 +4,9 @@
 
 The following versions of `cross-fetch` are currently supported with security updates:
 
-- the latest commit on the `main` branch;
-- the 3.x release tagged as [latest](https://www.npmjs.com/package/cross-fetch/v/latest) on npm;
-- the 2.x release tagged as [latest-2](https://www.npmjs.com/package/cross-fetch/v/latest-2) on npm;
+- the latest commit on the `v4.x` branch;
+- the 4.x release tagged as [latest](https://www.npmjs.com/package/cross-fetch/v/latest) on npm;
+- the 3.x release tagged as [latest-v3.x](https://www.npmjs.com/package/cross-fetch/v/latest-v3.x) on npm;
 
 
 ## Reporting a Vulnerability
