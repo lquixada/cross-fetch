@@ -6,6 +6,6 @@
     "start": "node dist/bundle"
   },
   "dependencies": {
-    "cross-fetch": "*"
+    "cross-fetch": "4.0.0"
   }
 }

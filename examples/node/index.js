@@ -1,14 +1,14 @@
 const fetch = require('cross-fetch')
 
-fetch('https://api.github.com/users/lquixada')
+fetch('http://127.0.0.1:6000')
   .then(res => {
     if (res.status >= 400) {
       throw new Error('Bad response from server')
     }
     return res.json()
   })
-  .then(user => {
-    console.log(user)
+  .then(data => {
+    console.log(data)
   })
   .catch(err => {
     console.error(err)
