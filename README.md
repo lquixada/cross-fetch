@@ -20,7 +20,6 @@ Universal WHATWG Fetch API for Node, Browsers, Workers and React Native. The sce
 
 ## Table of Contents
 
-- [Table of Contents](#table-of-contents)
 - [Install](#install)
 - [Usage](#usage)
 - [Demo \& API](#demo--api)
