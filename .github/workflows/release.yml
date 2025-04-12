@@ -1,4 +1,4 @@
-# Note: The cache steps on this workflow has been removed Supply Chain attack through Github Action Pwn Request.
+# Note: The cache steps on this workflow has been removed Supply Chain attack through GitHub Action Pwn Request.
 # Here's more info on how that works: https://adnanthekhan.com/2024/05/06/the-monsters-in-your-build-cache-github-actions-cache-poisoning/
 name: v4.x releases
 
