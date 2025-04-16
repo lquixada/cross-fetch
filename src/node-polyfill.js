@@ -1,6 +1,5 @@
-const fetchNode = require('./node-ponyfill')
-
 if (!global.fetch) {
+  const fetchNode = require('./node-ponyfill')
   const fetch = fetchNode.fetch.bind({})
 
   global.fetch = fetch
