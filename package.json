@@ -7,6 +7,21 @@
   "browser": "dist/browser-ponyfill.js",
   "react-native": "dist/react-native-ponyfill.js",
   "types": "index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "browser": "./dist/browser-ponyfill.js",
+      "react-native": "./dist/react-native-ponyfill.js",
+      "default": "./dist/node-ponyfill.js"
+    },
+    "./polyfill": {
+      "types": "./index.d.ts",
+      "browser": "./dist/browser-polyfill.js",
+      "react-native": "./dist/react-native-polyfill.js",
+      "default": "./dist/node-polyfill.js"
+    },
+    "./package.json": "./package.json"
+  },
   "scripts": {
     "prepare": "husky install",
     "prepublishOnly": "rimraf dist && make dist"
